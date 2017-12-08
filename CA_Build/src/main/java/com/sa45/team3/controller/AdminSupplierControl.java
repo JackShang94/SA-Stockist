@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.SupplierRepository;
 
-@RequestMapping(value="/")
+@RequestMapping(value="/admin/")
 @Controller
 public class AdminSupplierControl {
 	
