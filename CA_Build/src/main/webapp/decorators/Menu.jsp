@@ -52,7 +52,7 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li class="text-center user-image-back">
-                        <img src="../images/find_user.png" class="img-responsive" />
+                        <img src="../image/find_user.png" class="img-responsive" />
                      
                     </li>
 
@@ -140,7 +140,7 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li class="text-center user-image-back">
-                        <img src="../images/find_user.png" class="img-responsive" />
+                        <img src="../image/find_user.png" class="img-responsive" />
                      
                     </li>
 
