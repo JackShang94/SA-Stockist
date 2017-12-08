@@ -14,23 +14,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import javax.servlet.http.HttpSession;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.SupplierRepository;
 
-@RequestMapping(value="/admin/")
+@RequestMapping(value="/admin")
 @Controller
 public class AdminSupplierControl {
 	
 	@Resource
 	SupplierRepository sprepo;
 	
-	@RequestMapping(value="/list", method= RequestMethod.GET)
-	public ModelAndView supplierListPage() {
+	@RequestMapping(value="/list")
+	public ModelAndView supplierListPage(HttpSession session) {
 		
-		ModelAndView mav = new ModelAndView("supplier-list"); //create jsp
-		List<Supplier> supplierList = sprepo.findAll();
-		mav.addObject("slist", supplierList);
+		ModelAndView mav = new ModelAndView("home"); //create jsp
+		//List<Supplier> supplierList = sprepo.findAll();
+		//mav.addObject("slist", supplierList);
+		session.setAttribute("role", "admin");
+		
 		return mav;
 		
 		
