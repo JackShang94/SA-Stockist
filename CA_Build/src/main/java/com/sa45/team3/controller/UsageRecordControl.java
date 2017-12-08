@@ -15,9 +15,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sa45.team3.model.Product;
 import com.sa45.team3.model.Supplier;
+import com.sa45.team3.model.UsageRecord;
+import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.SupplierRepository;
+import com.sa45.team3.repository.UsageRecordRepository;
 
+@RequestMapping(value="/Mechanic")
+@Controller
+public class UsageRecordControl {
+	
+	@Resource
+	UsageRecordRepository prepo;
+	
+	@RequestMapping(value="/usage-record", method= RequestMethod.GET)
+	public ModelAndView supplierListPage() {
+		
+		ModelAndView mav = new ModelAndView("usage-record"); //create jsp
+		List<UsageRecord> usageRecordList = prepo.findAll();
+		mav.addObject("recordList", usageRecordList);
+		return mav;
+		
+	}
+	
+}
 /*@RequestMapping(value="/")
 @Controller
 public class UsageRecordControl {
