@@ -64,7 +64,6 @@ CREATE TABLE `reorder details` (
   `reorderID` int(11) NOT NULL,
   `partNumber` int(11) NOT NULL,
   `orderQuantity` int(11) DEFAULT NULL,
-  `orderPrice` decimal(10,0) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`reorderID`,`partNumber`),
   KEY `partNumber_idx` (`partNumber`),
@@ -79,6 +78,7 @@ CREATE TABLE `reorder details` (
 
 LOCK TABLES `reorder details` WRITE;
 /*!40000 ALTER TABLE `reorder details` DISABLE KEYS */;
+INSERT INTO `reorder details` VALUES (1,1000,20,''),(1,1001,20,''),(2,1010,20,NULL),(2,1011,30,NULL),(2,1014,30,NULL);
 /*!40000 ALTER TABLE `reorder details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +96,7 @@ CREATE TABLE `reorders` (
   PRIMARY KEY (`reorderID`),
   KEY `staffIDx_idx` (`staffID`),
   CONSTRAINT `staffID2` FOREIGN KEY (`staffID`) REFERENCES `staff` (`staffID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,6 +105,7 @@ CREATE TABLE `reorders` (
 
 LOCK TABLES `reorders` WRITE;
 /*!40000 ALTER TABLE `reorders` DISABLE KEYS */;
+INSERT INTO `reorders` VALUES (1,8,'2017-08-08'),(2,7,'2017-12-01');
 /*!40000 ALTER TABLE `reorders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +124,7 @@ CREATE TABLE `staff` (
   `contactNumber` int(11) DEFAULT NULL,
   `active` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`staffID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,7 +133,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (1,'123456','Boyka','Mechanic',93657813,1),(2,'123456','Jack','Mechanic',97235416,1),(3,'123456','Wei Han','Mechanic',98753251,1),(4,'123456','Alex','Mechanic',97534265,1),(5,'123456','Micheal','Mechanic',96543265,1),(6,'123456','Thiri','Admin',96345265,1),(7,'123456','Hnin2','Admin',76358172,1),(8,'123456','Delicia','Admin',98625172,1);
+INSERT INTO `staff` VALUES (1,'123456','Boyka','Mechanic',93657813,1),(2,'123456','Jack','Mechanic',97235416,1),(3,'123456','Wei Han','Mechanic',98753251,1),(4,'123456','Alex','Mechanic',97534265,1),(5,'123456','Micheal','Mechanic',96543265,1),(6,'123456','Thiri','Admin',96345265,1),(7,'123456','Hnin2','Admin',76358172,1),(8,'123456','Delicia','Admin',98625172,1),(9,'123456','Hong Hai','Mechanic',96523182,0);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +160,7 @@ CREATE TABLE `suppliers` (
 
 LOCK TABLES `suppliers` WRITE;
 /*!40000 ALTER TABLE `suppliers` DISABLE KEYS */;
-INSERT INTO `suppliers` VALUES (1,'',0,'',''),(2,'Michelin Tyres ',67254871,'98 West Coast Ferry Rd','Ah Yong'),(3,'Automobile Accessories',63746973,'891 Ang Mo Kio Ind Park A','Ah Chan'),(4,'AutoShack Pte Ltd',62719312,'77 Hougang St 11','Ah Boon'),(5,'',0,'',''),(6,'Motul Racing',67252812,'12 Jurong Island Dr','Ah Tong'),(7,'Castrol Racing',65423816,'23 Joo Koon Avenue','Ah Leow'),(8,'Mitsubishi Corp',67251921,'11 Tai Seng Avenue','Ah Mui'),(111,'alex Garage',699999221,'sembawang','alex'),(112,'',0,'','');
+INSERT INTO `suppliers` VALUES (1,'',0,'',''),(2,'Michelin Tyres ',67254871,'98 West Coast Ferry Rd','Ah Yong'),(3,'Automobile Accessories',63746973,'891 Ang Mo Kio Ind Park A','Ah Chan'),(4,'AutoShack Pte Ltd',62719312,'77 Hougang St 11','Ah Boon'),(5,'',0,'',''),(6,'ah beng unlimited',67252491,'hougang ave 1','ah seng'),(7,'Castrol Racing',65423816,'23 Joo Koon Avenue','Ah Leow'),(8,'Mitsubishi Corp',67251921,'11 Tai Seng Avenue','Ah Mui'),(111,'alex Garage',699999221,'sembawang','alex'),(112,'',0,'','');
 /*!40000 ALTER TABLE `suppliers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,6 +188,7 @@ CREATE TABLE `usage details` (
 
 LOCK TABLES `usage details` WRITE;
 /*!40000 ALTER TABLE `usage details` DISABLE KEYS */;
+INSERT INTO `usage details` VALUES (1,1010,2),(1,1011,2),(2,1012,3),(2,1013,4),(3,1014,3),(3,1015,3),(3,1016,3),(4,1001,3),(4,1002,3),(4,1017,3);
 /*!40000 ALTER TABLE `usage details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,7 +208,7 @@ CREATE TABLE `usage records` (
   PRIMARY KEY (`recordID`),
   KEY `staffID_idx` (`staffID`),
   CONSTRAINT `staffID` FOREIGN KEY (`staffID`) REFERENCES `staff` (`staffID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,6 +217,7 @@ CREATE TABLE `usage records` (
 
 LOCK TABLES `usage records` WRITE;
 /*!40000 ALTER TABLE `usage records` DISABLE KEYS */;
+INSERT INTO `usage records` VALUES (1,1,'2017-06-29','Ben Tan',97351723),(2,2,'2017-08-30','Benjamin Lee',97537123),(3,3,'2017-09-12','Brandon Tan',91234714),(4,4,'2017-08-24','Brandon Lau',92347273);
 /*!40000 ALTER TABLE `usage records` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -227,4 +230,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-07 22:38:15
+-- Dump completed on 2017-12-08 13:29:29
