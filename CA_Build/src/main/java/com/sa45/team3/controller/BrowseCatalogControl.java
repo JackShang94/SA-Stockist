@@ -20,7 +20,7 @@ import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.SupplierRepository;
 
-@RequestMapping(value="/")
+@RequestMapping(value="/Mechanic")
 @Controller
 public class BrowseCatalogControl {
 	
@@ -32,7 +32,7 @@ public class BrowseCatalogControl {
 		
 		ModelAndView mav = new ModelAndView("browse-catalog"); //create jsp
 		List<Product> productList = prepo.findAll();
-		mav.addObject("pList", prepo);
+		mav.addObject("pList", productList);
 		return mav;
 		
 	}
