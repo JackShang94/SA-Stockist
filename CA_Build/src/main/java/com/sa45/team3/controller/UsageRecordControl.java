@@ -22,7 +22,7 @@ import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.SupplierRepository;
 import com.sa45.team3.repository.UsageRecordRepository;
 
-@RequestMapping(value="/Mechanic")
+@RequestMapping(value="/mechanic")
 @Controller
 public class UsageRecordControl {
 	
