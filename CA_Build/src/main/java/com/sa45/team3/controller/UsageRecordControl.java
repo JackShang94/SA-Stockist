@@ -39,6 +39,35 @@ public class UsageRecordControl {
 		
 	}
 	
+	@RequestMapping(value="/create", method= RequestMethod.GET)
+	public ModelAndView supplierAdd() {
+		
+		ModelAndView mav = new ModelAndView("supplier-add");
+		Supplier supl = new Supplier();
+		mav.addObject("supl", supl);
+		return mav;
+		//learn how to do dropdown fields in the web page
+	}
+	
+	@RequestMapping(value="/create", method=RequestMethod.POST)
+	public ModelAndView createNewUser(@ModelAttribute Supplier supplier, BindingResult result,
+			final RedirectAttributes redirectAttributes) {
+
+		//what does bindingresult do?
+		
+		if (result.hasErrors())
+			return new ModelAndView("supplier-add"); //return to this page if error
+
+		ModelAndView mav = new ModelAndView();
+		String message = "New user " + supplier.getSupplierName() + " was successfully created.";
+
+		sprepo.saveAndFlush(supplier);
+		mav.setViewName("redirect:/list");
+
+		redirectAttributes.addFlashAttribute("message", message); //what does this do?
+		return mav;
+	}
+	
 }
 /*@RequestMapping(value="/")
 @Controller
