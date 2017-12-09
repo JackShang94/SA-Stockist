@@ -7,12 +7,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,7 +23,7 @@ import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.SupplierRepository;
 
-@RequestMapping(value = "/Mechanic")
+@RequestMapping(value = "/mechanic")
 @Controller
 public class BrowseCatalogControl {
 
@@ -29,17 +31,33 @@ public class BrowseCatalogControl {
 	ProductRepository prepo;
 
 	@RequestMapping(value = "/browse-catalog", method = RequestMethod.GET)
-	public ModelAndView supplierListPage() {
+	public ModelAndView supplierListPage(@RequestParam(required=false)Integer page) {
 
 		ModelAndView mav = new ModelAndView("browse-catalog"); // create jsp
 		List<Product> productList = prepo.findAll();
-		mav.addObject("pList", productList);
+		PagedListHolder<Product> ph = new PagedListHolder<>(productList);
+		ph.setPageSize(5);
+		
+		if(page == null || page < 1 || page > ph.getPageCount()) {
+			ph.setPage(0);
+		}
+		
+		else {
+			
+			
+			ph.setPage(page);
+			
+		}
+			
+		mav.addObject("page", ph.getPage()); //current page
+		mav.addObject("pList", ph.getPageList()); 
+		mav.addObject("maxPages", ph.getPageCount()); //number of pages
 		return mav;
 
 	}
 
 	@RequestMapping(value="/browse-catalog", method= RequestMethod.POST)
-	public ModelAndView supplierListPage(HttpServletRequest request) {
+	public ModelAndView supplierListPageFilter(HttpServletRequest request) {
 		
 		ModelAndView mav = new ModelAndView("browse-catalog"); //create jsp
 		String filter = request.getParameter("filter");
@@ -49,9 +67,8 @@ public class BrowseCatalogControl {
 		
 		case "ID":
 			Integer searchInt = Integer.parseInt(searchVar);
-/*			productList = prepo.findProductByID(searchVar);*/
 			productList= prepo.findProductByID(searchInt);
-			break; //dont forget to BREAK!!!!!!!!!!!!!!!
+			break; //don't forget to BREAK!!!!!!!!!!!!!!!
 			
 		case "Name":
 			productList = prepo.findProductByName(searchVar);
@@ -72,8 +89,9 @@ public class BrowseCatalogControl {
 
 		}
 		
-/*		String productCount = Integer.toString(productList.size());
-		mav.addObject("productCount", productCount);*/
+		String productCount = Integer.toString(productList.size());
+		mav.addObject("productCount", productCount);
+		
 		mav.addObject("pList", productList);
 		
 		
