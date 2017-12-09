@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,8 +12,38 @@
 </head>
 <body>
 
-<p>Search By</p>
+	<p>Search By</p>
 
+	<%--       <c:set var = "salary" scope = "session" value = "${2000*2}"/>
+      <c:if test = "${salary > 2000}">
+         <p>My salary is:  <c:out value = "${salary}"/><p>
+      </c:if> --%>
+
+
+	<p>${filter}</p>
+	<%-- <form:select path="filter" >
+<form:option value="NONE" label="--- Filter ---"/>
+<form:option value="ID" label="ID" />
+</form:select> --%>
+
+	<form:form method="POST" 
+		action="${pageContext.request.contextPath}/Mechanic/browse-catalog" >
+		
+		
+
+		<select  name="filter" >
+			<option value="ID">ID</option>
+			<option value="Name">Name</option>
+			<option value="Description">Description</option>
+			<option value="Color">Color</option>
+			<option value="Dimension">Dimension</option>
+		</select>
+		
+		<input type="text" name="searchVar" />
+		
+		<input type="submit" value="submit" />
+
+	</form:form>
 
 	<table>
 		<tr>
