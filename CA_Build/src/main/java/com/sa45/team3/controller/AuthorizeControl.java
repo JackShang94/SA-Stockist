@@ -31,6 +31,7 @@ public class AuthorizeControl{
 	
 	@RequestMapping(value="/validate", method= RequestMethod.POST)
 	public ModelAndView validation(@ModelAttribute Staff staff, HttpSession session, BindingResult result) {
+
 		ModelAndView mav = new ModelAndView("login");
 		
 		//mav = new ModelAndView("redirect:/Mechanic/browse-catalog");
@@ -44,8 +45,9 @@ public class AuthorizeControl{
 				} 								
 			}
 			
+	
 		
-			return mav;
+		return mav;
 		
 		
 	}

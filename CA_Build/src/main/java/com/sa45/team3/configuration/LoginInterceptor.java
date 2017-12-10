@@ -16,17 +16,18 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request,  
             HttpServletResponse response, Object handler) throws Exception {  
     	 String requestURI = request.getRequestURI();  
-         if(!requestURI.endsWith("login")){   
-             HttpSession session = request.getSession();  
+         if(requestURI.endsWith("login") || requestURI.endsWith("validate")){   
+             
+             return true;
+         }else{  
+        	 HttpSession session = request.getSession();  
              String role = (String) session.getAttribute("role");  
              if(role==null){   
-            	request.getRequestDispatcher("/login").forward(request, response);  
+            	request.getRequestDispatcher("/Authorize/login").forward(request, response);  
             	
              }else{   
                  //request.getRequestDispatcher("/login").forward(request, response);  
              }  
-             return true;
-         }else{  
              return true;  
          }  
 }  

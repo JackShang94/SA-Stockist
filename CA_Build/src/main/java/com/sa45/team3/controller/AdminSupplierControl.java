@@ -1,9 +1,10 @@
 package com.sa45.team3.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import javax.servlet.http.HttpSession;
-import com.sa45.team3.model.Supplier;
+
 import com.sa45.team3.repository.SupplierRepository;
 
 @RequestMapping(value="/admin")
