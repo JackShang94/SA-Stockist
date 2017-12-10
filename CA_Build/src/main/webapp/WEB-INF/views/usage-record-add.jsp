@@ -6,47 +6,48 @@
 
 <h3>New Usage Record page</h3>
 
-<form:form method="POST" modelAttribute="recordList"
+<form:form method="POST" modelAttribute="usageRecord"
 	action="${pageContext.request.contextPath}/mechanic/usage-record/create">
 
-
-
 	<table>
-
-
-		<tr>
-			<td>Record ID</td>
-			<td><form:input path="recordID" /></td>
-
-		</tr>
-
-		<tr>
-			<td>Record Date</td>
-			<td><form:input path="recordDate" /></td>
-
-		</tr>
-
-		<tr>
-			<td>staffID</td>
-			<td><form:input path="staffID" /></td>
-
-		</tr>
-
-		<tr>
-			<td>Customer Name</td>
-			<td><form:input path="customerName" /></td>
-
-		</tr>
-		<tr>
-			<td>Contact Number</td>
-			<td><form:input path="contactNumber" /></td>
-
-		</tr>
-
-		<tr>
-			<td><input type="submit" value="Create" /></td>
-
-
-		</tr>
+		<tbody>
+			<tr>
+				<td>Record ID</td>
+				<td><form:input path="recordID" /></td>
+				<td><form:errors path="recordID" cssStyle="color: red;" /></td>
+			</tr>
+			
+			<tr>
+				<td>UsageDate</td>
+				<td><form:input path="UsageDate" /></td>
+				<td><form:errors path="UsageDate" cssStyle="color: red;" /></td>
+			</tr>
+			
+				<tr>
+				<td>Staff ID</td>
+				<td><form:input path="staffID" /></td>
+				<td><form:errors path="staffID" cssStyle="color: red;" /></td>
+			</tr>
+			
+			<tr>
+				<td>customer Name</td>
+				<td><form:input path="customerName" /></td>
+				<td><form:errors path="customerName" cssStyle="color: red;" /></td>
+			</tr>
+			
+			<tr>
+				<td>contactNumber</td>
+				<td><form:input path="contactNumber" /></td>
+				<td><form:errors path="contactNumber" cssStyle="color: red;" /></td>
+			</tr>
+			
+			
+			
+			<tr>
+				<td><input type="submit" value="Create" /></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
 	</table>
 </form:form>
