@@ -7,22 +7,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.sa45.team3.model.Product;
-import com.sa45.team3.model.Reorder;
+import com.sa45.team3.model.Reorders;
 
-public interface ReorderRepository extends JpaRepository<Reorder, Integer>{
+public interface ReorderRepository extends JpaRepository<Reorders, Integer>{
 	
-	@Query("SELECT r FROM reorderdetails r WHERE r.partNumber=:searchNumber")
-	ArrayList<Reorder> findReorderDetails(@Param("searchNumber") int searchNumber);
+	@Query("SELECT r FROM ReorderDetails r WHERE r.primary.partNumber=:searchNumber")
+	ArrayList<Reorders> findReorderDetails(@Param("searchNumber") int searchNumber);
 	
-	@Query("SELECT r FROM reorderdetails r WHERE r.reorderID=:searchReorderID")
-	ArrayList<Reorder> findReorderID(@Param("searchReoderID") int searchReoderID);
+	@Query("SELECT r FROM Reorders r WHERE r.reorderID=:searchReorderID")
+	ArrayList<Reorders> findReorderID(@Param("searchReorderID") int searchReorderID);
 	
-	@Query("SELECT r FROM reorderdetails r WHERE r.reorderQuantity=:searchQuantity")
-	ArrayList<Reorder> findReorderQuant(@Param("searchQuantity") int searchQuantity);
+	@Query("SELECT r FROM ReorderDetails r WHERE r.orderQuantity=:searchQuantity")
+	ArrayList<Reorders> findReorderQuant(@Param("searchQuantity") int searchQuantity);
 	
-	@Query("SELECT p FROM product p WHERE p.unitPrice=:searchPrice")
-	ArrayList<Reorder> findUnitPrice(@Param("searchPrice") int searchPrice);
-	
-	@Query("SELECT q FROM reorders q WHERE q.dateOrdered=:searchDate")
-	ArrayList<Reorder> findDateOrdered(@Param("searchDate") int searchDate);
+	@Query("SELECT r FROM Reorders r WHERE r.dateOrdered=:searchDate")
+	ArrayList<Reorders> findDateOrdered(@Param("searchDate") int searchDate);
 }

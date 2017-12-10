@@ -23,8 +23,6 @@ import com.sa45.team3.model.Supplier;
 //import com.sa45.team3.repository.SupplierRepository;
 import com.sa45.team3.service.SupplierService;
 
-import edu.iss.cats.model.Employee;
-
 
 @RequestMapping("/admin")
 @Controller

@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sa45.team3.model.Product;
+import com.sa45.team3.model.Reorders;
 import com.sa45.team3.model.Staff;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.ProductRepository;
+import com.sa45.team3.repository.ReorderRepository;
 
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/reorder")
 @Controller
 public class ReorderPageControl {
 
@@ -29,7 +31,7 @@ public class ReorderPageControl {
 	public ModelAndView reorderlist(Model model) {
 
 		ModelAndView mav = new ModelAndView("reorder-page"); // create jsp
-		List<Reorder> reorderList = reoderRepository.findAll();
+		List<Reorders> reorderList = reorderRepository.findAll();
 		mav.addObject("rList", reorderList);
 		return mav;
 	}

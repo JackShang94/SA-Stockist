@@ -27,7 +27,7 @@
 <body>
 <c:choose>
 	
-	<c:when test="${sessionScope.role=='admin'}">
+	<c:when test="${sessionScope.role=='Admin'}">
     <div id="wrapper">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="adjust-nav">
@@ -58,57 +58,22 @@
 
 
                     <li>
-                        <a href="index.html"><i class="fa fa-desktop "></i>Manage products</a>
+                        <a href="${pageContext.request.contextPath}/product/list"><i class="fa fa-desktop "></i>Manage products</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-edit "></i>Manage suppliers<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">First Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">First Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">First Level Link</a>
-                            </li>
-                        </ul>
+                        <a href="${pageContext.request.contextPath}/admin/list"><i class="fa fa-edit "></i>Manage suppliers<span class="fa arrow"></span></a>
                     </li>
 
                     <li>
                         <a href="#"><i class="fa fa-table "></i>Manage users</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-edit "></i>Reorder </a>
+                        <a href="${pageContext.request.contextPath}/reorder/list"><i class="fa fa-edit "></i>Reorder report</a>
                     </li>
 
 
                     <li>
-                        <a href="#"><i class="fa fa-sitemap "></i>Record usage<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">Second Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">Second Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-
-                                </ul>
-
-                            </li>
-                        </ul>
+                        <a href="${pageContext.request.contextPath}/mechanic/usage-record"><i class="fa fa-sitemap "></i>Record usage<span class="fa arrow"></span></a>
                     </li>
                 </ul>
             </div>
@@ -126,7 +91,7 @@
         </div>
 	</c:when>
 	
-	<c:when test="${sessionScope.role=='mechanic'}">
+	<c:when test="${sessionScope.role=='Mechanic'}">
     <div id="wrapper">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="adjust-nav">
@@ -157,43 +122,17 @@
 
 
                     <li>
-                        <a href="index.html"><i class="fa fa-desktop "></i>view products</a>
+                        <a href="${pageContext.request.contextPath}/product/list"><i class="fa fa-desktop "></i>view products</a>
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-table "></i>Manage users</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-edit "></i>Reorder </a>
+                        <a href="${pageContext.request.contextPath}/reorder/list"><i class="fa fa-edit "></i>Reorder report</a>
                     </li>
 
 
                     <li>
-                        <a href="#"><i class="fa fa-sitemap "></i>Record usage<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">Second Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">Second Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-
-                                </ul>
-
-                            </li>
-                        </ul>
+                        <a href="${pageContext.request.contextPath}/mechanic/usage-record"><i class="fa fa-sitemap "></i>Record usage</a>
+                       
                     </li>
                 </ul>
             </div>

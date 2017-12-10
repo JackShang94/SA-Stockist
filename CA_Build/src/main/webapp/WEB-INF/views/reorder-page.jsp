@@ -26,7 +26,6 @@
 			type="submit" value="Start Search">
 	</form>
 	<br />
-	<form:form method="POST" action="${pageContext.request.contextPath}/admin/reorderdetails">
 		<h3>Search Results</h3>
 		<table>
 			<tr>
@@ -39,19 +38,11 @@
 
 			<c:forEach var="rlist" items="${rList}">
 				<tr>
-					<td>${rlist.partNumber}</td>
 					<td>${rlist.reorderID}</td>
-					<td>${rlist.orderQuantity}</td>
-					<td>${rlist.unitPrice}</td>
+					<td>${rlist.staffID}</td>
 					<td>${rlist.dateOrdered}</td>
 				</tr>
 			</c:forEach>
-			<tr>
-				<td colspan="1"></td>
-				<td colspan="2" align="right"><input type="submit"
-					value="Print Form"></td>
-			</tr>
 		</table>
-	</form:form>
 </body>
 </html>
