@@ -12,10 +12,17 @@ import com.sa45.team3.model.Reorder;
 public interface ReorderRepository extends JpaRepository<Reorder, Integer>{
 	
 	@Query("SELECT r FROM reorderdetails r WHERE r.partNumber=:searchNumber")
-	ArrayList<Reorder> findReoderDetails(@Param("searchNumber") int searchNumber);
+	ArrayList<Reorder> findReorderDetails(@Param("searchNumber") int searchNumber);
 	
-	@Query("SELECT r FROM reorderdetails r WHERE p.reorderID=:searchReorderID")
-	ArrayList<Reorder> findReoderID(@Param("searchReoderID") int searchReoderID);
+	@Query("SELECT r FROM reorderdetails r WHERE r.reorderID=:searchReorderID")
+	ArrayList<Reorder> findReorderID(@Param("searchReoderID") int searchReoderID);
 	
+	@Query("SELECT r FROM reorderdetails r WHERE r.reorderQuantity=:searchQuantity")
+	ArrayList<Reorder> findReorderQuant(@Param("searchQuantity") int searchQuantity);
 	
+	@Query("SELECT p FROM product p WHERE p.unitPrice=:searchPrice")
+	ArrayList<Reorder> findUnitPrice(@Param("searchPrice") int searchPrice);
+	
+	@Query("SELECT q FROM reorders q WHERE q.dateOrdered=:searchDate")
+	ArrayList<Reorder> findDateOrdered(@Param("searchDate") int searchDate);
 }

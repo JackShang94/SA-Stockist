@@ -23,14 +23,14 @@ import com.sa45.team3.repository.ProductRepository;
 public class ReorderPageControl {
 
 	@Resource
-	ProductRepository productRepository;
+	ReorderRepository reorderRepository;
 
 	@RequestMapping(value = "/list")
-	public ModelAndView productlist(Model model) {
+	public ModelAndView reorderlist(Model model) {
 
 		ModelAndView mav = new ModelAndView("reorder-page"); // create jsp
-		List<Product> productList = productRepository.findAll();
-		mav.addObject("rList", productList);
+		List<Reorder> reorderList = reoderRepository.findAll();
+		mav.addObject("rList", reorderList);
 		return mav;
 	}
 }

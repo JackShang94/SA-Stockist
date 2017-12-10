@@ -22,12 +22,11 @@
 	<span>Search by:</span>
 	<br />
 	<form>
-		<label>Week ending on: </label> <input type="date"><br> <input
+		<label>Week ending on: </label> <input type="date" name="OrderDateRange"><br> <input
 			type="submit" value="Start Search">
 	</form>
 	<br />
-	<form:form method="POST"
-		action="${pageContext.request.contextPath}/admin/reorderdetails">
+	<form:form method="POST" action="${pageContext.request.contextPath}/admin/reorderdetails">
 		<h3>Search Results</h3>
 		<table>
 			<tr>
