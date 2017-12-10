@@ -36,7 +36,7 @@ public class UsageRecordControl {
 	@RequestMapping(value = "/usage-record/create", method = RequestMethod.GET)
 	public ModelAndView usageRecordAdd() {
 
-		ModelAndView mav = new ModelAndView("usagerecord-add");
+		ModelAndView mav = new ModelAndView("usage-record-add");
 		List<UsageRecord> usageRecordAdd = new ArrayList<UsageRecord>();
 		mav.addObject("usageRecordAdd", usageRecordAdd);
 		return mav;
@@ -53,7 +53,7 @@ public class UsageRecordControl {
 			return new ModelAndView("usagerecord-add"); // return to this page if error
 
 		ModelAndView mav = new ModelAndView();
-		String message = "New usage record: " + UsageRecord.getRecordID() + " was successfully created.";
+		String message = "New usage record: " + usageRecord.getRecordID() + " was successfully created.";
 
 		prepo.saveAndFlush(usageRecord);
 		mav.setViewName("redirect:/mechanic/usage-record");
