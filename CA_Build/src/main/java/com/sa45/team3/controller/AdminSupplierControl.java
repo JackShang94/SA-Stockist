@@ -28,10 +28,9 @@ public class AdminSupplierControl {
 	@RequestMapping(value="/list")
 	public ModelAndView supplierListPage(HttpSession session) {
 		
-		ModelAndView mav = new ModelAndView("home"); //create jsp
-		//List<Supplier> supplierList = sprepo.findAll();
-		//mav.addObject("slist", supplierList);
-		session.setAttribute("role", "admin");
+		ModelAndView mav = new ModelAndView("supplier-list"); //create jsp
+		List<Supplier> supplierList = sprepo.findAll();
+		mav.addObject("slist", supplierList);
 		
 		return mav;
 		

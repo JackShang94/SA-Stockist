@@ -41,4 +41,18 @@ public class HomeController {
 		return "home";
 	}
 	
+	public String hello(Locale locale, Model model, HttpSession session) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		//model.addAttribute("serverTime", formattedDate );
+		session.setAttribute("role", "mechanic");
+		
+		return "home";
+	}
+	
 }

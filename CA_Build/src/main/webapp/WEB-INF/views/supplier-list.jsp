@@ -22,7 +22,6 @@
 			<th>Contact Person</th>
 			<th>edit</th>
 			<th>delete</th>
-
 		</tr>
 
 		<c:forEach var="supl" items= "${slist}">

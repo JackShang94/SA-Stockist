@@ -50,6 +50,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	@Resource
 	private Environment env;
 
+	
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -137,9 +138,10 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 
-		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-		localeChangeInterceptor.setParamName("lang");
-		registry.addInterceptor(localeChangeInterceptor);
+//		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+//		localeChangeInterceptor.setParamName("lang");
+//		registry.addInterceptor(localeChangeInterceptor);
+		registry.addInterceptor(new LoginInterceptor());
 	}
 
 	@Bean

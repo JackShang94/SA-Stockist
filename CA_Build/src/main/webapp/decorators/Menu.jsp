@@ -24,7 +24,7 @@
     <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
-	
+<body>
 <c:choose>
 	
 	<c:when test="${sessionScope.role=='admin'}">
@@ -41,7 +41,7 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">logout</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Authorize/logout">logout</a></li>
                     </ul>
                 </div>
 
@@ -113,6 +113,17 @@
                 </ul>
             </div>
         </nav>
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+							<decorator:body />
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</c:when>
 	
 	<c:when test="${sessionScope.role=='mechanic'}">
@@ -129,7 +140,7 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">logout</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Authorize/logout">logout</a></li>
                     </ul>
                 </div>
 
@@ -187,14 +198,7 @@
                 </ul>
             </div>
         </nav>
-	</c:when>
-</c:choose>
-
-<body>
-
-        <!-- /. NAV TOP  -->
-      
-        <div id="page-wrapper">
+         <div id="page-wrapper">
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
@@ -204,11 +208,18 @@
                     </div>
                 </div>
             </div>
-        </div>  
-		
-        <!-- /. NAV SIDE  -->
-    <!-- /. WRAPPER  -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+       	 </div>
+	</c:when>
+	   
+    <c:when test="${sessionScope.role== null}">
+   		<div>
+
+			<decorator:body />
+
+        </div>
+	</c:when>
+</c:choose>
+
     <!-- JQUERY SCRIPTS -->
     <script src="../js/jquery-1.10.2.js"></script>
     <!-- BOOTSTRAP SCRIPTS -->
@@ -217,7 +228,6 @@
     <script src="../js/jquery.metisMenu.js"></script>
     <!-- CUSTOM SCRIPTS -->
     <script src="../js/custom.js"></script>
-
 
 </body>
 </html>
