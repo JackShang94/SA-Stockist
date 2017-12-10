@@ -23,7 +23,7 @@ import com.sa45.team3.model.Supplier;
 //import com.sa45.team3.repository.SupplierRepository;
 import com.sa45.team3.service.SupplierService;
 
-
+import edu.iss.cats.model.Employee;
 
 
 @RequestMapping("/admin")
@@ -44,7 +44,32 @@ public class AdminSupplierControl {
 		ModelAndView mav = new ModelAndView("supplier-list");
 		ArrayList<Supplier> supplierList = (ArrayList<Supplier>)supService.findAllSuppliers();//supRepository.findAll();
 		mav.addObject("supplierList", supplierList);
-		session.setAttribute("role", "admin");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView newSupplierPage() {
+		ModelAndView mav = new ModelAndView("supplier-new", "supplier", new Supplier());
+		ArrayList<String> sidList = supService.findAllSupplierIDs();
+		mav.addObject("sidlist", sidList);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public ModelAndView createNewSupplier(@ModelAttribute @Valid Supplier supplier, BindingResult result,
+			final RedirectAttributes redirectAttributes) {
+
+		/*if (result.hasErrors())
+			return new ModelAndView("employee-new");*/
+
+		ModelAndView mav = new ModelAndView();
+		String message = "New supplier " + supplier.getSupplierID() + " was successfully created.";
+
+		supService.createSupplier(supplier);
+		mav.setViewName("redirect:/admin/list");
+
+		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 	}
 	
