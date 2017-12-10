@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,140 +23,98 @@ import com.sa45.team3.model.Product;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.SupplierRepository;
+import com.sa45.team3.service.ProductCatalogService;
 
 @RequestMapping(value = "/mechanic")
 @Controller
 public class BrowseCatalogControl {
+	
+	@Autowired
+	private ProductCatalogService prepo ;
 
-	@Resource
-	ProductRepository prepo;
+/*	@Resource
+	ProductRepository prepo;*/
 
 	@RequestMapping(value = "/browse-catalog", method = RequestMethod.GET)
-	public ModelAndView supplierListPage(@RequestParam(required=false)Integer page) {
+	public ModelAndView supplierListPage(@RequestParam(required = false) Integer page) {
 
 		ModelAndView mav = new ModelAndView("browse-catalog"); // create jsp
 		List<Product> productList = prepo.findAll();
 		PagedListHolder<Product> ph = new PagedListHolder<>(productList);
 		ph.setPageSize(5);
-		
-		if(page == null || page < 1 || page > ph.getPageCount()) {
+
+		if (page == null || page < 1 || page > ph.getPageCount()) {
 			ph.setPage(0);
 		}
-		
+
 		else {
-			
-			
+
 			ph.setPage(page);
-			
+
 		}
-			
-		mav.addObject("page", ph.getPage()); //current page
-		mav.addObject("pList", ph.getPageList()); 
-		mav.addObject("maxPages", ph.getPageCount()); //number of pages
+
+		mav.addObject("page", ph.getPage()); // current page
+		mav.addObject("pList", ph.getPageList());
+		mav.addObject("maxPages", ph.getPageCount()); // number of pages
 		return mav;
 
 	}
 
-	@RequestMapping(value="/browse-catalog", method= RequestMethod.POST)
+	@RequestMapping(value = "/browse-catalog", method = RequestMethod.POST)
 	public ModelAndView supplierListPageFilter(HttpServletRequest request) {
-		
-		ModelAndView mav = new ModelAndView("browse-catalog"); //create jsp
+
+		String error;
+		ModelAndView mav = new ModelAndView("browse-catalog"); // create jsp
 		String filter = request.getParameter("filter");
 		String searchVar = request.getParameter("searchVar");
-		ArrayList <Product> productList = new ArrayList<Product>();
-		switch(filter) {
-		
-		case "ID":
-			Integer searchInt = Integer.parseInt(searchVar);
-			productList= prepo.findProductByID(searchInt);
-			break; //don't forget to BREAK!!!!!!!!!!!!!!!
-			
-		case "Name":
-			productList = prepo.findProductByName(searchVar);
-			break;
-			
-		case "Description":
-			productList = prepo.findProductByDescrp(searchVar);
-			break;
-			
-		case "Color":
-			productList = prepo.findProductByColor(searchVar);
-			break;
-		
-		case "Dimension":
-			productList = prepo.findProductByDimension(searchVar);
-			
-			
+		ArrayList<Product> productList = new ArrayList<Product>();
+
+		try {
+			switch (filter) {
+
+			case "ID":
+				Integer searchInt = Integer.parseInt(searchVar);
+				productList = prepo.findProductByID(searchInt);
+				break; // don't forget to BREAK!!!!!!!!!!!!!!!
+
+			case "Name":
+				productList = prepo.findProductByName(searchVar);
+				break;
+
+			case "Description":
+				productList = prepo.findProductByDescrp(searchVar);
+				break;
+
+			case "Color":
+				productList = prepo.findProductByColor(searchVar);
+				break;
+
+			case "Dimension":
+				productList = prepo.findProductByDimension(searchVar);
+
+			}
+		} catch (NumberFormatException e) {
+
+			error = "PoductID only accepts digits.";
+			productList = (ArrayList<Product>) prepo.findAll();
 
 		}
 		
-		String productCount = Integer.toString(productList.size());
-		mav.addObject("productCount", productCount);
-		
-		mav.addObject("pList", productList);
-		
-		
-		return mav;
-		
-	}
+		catch(Exception e) {
+			
+			error = "No entries returned.";
+		}
 
-	// @RequestMapping(value="/create", method= RequestMethod.GET)
-	// public ModelAndView supplierAdd() {
-	//
-	// ModelAndView mav = new ModelAndView("supplier-add");
-	// Supplier supl = new Supplier();
-	// mav.addObject("supl", supl);
-	// return mav;
-	// //learn how to do dropdown fields in the web page
-	// }
-	//
-	// @RequestMapping(value="/create", method=RequestMethod.POST)
-	// public ModelAndView createNewUser(@ModelAttribute Supplier supplier,
-	// BindingResult result,
-	// final RedirectAttributes redirectAttributes) {
-	//
-	// //what does bindingresult do?
-	//
-	// if (result.hasErrors())
-	// return new ModelAndView("supplier-add"); //return to this page if error
-	//
-	// ModelAndView mav = new ModelAndView();
-	// String message = "New user " + supplier.getSupplierName() + " was
-	// successfully created.";
-	//
-	// sprepo.saveAndFlush(supplier);
-	// mav.setViewName("redirect:/list");
-	//
-	// redirectAttributes.addFlashAttribute("message", message); //what does this
-	// do?
-	// return mav;
-	// }
-	//
-	//// {id} and String id must match
-	// @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	// public ModelAndView editUserPage(@PathVariable String id) {
-	// ModelAndView mav = new ModelAndView("supplier-edit");
-	// int ID = Integer.parseInt(id);
-	// Supplier supplier = sprepo.findOne(ID);
-	// mav.addObject("supl", supplier);
-	// return mav;
-	// }
-	//
-	// @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	// public ModelAndView editUser(@ModelAttribute @Valid Supplier supplier,
-	// BindingResult result, @PathVariable String id,
-	// final RedirectAttributes redirectAttributes) {
-	//
-	// if (result.hasErrors())
-	// return new ModelAndView("supplier-edit");
-	//
-	// ModelAndView mav = new ModelAndView("redirect:/list");
-	// String message = "Supplier was successfully updated.";
-	//
-	// sprepo.saveAndFlush(supplier);
-	//
-	// redirectAttributes.addFlashAttribute("message", message);
-	// return mav;
-	// }
+		finally {
+			String productCount = Integer.toString(productList.size());
+			mav.addObject("productCount", productCount);
+
+			mav.addObject("pList", productList);
+
+			
+		}
+		return mav;
+
+	}
 
 }
