@@ -52,7 +52,7 @@ public class ProductControl {
 		}
 		mav.addObject("page", ph.getPage()); // current page
 		mav.addObject("pList", ph.getPageList());
-		mav.addObject("maxPages", ph.getPageCount()); // number of pages
+		mav.addObject("maxPages", ph.getPageCount()-1); // number of pages
 		return mav;
 	}
 	
@@ -127,7 +127,7 @@ public class ProductControl {
 		}
 		mav.addObject("page", ph.getPage()); // current page
 		mav.addObject("pList", ph.getPageList());
-		mav.addObject("maxPages", ph.getPageCount()); // number of pages
+		mav.addObject("maxPages", ph.getPageCount()-1); // number of pages
 		return mav;
 	}
 

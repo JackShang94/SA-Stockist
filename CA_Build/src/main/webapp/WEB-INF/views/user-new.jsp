@@ -9,33 +9,33 @@
 	<table>
 		<tbody>
 			<tr>
-				<td><spring:message code="fieldLabel.staffID" /></td>
+				<td><spring:message code="staffID" /></td>
 				<td><form:input path="staffID" /></td>
 				<td><form:errors path="staffID" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
-				<td><spring:message code="fieldLabel.name" /></td>
+				<td><spring:message code="name" /></td>
 				<td><form:input path="name" /></td>
 				<td><form:errors path="name" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
-				<td><spring:message code="fieldLabel.password" /></td>
+				<td><spring:message code="password" /></td>
 				<td><form:input path="password" /></td>
 				<td><form:errors path="password" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
-				<td><spring:message code="fieldLabel.role" /></td>
-				<td><form:select path="role" /></td>
+				<td><spring:message code="role" /></td>
+				<td><form:input path="role" /></td>
 				<td><form:errors path="role" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
-				<td><spring:message code="fieldLabel.contactNumber" /></td>
-				<td><form:select path="contactNumber" /></td>
+				<td><spring:message code="contactNumber" /></td>
+				<td><form:input path="contactNumber" /></td>
 				<td><form:errors path="contactNumber" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
-				<td><spring:message code="fieldLabel.active" /></td>
-				<td><form:select path="active" /></td>
+				<td><spring:message code="active" /></td>
+				<td><form:input path="active" /></td>
 				<td><form:errors path="active" cssStyle="color: red;" /></td>
 			</tr>
 			

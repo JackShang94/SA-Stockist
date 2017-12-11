@@ -12,10 +12,9 @@
 </head>
 <body>
 
-	<p>Details</p>
+	<h1>Details</h1>
 
-
-	<table>
+	<table class="table table-bordered">
 		<tr>
 			<th align="right">Record ID</th>
 			<td colspan="3"><c:out value="${recordList.recordID}" /></td>
@@ -42,26 +41,42 @@
 		</tr>
 	</table>
 
-	<table style="cellspacing: 2; cellpadding: 2; border: 1;">
-		<tr>
-			<th><spring:message code="Part Number" /></th>
-			<th><spring:message code="Quantity" /></th>
-
-		</tr>
-
-		<c:forEach var="usageRecordDetails" items="${usageRecordDetails}">
-			<tr>
-				<td>${usageRecordDetails.primarykey.partNumber}</td>
-				<td>${usageRecordDetails.usedQuantity}</td>
 
 
-			</tr>
-		</c:forEach>
+<div id="cl-wrapper">
 
+		<div class="container-fluid" id="pcont">		
+		<div class="cl-mcont">
+		
+			<div class="row">
+						<div class="content">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="datatable" >
+								<thead>
+									<tr>
+										<th>parNumber</th>
+										<th>quantity</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach var="usageRecordDetails" items="${usageRecordDetails}">
+									<tr>
+										<td>${usageRecordDetails.primarykey.partNumber}</td>
+										<td>${usageRecordDetails.usedQuantity}</td>
+						
+						
+									</tr>
+								</c:forEach>
+								</tbody>
+								</table>			
+											
+							</div>
+						</div>			
+				</div>
+			</div>		
+		  </div>
+		</div> 	
 
-
-
-	</table>
 	<%-- <form:form method="POST" modelAttribute="usageRecord"
 		action="${pageContext.request.contextPath}/mechanic/usage-record.html">
 		

@@ -61,7 +61,7 @@
                         <a href="${pageContext.request.contextPath}/product/product-list"><i class="fa fa-desktop "></i>Manage products</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/admin/list"><i class="fa fa-edit "></i>Manage suppliers<span class="fa arrow"></span></a>
+                        <a href="${pageContext.request.contextPath}/admin/list"><i class="fa fa-edit "></i>Manage suppliers</a>
                     </li>
 
                     <li>
@@ -73,7 +73,7 @@
 
 
                     <li>
-                        <a href="${pageContext.request.contextPath}/mechanic/usage-record"><i class="fa fa-sitemap "></i>Record usage<span class="fa arrow"></span></a>
+                        <a href="${pageContext.request.contextPath}/mechanic/usage-record"><i class="fa fa-sitemap "></i>Record usage</a>
                     </li>
                 </ul>
             </div>
@@ -131,7 +131,7 @@
 
 
                     <li>
-                        <a href="${pageContext.request.contextPath}/mechanic/usage-record"><i class="fa fa-sitemap "></i>Record usage</a>
+                        <a href="${pageContext.request.contextPath}/mechanic/admin-usage-record"><i class="fa fa-sitemap "></i>Record usage</a>
                        
                     </li>
                 </ul>

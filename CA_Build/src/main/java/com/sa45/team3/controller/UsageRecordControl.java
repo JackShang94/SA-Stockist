@@ -52,6 +52,16 @@ public class UsageRecordControl {
 		return mav;
 
 	}
+	
+	@RequestMapping(value = "/admin-usage-record", method = RequestMethod.GET)
+	public ModelAndView AdminrecordListPage() {
+
+		ModelAndView mav = new ModelAndView("admin-usage-record"); // create jsp
+		List<UsageRecord> usageRecordList = prepo.findAll();
+		mav.addObject("recordList", usageRecordList);
+		return mav;
+
+	}
 
 	@RequestMapping(value = "/usage-record-create", method = RequestMethod.GET)
 	public ModelAndView usageRecordAdd() {
@@ -118,7 +128,7 @@ public class UsageRecordControl {
 		return mav;
 	}
 
-	@RequestMapping(value = "/usage-record/display/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/usage-record-display-{id}", method = RequestMethod.GET)
 	public ModelAndView newUsageRecordDetailsPage(@PathVariable Integer id) {
 		
 		ArrayList<UsageRecordDetails> d = uService.findAllRecordDetailsByID(id);

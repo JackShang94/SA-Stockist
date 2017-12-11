@@ -10,37 +10,47 @@
 <title>usage record list</title>
 </head>
 <body>
+<h1>UsageRecord</h1>
+<a href="${pageContext.request.contextPath}/mechanic/usage-record-create">Add new usage record</a>
+<div id="cl-wrapper">
 
-	<p>Search By</p>
-<a href="${pageContext.request.contextPath}/mechanic/usage-record/create">Add new usage record</a>
+		<div class="container-fluid" id="pcont">		
+		<div class="cl-mcont">
+		
+			<div class="row">
+				<div class="col-md-12">
+						<div class="content">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="datatable" >
+								<thead>
+									<tr>
+										<th>Record ID</th>
+										<th>staffID</th>
+										<th>usageDate</th>
+										<th>customerName</th>
+										<th>contact number</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach var="recordList" items="${recordList}">
 
-	<table>
-		<tr>
-			<th>Record ID</th>
-			<th>staffID</th>
-			<th>usageDate</th>
-			<th>customerName</th>
-			<th>contact number</th>
+									<tr>
+										<td>${recordList.recordID}</td>
+										<td>${recordList.staffID}</td>
+										<td>${recordList.usageDate}</td>
+										<td>${recordList.customerName}</td>
+										<td>${recordList.contactNumber}</td>
+									</tr>
 
-
-		</tr>
-
-		<c:forEach var="recordList" items="${recordList}">
-
-			<tr>
-				<td>${recordList.recordID}</td>
-				<td>${recordList.staffID}</td>
-				<td>${recordList.usageDate}</td>
-				<td>${recordList.customerName}</td>
-				<td>${recordList.contactNumber}</td>
-
-
-
-			</tr>
-
-		</c:forEach>
-
-	</table>
-
-</body>
+								</c:forEach>
+								</tbody>
+								</table>							
+							</div>
+						</div>			
+				</div>
+			</div>		
+		  </div>
+		</div> 
+		
+</div>
 </html>

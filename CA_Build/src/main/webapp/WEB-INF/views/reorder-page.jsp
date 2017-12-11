@@ -18,31 +18,55 @@
 </head>
 <body>
 	<h1>Print Reorder Form</h1>
-	<br />
-	<span>Search by:</span>
-	<br />
 	<form>
-		<label>Week ending on: </label> <input type="date" name="OrderDateRange"><br> <input
-			type="submit" value="Start Search">
+		<label>Week ending on: </label> <input type="date" name="OrderDateRange"><input type="submit" value="Start Search">
 	</form>
 	<br />
 		<h3>Search Results</h3>
-		<table>
-			<tr>
-				<th>Item Number</th>
-				<th>Order ID</th>
-				<th>Quantity</th>
-				<th>Price</th>
-				<th>Order Date</th>
-			</tr>
+		
+			<div id="cl-wrapper">
 
-			<c:forEach var="rlist" items="${rList}">
-				<tr>
-					<td>${rlist.reorderID}</td>
-					<td>${rlist.staffID}</td>
-					<td>${rlist.dateOrdered}</td>
-				</tr>
-			</c:forEach>
-		</table>
+		<div class="container-fluid" id="pcont">		
+		<div class="cl-mcont">
+		
+			<div class="row">
+						<div class="content">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="datatable" >
+								<thead>
+									<tr>
+										<th>partNumber</th>
+										<th>unitPrice</th>
+										<th>quantity</th>
+										<th>reorderQty</th>
+										<th>minOrderQty</th>
+										<th>orderQty</th>
+										<th>price</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach var="plist" items="${pList}">
+
+									<tr>
+										<td>${plist.partNumber}</td>
+										<td>${plist.unitPrice}</td>
+										<td>${plist.quantity}</td>
+										<td>${plist.reorderQty}</td>
+										<td>${plist.minOrderQty}</td>
+										<td>${plist.orderQty}</td>
+										<td>${plist.price}</td>
+									</tr>
+
+								</c:forEach>
+								</tbody>
+								</table>			
+											
+							</div>
+						</div>			
+				</div>
+			</div>		
+		  </div>
+		</div> 	
+		
 </body>
 </html>

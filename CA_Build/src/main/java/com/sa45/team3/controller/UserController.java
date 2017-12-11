@@ -65,7 +65,7 @@ package com.sa45.team3.controller;
 			mv.addObject("userList", uList);
 			return mv;
 		}
-		@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+		@RequestMapping(value = "/edit-{id}", method = RequestMethod.GET)
 		public ModelAndView editUserPage(@PathVariable Integer id) {
 			ModelAndView mav = new ModelAndView("user-edit");
 			Staff user = uService.findUser(id);
@@ -76,7 +76,7 @@ package com.sa45.team3.controller;
 			return mav;
 		}
 
-		@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+		@RequestMapping(value = "/edit-{id}", method = RequestMethod.POST)
 		public ModelAndView editUser(@ModelAttribute @Valid Staff staff, BindingResult result, @PathVariable Integer id,
 				final RedirectAttributes redirectAttributes) throws staffNotFound {
 

@@ -12,7 +12,6 @@
 </head>
 <body>
 	<h1>Product Show List</h1>
-	<span>Search By</span>
 	<form:form method="POST"
 		action="${pageContext.request.contextPath}/product/product-show-list">
 		<select name="filter">
@@ -25,53 +24,76 @@
 		<input type="text" name="searchVar" />
 		<input type="submit" value="Search" />
 	</form:form>
-	<table>
-		<tr>
-			<th>Part Number</th>
-			<th>Product Name</th>
-			<th>Unit Price</th>
-			<th>Quantity</th>
-			<th>Description</th>
-			<th>Color</th>
-			<th>Dimension</th>
-			<th>Reorder Point</th>
-			<th>Minimum Order</th>
-			<th>Supplier ID</th>
-			<th>Shelf Location</th>
-		</tr>
-		<c:forEach var="plist" items="${pList}">
-			<tr>
-				<td>${plist.partNumber}</td>
-				<td>${plist.productName}</td>
-				<td>${plist.unitPrice}</td>
-				<td>${plist.quantity}</td>
-				<td>${plist.description}</td>
-				<td>${plist.color}</td>
-				<td>${plist.dimension}</td>
-				<td>${plist.reorderPoint}</td>
-				<td>${plist.minOrder}</td>
-				<td>${plist.supplierID}</td>
-				<td>${plist.partNumber}</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<c:url value="${request.contextPath}/product/product-show-list"
-		var="prev">
+		<div id="cl-wrapper">
+
+		<div class="container-fluid" id="pcont">		
+		<div class="cl-mcont">
+		
+			<div class="row">
+						<div class="content">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="datatable" >
+								<thead>
+									<tr>
+										<th>Image</th>
+										<th>Part Number</th>
+										<th>Product Name</th>
+										<th>Unit Price</th>
+										<th>Quantity</th>
+										<th>Description</th>
+										<th>Color</th>
+										<th>Dimension</th>
+										<th>Reorder Point</th>
+										<th>Minimum Order</th>
+										<th>Supplier ID</th>
+										<th>Shelf Location</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach var="plist" items="${pList}">
+
+									<tr>
+										<td><img
+											src="<c:url value="/image/product_images/${plist.partNumber}.jpg" />"
+											alt="Testing image" width="90" height="120" /></td>
+										<td>${plist.partNumber}</td>
+										<td>${plist.productName}</td>
+										<td>${plist.unitPrice}</td>
+										<td>${plist.quantity}</td>
+										<td>${plist.description}</td>
+										<td>${plist.color}</td>
+										<td>${plist.dimension}</td>
+										<td>${plist.reorderPoint}</td>
+										<td>${plist.minOrder}</td>
+										<td>${plist.supplierID}</td>
+										<td>${plist.shelfLocation}</td>
+									</tr>
+
+								</c:forEach>
+								</tbody>
+								</table>			
+											
+							</div>
+						</div>			
+				</div>
+			</div>		
+		  </div>
+		</div> 	
+
+	<c:url value="${request.contextPath}/product/product-show-list" var="prev">
 		<c:param name="page" value="${page-1}" />
 	</c:url>
-	<c:url value="${request.contextPath}/product/product-show-list"
-		var="next">
+	<c:url value="${request.contextPath}/product/product-show-list" var="next">
 		<c:param name="page" value="${page+1}" />
 	</c:url>
-	<span> <a href="<c:out value="${prev}" />">Previous</a> <c:forEach
-			begin="0" end="${maxPages}" step="1" varStatus="i">
+	<span> <a href="<c:out value="${prev}" />">Previous</a> 
+		<c:forEach begin="0" end="${maxPages}" step="1" varStatus="i">
 			<c:choose>
 				<c:when test="${page == i.index}">
 					<span>${i.index}</span>
 				</c:when>
 				<c:otherwise>
-					<c:url value="${request.contextPath}/product/product-show-list"
-						var="url">
+					<c:url value="${request.contextPath}/product/product-show-list" var="url">
 						<c:param name="page" value="${i.index}" />
 					</c:url>
 					<a href='<c:out value="${url}" />'>${i.index}</a>

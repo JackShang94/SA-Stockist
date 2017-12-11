@@ -10,37 +10,48 @@
 <title>usage record list</title>
 </head>
 <body>
+<h1>Record</h1>
+<div id="cl-wrapper">
 
-	<p>Search By</p>
-	<a
-		href="${pageContext.request.contextPath}/mechanic/usage-record-create">Add
-		new usage record</a>
+		<div class="container-fluid" id="pcont">		
+		<div class="cl-mcont">
+		
+			<div class="row">
+						<div class="content">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="datatable" >
+								<thead>
+									<tr>
+										<th>RecordID</th>
+										<th>UsageDate</th>
+										<th>StaffID</th>
+										<th>CustomerName</th>
+										<th>CustomerContact</th>
+										<th>ShowDetails</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach var="recordList" items="${recordList}">
 
-	<br />
-	<table style="cellspacing: 2; cellpadding: 2; border: 1;">
-		<tr class="listHeading">
-			<th><spring:message code="Record ID" /></th>
-			<th><spring:message code="Usage Date" /></th>
-			<th><spring:message code="Staff ID" /></th>
-			<th><spring:message code="Customer Name" /></th>
-			<th><spring:message code="Customer Contact Details" /></th>
-			<th><spring:message code="Record Details" /></th>
-		</tr>
-		<c:forEach var="recordList" items="${recordList}">
-			<tr class="listRecord">
-				<td>${recordList.recordID}</td>
-				<td>${recordList.usageDate}</td>
-				<td>${recordList.staffID}</td>
-				<td>${recordList.customerName}</td>
-				<td>${recordList.contactNumber}</td>
-				<td><c:url
-						value="/mechanic/usage-record/display/${recordList.recordID}.html"
-						var="d" /> <a href="${d}"><spring:message
-							code="caption.detail" /></a></td>
-			</tr>
-		</c:forEach>
-	</table>
+									<tr>
+										<td>${recordList.recordID}</td>
+										<td>${recordList.usageDate}</td>
+										<td>${recordList.staffID}</td>
+										<td>${recordList.customerName}</td>
+										<td>${recordList.contactNumber}</td>
+										<td><a href="${pageContext.request.contextPath}/mechanic/usage-record-display-${recordList.recordID}">details</a></td>
+									</tr>
 
+								</c:forEach>
+								</tbody>
+								</table>			
+											
+							</div>
+						</div>			
+				</div>
+			</div>		
+		  </div>
+		</div> 	
 
 </body>
 </html>
