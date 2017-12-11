@@ -12,7 +12,7 @@ import com.sa45.team3.model.UsageRecordDetails;
 public interface UsageRecordDetailsRepository extends JpaRepository<UsageRecordDetails, Integer> {
 
 
-	@Query("SELECT d from UsageRecordDetails d WHERE d.recordId = :rid")
+	@Query("SELECT d from UsageRecordDetails d WHERE d.recordID = :rid")
 	ArrayList<UsageRecordDetails> findUsageDetailsByrID(@Param("rid") int rid);
 
 }
