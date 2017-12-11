@@ -21,7 +21,7 @@
 
 			<tr>
 				<td>UsageDate</td>
-				<td><form:input path="UsageDate" /></td>
+				<td><form:input  path="UsageDate" /></td>
 				<td><form:errors path="UsageDate" cssStyle="color: red;" /></td>
 			</tr>
 

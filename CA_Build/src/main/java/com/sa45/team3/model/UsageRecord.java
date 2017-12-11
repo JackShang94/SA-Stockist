@@ -3,9 +3,12 @@ package com.sa45.team3.model;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -40,6 +43,8 @@ public class UsageRecord {
 
 	private Integer staffID;
 	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "usageDate")
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date usageDate;
 

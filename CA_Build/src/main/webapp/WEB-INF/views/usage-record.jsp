@@ -11,6 +11,7 @@
 </head>
 <body>
 <h1>Record</h1>
+<a href="${pageContext.request.contextPath}/mechanic/usage-record-create">Add new usage record</a>
 <div id="cl-wrapper">
 
 		<div class="container-fluid" id="pcont">		

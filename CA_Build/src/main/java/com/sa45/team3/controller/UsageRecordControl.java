@@ -1,6 +1,8 @@
 package com.sa45.team3.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -10,8 +12,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +38,21 @@ public class UsageRecordControl {
 
 	@Autowired
 	private UsageRecordService uService;
+
+	@InitBinder
+	private void initUsageRecordBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true));
+		
+	}
 	
 	@Resource
 	UsageRecordRepository prepo;
-	
+
 	@Resource
-	ProductRepository productRepository;	
-	
+	ProductRepository productRepository;
+
 	@Resource
 	UsageRecordDetailsRepository urdRepo;
 
@@ -52,7 +65,7 @@ public class UsageRecordControl {
 		return mav;
 
 	}
-	
+
 	@RequestMapping(value = "/admin-usage-record", method = RequestMethod.GET)
 	public ModelAndView AdminrecordListPage() {
 
@@ -68,7 +81,7 @@ public class UsageRecordControl {
 
 		ModelAndView mav = new ModelAndView("usage-record-add", "usageRecord", new UsageRecord());
 		mav.addObject("usageRecordList", uService.findAllrecordIDs());
-		
+
 		List<Product> productList = productRepository.findAll();
 		mav.addObject("pList", productList);
 		return mav;
@@ -88,58 +101,53 @@ public class UsageRecordControl {
 		String message = "New usage record: " + usageRecord.getRecordID() + " was successfully created.";
 
 		uService.createUsageRecord(usageRecord);
-		
+
 		// added by Alex
-	    Map <String, String[]> params = new HashMap<>(Request.getParameterMap());
-	    
-	    params.remove("recordID");
-	    params.remove("UsageDate");
-	    params.remove("staffID");
-	    params.remove("customerName");
-	    params.remove("contactNumber");
-	    
+		Map<String, String[]> params = new HashMap<>(Request.getParameterMap());
 
-	    Iterator <String>i = params.keySet().iterator();
-	    
-	    int recordID = usageRecord.getRecordID();
+		params.remove("recordID");
+		params.remove("UsageDate");
+		params.remove("staffID");
+		params.remove("customerName");
+		params.remove("contactNumber");
 
-	    while ( i.hasNext() )
+		Iterator<String> i = params.keySet().iterator();
 
-	      {
+		int recordID = usageRecord.getRecordID();
 
-	        String key = (String) i.next();
-	        String value = ((String[]) params.get( key ))[ 0 ];
+		while (i.hasNext())
 
-	        int intKey = Integer.parseInt(key);
-	        int intValue = Integer.parseInt(value);
-	        if(intValue!=0) {
+		{
 
-	        urdRepo.addNewDetail(recordID, intKey, intValue );}
-	      }
-	    
+			String key = (String) i.next();
+			String value = ((String[]) params.get(key))[0];
+
+			int intKey = Integer.parseInt(key);
+			int intValue = Integer.parseInt(value);
+			if (intValue != 0) {
+
+				urdRepo.addNewDetail(recordID, intKey, intValue);
+			}
+		}
+
 		mav.setViewName("redirect:/mechanic/usage-record");
 
 		redirectAttributes.addFlashAttribute("message", message); // what does this do?
-		
-		
 
-		
-		
 		return mav;
 	}
 
 	@RequestMapping(value = "/usage-record-display-{id}", method = RequestMethod.GET)
 	public ModelAndView newUsageRecordDetailsPage(@PathVariable Integer id) {
-		
+
 		ArrayList<UsageRecordDetails> d = uService.findAllRecordDetailsByID(id);
 		UsageRecord d2 = uService.findUsageRecordbyID(id);
 		ModelAndView mav = new ModelAndView("usage-record-details");
-//		ModelAndView mav2 = new ModelAndView("usage-record-add", "recordList", d2);
+		// ModelAndView mav2 = new ModelAndView("usage-record-add", "recordList", d2);
 		mav.addObject("usageRecordDetails", d);
 		mav.addObject("recordList", d2);
 		return mav;
 	}
-	
 
 }
 /*
@@ -187,7 +195,7 @@ public class UsageRecordControl {
  * 
  * @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET) public
  * ModelAndView editUserPage(@PathVariable String id) { ModelAndView mav = new
- * ModelAndView("supplier-edit");  ID = Integereger.parseInteger(id); Supplier
+ * ModelAndView("supplier-edit"); ID = Integereger.parseInteger(id); Supplier
  * supplier = sprepo.findOne(ID); mav.addObject("supl", supplier); return mav; }
  * 
  * @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST) public
