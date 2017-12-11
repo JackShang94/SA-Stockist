@@ -14,5 +14,8 @@ public interface UsageRecordDetailsRepository extends JpaRepository<UsageRecordD
 
 	@Query("SELECT d from UsageRecordDetails d WHERE d.recordID = :rid")
 	ArrayList<UsageRecordDetails> findUsageDetailsByrID(@Param("rid") int rid);
+	
+	@Query("INSERT INTO [usage details] (recordID, partNumber, usedQuantity) VALUES (:recordid, :partnumber, :usedquantity) ")
+	void addNewDetail(@Param("recordid") int recordid, @Param("partnumber") int partnumber, @Param("usedquantity") int usedquantity);
 
 }
