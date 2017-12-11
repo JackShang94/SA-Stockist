@@ -4,12 +4,20 @@ import java.util.ArrayList;
 
 import com.sa45.team3.model.Staff;
 
+
+
 public interface StaffService {
+	ArrayList<Staff> findAllUsers();
 
-	Staff authenticate(String uname, String pwd);
+	Staff findUser(Integer userId);
 
-	Staff findStaffById(int sid);
+Staff createUser(Staff user);
 
-	ArrayList<Staff> findSubordinates(int staffId);
+	Staff changeUser(Staff user);
+
+	void removeUser(Staff user);
+	Staff authenticate(Integer uid, String pwd);
+
+	
 
 }

@@ -1,47 +1,68 @@
 package com.sa45.team3.service;
 
-import java.util.ArrayList;
 
-import javax.annotation.Resource;
-import javax.transaction.Transactional;
+	import java.util.ArrayList;
 
-import org.springframework.stereotype.Service;
+	import javax.annotation.Resource;
+
+
+	import org.springframework.stereotype.Service;
+	import org.springframework.transaction.annotation.Transactional;
+	import com.sa45.team3.repository.StaffRepository;
 
 import com.sa45.team3.model.Staff;
-import com.sa45.team3.repository.StaffRepository;
 
-@Service
-public class StaffServiceImpl implements StaffService {
+	
+	@Service
 
-	@Resource
-	private StaffRepository staffRepository;
-	
-	
-	/* (non-Javadoc)
-	 * @see com.sa45.team3.service.StaffService#authenticate(java.lang.String, java.lang.String)
-	 */
-	@Override
-	public Staff authenticate(String uname, String pwd) {
-		Staff u = staffRepository.findUserByNamePwd(uname, pwd);
-		return u;
+	public class StaffServiceImpl implements StaffService{
+
+		@Resource
+		private StaffRepository UserRepository;
+		@Override
+		@Transactional
+		public ArrayList<Staff> findAllUsers() {
+			ArrayList<Staff> a=(ArrayList<Staff>)UserRepository.findAll();
+			return a;
+		}
+
+		@Override
+		@Transactional
+		public Staff findUser(Integer userId) {
+			
+			return UserRepository.findOne(userId);
+		}
+
+		@Override
+		@Transactional
+		public Staff createUser(Staff user) {
+			
+			return UserRepository.saveAndFlush(user);
+		}
+
+		@Override
+		@Transactional
+		public Staff changeUser(Staff user) {
+			return UserRepository.saveAndFlush(user);
+			
+		}
+
+		@Override
+		@Transactional
+		public void removeUser(Staff user) {
+			 UserRepository.delete(user);
+			
+			
+		}
+
+		@Transactional
+		public Staff authenticate(Integer uid, String pwd) {
+			Staff s=UserRepository.findUserByNamePwd(uid, pwd);
+			return s;
+		}
+		
+
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.sa45.team3.service.StaffService#findStaffById(java.lang.String)
-	 */
-	@Override
-	@Transactional
-	public Staff findStaffById(int sid) {
-		return staffRepository.findStaffById(sid);
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.sa45.team3.service.StaffService#findSubordinates(java.lang.String)
-	 */
-	@Override
-	public ArrayList<Staff> findSubordinates(int staffId) {
-		return staffRepository.findSubordinates(staffId);
-	}
-	
-	
-}
+
+
+
