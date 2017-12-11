@@ -36,7 +36,7 @@
 			<tr>
 				<td>Contact Person</td>
 				<td><form:input path="contactPerson" /></td>
-				
+				<td><form:errors path="contactPerson" cssStyle="color: red;" /></td>
 			</tr>
 
 			<tr>

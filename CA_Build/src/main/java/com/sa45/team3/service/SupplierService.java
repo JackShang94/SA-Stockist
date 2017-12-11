@@ -2,7 +2,7 @@ package com.sa45.team3.service;
 
 import java.util.ArrayList;
 
-
+import com.sa45.team3.exception.SupplierCantDelete;
 import com.sa45.team3.model.Supplier;
 
 
@@ -22,7 +22,7 @@ public interface SupplierService {
 	
 	Supplier editSupplier(Supplier sup);
 
-	void deleteSupplier(Supplier sup);
+	void deleteSupplier(Supplier sup) throws SupplierCantDelete;
 	
 	Supplier findSupplier(Integer supid);
 	

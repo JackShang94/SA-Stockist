@@ -1,8 +1,15 @@
 package com.sa45.team3.controller;
 
 
+import static org.mockito.Matchers.charThat;
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 //import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -20,13 +27,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mysql.fabric.Response;
+import com.opensymphony.sitemesh.Content;
+import com.sa45.team3.exception.SupplierCantDelete;
 import com.sa45.team3.exception.SupplierNotFound;
 
 import com.sa45.team3.model.Supplier;
+import com.sa45.team3.repository.ProductRepository;
 //import com.sa45.team3.repository.SupplierRepository;
 import com.sa45.team3.service.SupplierService;
-
-
+import com.sa45.team3.validator.SupplierValidator;
 
 @RequestMapping("/admin")
 @Controller
@@ -35,7 +45,19 @@ public class AdminSupplierControl {
 	@Autowired 
 	SupplierService supService;
 	
+	@Resource
+	ProductRepository proRepository;
 	
+	
+	@Autowired
+	private SupplierService sService;
+	@Autowired
+	private SupplierValidator sValidator;
+
+	@InitBinder("supplier")
+	private void initSupplierBinder(WebDataBinder binder) {
+		binder.addValidators(sValidator);
+	}
 
 	
 	/*@Resource
@@ -103,9 +125,9 @@ public class AdminSupplierControl {
 		return mav;
 	}
 
-	/*@RequestMapping(value = "/delete/{supplierID}", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{supplierID}", method = RequestMethod.GET)
 	public ModelAndView deleteSupplier(@PathVariable Integer supplierID, final RedirectAttributes redirectAttributes)
-			throws SupplierNotFound {
+			throws SupplierNotFound,SupplierCantDelete {
 		
 		ModelAndView mav = new ModelAndView("redirect:/admin/list");
 		Supplier supplier = supService.findSupplierById(supplierID);//.findSupplier(supplierID.toString());
@@ -115,7 +137,7 @@ public class AdminSupplierControl {
 	
 			redirectAttributes.addFlashAttribute("message", message);
 			return mav;
-	}*/
+	}
 
 }
 

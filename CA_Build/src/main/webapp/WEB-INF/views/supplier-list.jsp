@@ -27,6 +27,7 @@
 		<th>Contact Number</th>
 		<th>Address</th>
 		<th>Contact Person</th>
+		<th>${sessionScope.message }</th>
 		<th><spring:message code="caption.edit" /></th>
 		<th><spring:message code="caption.delete" /></th>
 	</tr>
@@ -40,7 +41,7 @@
 			<td align="left">${sup.address}</td>
 			<td align="left">${sup.contactPerson}</td>
 			<td align="center"><a
-				href="${pageContext.request.contextPath}/admin/${sup.supplierID}"><spring:message
+				href="${pageContext.request.contextPath}/admin/${sup.supplierID}.html"><spring:message
 						code="caption.edit" /></a></td>
 			<td><a
 				href="${pageContext.request.contextPath}/admin/delete/${sup.supplierID}"><spring:message

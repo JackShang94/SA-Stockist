@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sa45.team3.exception.SupplierCantDelete;
 import com.sa45.team3.model.Supplier;
+import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.SupplierRepository;
 
 
@@ -16,7 +18,8 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Resource
 	SupplierRepository supRepository;
-
+	@Resource
+	ProductRepository proRepository;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -68,6 +71,14 @@ public class SupplierServiceImpl implements SupplierService {
 		return supRepository.saveAndFlush(sup);
 	}
 
+	/*@Override
+	@Transactional
+	public void deleteSupplier(Supplier sup) throws SupplierCantDelete {
+		if (!proRepository.checkSupplierID(sup.getSupplierID()).equals(sup)) {
+			throw new SupplierCantDelete("xxxxxxx");
+		}
+	}*/
+	
 	@Override
 	@Transactional
 	public void deleteSupplier(Supplier sup) {
