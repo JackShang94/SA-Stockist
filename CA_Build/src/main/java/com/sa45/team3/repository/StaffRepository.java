@@ -5,14 +5,12 @@ import org.springframework.data.repository.query.Param;
 
 import com.sa45.team3.model.Staff;
 
-
-
-
-
-
 public interface StaffRepository extends JpaRepository<Staff,Integer>{
-	@Query("SELECT u FROM staff u WHERE u.id=:un AND u.password=:pwd")
-	Staff findUserByNamePwd(@Param("un") Integer uid, @Param("pwd") String pwd);
+	@Query("SELECT s FROM Staff s WHERE s.name=:un AND s.password=:pwd")
+	Staff findUserByNamePwd(@Param("un") String uname, @Param("pwd") String pwd);
+	
+	@Query("SELECT s FROM Staff s where s.id = :id")
+	Staff findStaffById(@Param("id") int id);
 
 }
 

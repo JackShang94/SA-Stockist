@@ -14,52 +14,95 @@ import com.sa45.team3.model.Staff;
 
 	
 	@Service
-
 	public class StaffServiceImpl implements StaffService{
 
 		@Resource
-		private StaffRepository UserRepository;
+		private StaffRepository staffRepository;
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#findAllUsers()
+		 */
+		
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#findAllUsers()
+		 */
 		@Override
 		@Transactional
 		public ArrayList<Staff> findAllUsers() {
-			ArrayList<Staff> a=(ArrayList<Staff>)UserRepository.findAll();
+			ArrayList<Staff> a=(ArrayList<Staff>)staffRepository.findAll();
 			return a;
 		}
 
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#findUser(java.lang.Integer)
+		 */
+		
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#findUser(java.lang.Integer)
+		 */
 		@Override
 		@Transactional
 		public Staff findUser(Integer userId) {
 			
-			return UserRepository.findOne(userId);
+			return staffRepository.findOne(userId);
 		}
 
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#createUser(com.sa45.team3.model.Staff)
+		 */
+		
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#createUser(com.sa45.team3.model.Staff)
+		 */
 		@Override
 		@Transactional
 		public Staff createUser(Staff user) {
 			
-			return UserRepository.saveAndFlush(user);
+			return staffRepository.saveAndFlush(user);
 		}
 
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#changeUser(com.sa45.team3.model.Staff)
+		 */
+		
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#changeUser(com.sa45.team3.model.Staff)
+		 */
 		@Override
 		@Transactional
 		public Staff changeUser(Staff user) {
-			return UserRepository.saveAndFlush(user);
+			return staffRepository.saveAndFlush(user);
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#removeUser(com.sa45.team3.model.Staff)
+		 */
+		
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#removeUser(com.sa45.team3.model.Staff)
+		 */
 		@Override
 		@Transactional
 		public void removeUser(Staff user) {
-			 UserRepository.delete(user);
+			 staffRepository.delete(user);
 			
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#authenticate(java.lang.String, java.lang.String)
+		 */
+		
+		/* (non-Javadoc)
+		 * @see com.sa45.team3.service.StaffService#authenticate(java.lang.String, java.lang.String)
+		 */
+		@Override
 		@Transactional
-		public Staff authenticate(Integer uid, String pwd) {
-			Staff s=UserRepository.findUserByNamePwd(uid, pwd);
-			return s;
+		public Staff authenticate(String uname, String pwd) {
+			Staff u = staffRepository.findUserByNamePwd(uname, pwd);
+			return u;
 		}
+		
 		
 
 	}
