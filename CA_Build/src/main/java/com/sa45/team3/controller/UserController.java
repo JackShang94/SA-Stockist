@@ -9,7 +9,9 @@ package com.sa45.team3.controller;
 	import org.springframework.beans.factory.annotation.Autowired;
 	import org.springframework.stereotype.Controller;
 	import org.springframework.validation.BindingResult;
-	import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 	import org.springframework.web.bind.annotation.PathVariable;
 	import org.springframework.web.bind.annotation.RequestMapping;
 	import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +22,7 @@ package com.sa45.team3.controller;
      import com.sa45.team3.exception.staffNotFound;
       import com.sa45.team3.model.Staff;
         import com.sa45.team3.service.StaffService;
+import com.sa45.team3.validator.UserValidator;
 
 
 
@@ -32,6 +35,12 @@ package com.sa45.team3.controller;
 	public class UserController {
 		@Autowired
 		private StaffService uService;
+		@Autowired
+		private UserValidator uValidator;
+		@InitBinder("staff")
+		private void initUserBinder(WebDataBinder binder) {
+			binder.addValidators(uValidator);
+		}
 		@RequestMapping(value="/create",method=RequestMethod.GET)
 		public ModelAndView newUserPage()
 		{

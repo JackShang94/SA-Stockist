@@ -25,17 +25,17 @@
 			</tr>
 			<tr>
 				<td><spring:message code="fieldLabel.role" /></td>
-				<td><form:select path="role" /></td>
+				<td><form:input path="role" /></td>
 				<td><form:errors path="role" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
 				<td><spring:message code="fieldLabel.contactNumber" /></td>
-				<td><form:select path="contactNumber" /></td>
+				<td><form:input path="contactNumber" /></td>
 				<td><form:errors path="contactNumber" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
 				<td><spring:message code="fieldLabel.active" /></td>
-				<td><form:select path="active" /></td>
+				<td><form:input path="active" /></td>
 				<td><form:errors path="active" cssStyle="color: red;" /></td>
 			</tr>
 			
