@@ -28,16 +28,56 @@ public class SupplierServiceImpl implements SupplierService {
 		ArrayList<Supplier> l = (ArrayList<Supplier>) supRepository.findAll();
 		return l;
 	}
-	
+
 	@Override
 	@Transactional
-	public ArrayList<String> findAllSupplierIDs() {
+	public ArrayList<Integer> findAllSupplierIDs() {
 		return supRepository.findAllSupplierIDs();
 	}
 
+	
 	@Override
 	@Transactional
 	public Supplier createSupplier(Supplier sup) {
 		return supRepository.saveAndFlush(sup);
+	}
+	/*
+	 * @Override
+	 * 
+	 * @Transactional public Supplier findSupplierID(String supid) { return
+	 * supRepository.findOne(supid); }
+	 */
+
+	/*
+	 * @Override
+	 * 
+	 * @Transactional public Supplier findSupplier(String supid) { return
+	 * supRepository.findOne(supid); }
+	 */
+
+	@Override
+	@Transactional
+	public Supplier findSupplierById(Integer s) {
+		return supRepository.findSupplierById(s);
+	}
+
+	
+	@Override
+	@Transactional
+	public Supplier editSupplier(Supplier sup) {
+		return supRepository.saveAndFlush(sup);
+	}
+
+	@Override
+	@Transactional
+	public void deleteSupplier(Supplier sup) {
+		supRepository.delete(sup);
+	}
+	
+	@Override
+	@Transactional
+	public Supplier findSupplier(Integer supid) {
+		return supRepository.findOne(supid);
+
 	}
 }

@@ -40,10 +40,10 @@
 			<td align="left">${sup.address}</td>
 			<td align="left">${sup.contactPerson}</td>
 			<td align="center"><a
-				href="${pageContext.request.contextPath}/admin/supplier/edit/${suppliers.supplierID}.html"><spring:message
+				href="${pageContext.request.contextPath}/admin/${sup.supplierID}"><spring:message
 						code="caption.edit" /></a></td>
 			<td><a
-				href="${pageContext.request.contextPath}/admin/supplier/delete/${suppliers.supplierID}.html"><spring:message
+				href="${pageContext.request.contextPath}/admin/delete/${sup.supplierID}"><spring:message
 						code="caption.delete" /></a></td>
 		</tr>
 	</c:forEach>

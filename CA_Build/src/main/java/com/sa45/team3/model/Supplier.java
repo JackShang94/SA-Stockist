@@ -9,77 +9,171 @@ import javax.persistence.Table;
 public class Supplier {
 	
 	@Id
-	private int supplierID;
+	private Integer supplierID;
 	private String supplierName;
-	private int contactNumber;
+	private Integer contactNumber;
 	private String address;
 	private String contactPerson;
-	/* (non-Javadoc)
-	 * @see sg.edu.alex.learning.model.SupplierRepository#getSupplierID()
-	 */
+	
+	public Supplier() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-	public int getSupplierID() {
+	public Supplier(Integer supplierID, String supplierName, Integer contactNumber, String address,
+			String contactPerson) {
+		super();
+		this.supplierID = supplierID;
+		this.supplierName = supplierName;
+		this.contactNumber = contactNumber;
+		this.address = address;
+		this.contactPerson = contactPerson;
+	}
+
+	public Integer getSupplierID() {
 		return supplierID;
 	}
-	/* (non-Javadoc)
-	 * @see sg.edu.alex.learning.model.SupplierRepository#setSupplierID(int)
-	 */
 
-	public void setSupplierID(int supplierID) {
+	public void setSupplierID(Integer supplierID) {
 		this.supplierID = supplierID;
 	}
-	/* (non-Javadoc)
-	 * @see sg.edu.alex.learning.model.SupplierRepository#getSupplierName()
-	 */
 
 	public String getSupplierName() {
 		return supplierName;
 	}
-	/* (non-Javadoc)
-	 * @see sg.edu.alex.learning.model.SupplierRepository#setSupplierName(java.lang.String)
-	 */
 
 	public void setSupplierName(String supplierName) {
 		this.supplierName = supplierName;
 	}
-	/* (non-Javadoc)
-	 * @see sg.edu.alex.learning.model.SupplierRepository#getContactNumber()
-	 */
 
-	public int getContactNumber() {
+	public Integer getContactNumber() {
 		return contactNumber;
 	}
-	/* (non-Javadoc)
-	 * @see sg.edu.alex.learning.model.SupplierRepository#setContactNumber(int)
-	 */
 
-	public void setContactNumber(int contactNumber) {
+	public void setContactNumber(Integer contactNumber) {
 		this.contactNumber = contactNumber;
 	}
-	/* (non-Javadoc)
-	 * @see sg.edu.alex.learning.model.SupplierRepository#getAddress()
-	 */
 
 	public String getAddress() {
 		return address;
 	}
-	/* (non-Javadoc)
-	 * @see sg.edu.alex.learning.model.SupplierRepository#setAddress(java.lang.String)
-	 */
 
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	/* (non-Javadoc)
-	 * @see sg.edu.alex.learning.model.SupplierRepository#getContactPerson()
-	 */
 
 	public String getContactPerson() {
 		return contactPerson;
 	}
+
+	public void setContactPerson(String contactPerson) {
+		this.contactPerson = contactPerson;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((supplierID == null) ? 0 : supplierID.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Supplier other = (Supplier) obj;
+		if (supplierID == null) {
+			if (other.supplierID != null)
+				return false;
+		} else if (!supplierID.equals(other.supplierID))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Supplier [supplierID=" + supplierID + ", supplierName=" + supplierName + ", contactNumber="
+				+ contactNumber + ", address=" + address + ", contactPerson=" + contactPerson + "]";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	/* (non-Javadoc)
-	 * @see sg.edu.alex.learning.model.SupplierRepository#setContactPerson(java.lang.String)
+	 * @see sg.edu.alex.learning.model.SupplierRepository#getSupplierID()
 	 */
+
+	/*public int getSupplierID() {
+		return supplierID;
+	}
+	 (non-Javadoc)
+	 * @see sg.edu.alex.learning.model.SupplierRepository#setSupplierID(int)
+	 
+
+	public void setSupplierID(int supplierID) {
+		this.supplierID = supplierID;
+	}
+	 (non-Javadoc)
+	 * @see sg.edu.alex.learning.model.SupplierRepository#getSupplierName()
+	 
+
+	public String getSupplierName() {
+		return supplierName;
+	}
+	 (non-Javadoc)
+	 * @see sg.edu.alex.learning.model.SupplierRepository#setSupplierName(java.lang.String)
+	 
+
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
+	}
+	 (non-Javadoc)
+	 * @see sg.edu.alex.learning.model.SupplierRepository#getContactNumber()
+	 
+
+	public int getContactNumber() {
+		return contactNumber;
+	}
+	 (non-Javadoc)
+	 * @see sg.edu.alex.learning.model.SupplierRepository#setContactNumber(int)
+	 
+
+	public void setContactNumber(int contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+	 (non-Javadoc)
+	 * @see sg.edu.alex.learning.model.SupplierRepository#getAddress()
+	 
+
+	public String getAddress() {
+		return address;
+	}
+	 (non-Javadoc)
+	 * @see sg.edu.alex.learning.model.SupplierRepository#setAddress(java.lang.String)
+	 
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	 (non-Javadoc)
+	 * @see sg.edu.alex.learning.model.SupplierRepository#getContactPerson()
+	 
+
+	public String getContactPerson() {
+		return contactPerson;
+	}
+	 (non-Javadoc)
+	 * @see sg.edu.alex.learning.model.SupplierRepository#setContactPerson(java.lang.String)
+	 
 
 	public void setContactPerson(String contactPerson) {
 		this.contactPerson = contactPerson;
@@ -95,15 +189,15 @@ public class Supplier {
 	public Supplier() {
 		super();
 	}
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see sg.edu.alex.learning.model.SupplierRepository#toString()
-	 */
+	 
 
 	public String toString() {
 		return "Supplier [supplierID=" + supplierID + ", supplierName=" + supplierName + ", contactNumber="
 				+ contactNumber + ", address=" + address + ", contactPerson=" + contactPerson + "]";
 	}
-	
+	*/
 	
 	
 	

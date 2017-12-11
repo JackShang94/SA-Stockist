@@ -24,15 +24,15 @@ import org.springframework.data.repository.query.Param;
 import com.sa45.team3.model.Supplier;
 
 
-public interface SupplierRepository extends JpaRepository<Supplier, String>{
+public interface SupplierRepository extends JpaRepository<Supplier, Integer>{
 
 	@Query
 	("SELECT DISTINCT s.supplierID FROM Supplier s")
-	ArrayList<String> findAllSupplierIDs();
-
-	/*@Query
+	ArrayList<Integer> findAllSupplierIDs();
+	
+	@Query
 	("SELECT s FROM Supplier s where s.supplierID = :supplierID")
-	Supplier findSupplierById(@Param("supplierID") Integer supplierID);*/
+	Supplier findSupplierById(@Param("supplierID") Integer supplierID);
 
 	/*@Query("SELECT s FROM Suppliers s where s.supplierName = :supplierName")
 	Supplier findSupplierByName(@Param("supplierName") String supplierName);

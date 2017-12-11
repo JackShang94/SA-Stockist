@@ -3,9 +3,9 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<h3>New Supplier page</h3>
+<h3>Edit Supplier page</h3>
 <form:form method="POST" modelAttribute="supplier"
-	action="${pageContext.request.contextPath}/admin/supplier/edit/${supplier.supplierID}.html">
+	action="${pageContext.request.contextPath}/admin/${supplier.supplierID}">
 	<table>
 		<tbody>
 
