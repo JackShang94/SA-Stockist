@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -35,18 +36,9 @@ public class ProductControl {
 	private ProductService productService;
 
 	@RequestMapping(value = "/product-list",method = RequestMethod.GET)
-	public ModelAndView productlist(HttpSession session) {
+	public ModelAndView ShowProductListToAdmin(@RequestParam(required = false) Integer page) {
 
 		ModelAndView mav = new ModelAndView("product-list"); // create jsp
-		List<Product> productList = productService.findAll();
-		mav.addObject("pList", productList);
-		return mav;
-	}
-
-	@RequestMapping(value = "/product-show-list", method = RequestMethod.GET)
-	public ModelAndView ShowProductListToMechanic(@RequestParam(required = false) Integer page) {
-
-		ModelAndView mav = new ModelAndView("product-show-list"); // create jsp
 		List<Product> productList = productService.findAll();
 
 		PagedListHolder<Product> ph = new PagedListHolder<>();
@@ -61,16 +53,14 @@ public class ProductControl {
 		mav.addObject("page", ph.getPage()); // current page
 		mav.addObject("pList", ph.getPageList());
 		mav.addObject("maxPages", ph.getPageCount()); // number of pages
-		
 		return mav;
-
 	}
-
-	@RequestMapping(value = "/product-show-list", method = RequestMethod.POST)
-	public ModelAndView supplierListPageFilter(HttpServletRequest request) {
+	
+	@RequestMapping(value = "/product-list", method = RequestMethod.POST)
+	public ModelAndView ProductListPage(HttpServletRequest request) {
 
 		String error;
-		ModelAndView mav = new ModelAndView("product-show-list"); // create jsp
+		ModelAndView mav = new ModelAndView("product-list"); // create jsp
 		String filter = request.getParameter("filter");
 		String searchVar = request.getParameter("searchVar");
 		ArrayList<Product> productList = new ArrayList<Product>();
@@ -116,14 +106,87 @@ public class ProductControl {
 			mav.addObject("productCount", productCount);
 
 			mav.addObject("pList", productList);
-
 		}
 		return mav;
+	}
+	
+	@RequestMapping(value = "/product-show-list", method = RequestMethod.GET)
+	public ModelAndView ShowProductListToMechanic(@RequestParam(required = false) Integer page) {
 
+		ModelAndView mav = new ModelAndView("product-show-list"); // create jsp
+		List<Product> productList = productService.findAll();
+
+		PagedListHolder<Product> ph = new PagedListHolder<>();
+		ph.setSource(productList);
+		ph.setPageSize(5);
+		if (page == null || page < 1 || page > ph.getPageCount()) {
+			ph.setPage(0);
+		}
+		else {
+			ph.setPage(page);
+		}
+		mav.addObject("page", ph.getPage()); // current page
+		mav.addObject("pList", ph.getPageList());
+		mav.addObject("maxPages", ph.getPageCount()); // number of pages
+		return mav;
+	}
+
+	@RequestMapping(value = "/product-show-list", method = RequestMethod.POST)
+	public ModelAndView ProductListPageFilter(HttpServletRequest request) {
+
+		String error;
+		ModelAndView mav = new ModelAndView("product-show-list"); // create jsp
+		String filter = request.getParameter("filter");
+		String searchVar = request.getParameter("searchVar");
+		ArrayList<Product> productList = new ArrayList<Product>();
+
+		try {
+			switch (filter) {
+
+			case "ID":
+				Integer searchInt = Integer.parseInt(searchVar);
+				productList = productService.findProductByID(searchInt);
+				break; 
+						
+			case "Name":
+				productList = productService.findProductByName(searchVar);
+				break;
+
+			case "Description":
+				productList = productService.findProductByDescrp(searchVar);
+				break;
+
+			case "Color":
+				productList = productService.findProductByColor(searchVar);
+				break;
+
+			case "Dimension":
+				productList = productService.findProductByDimension(searchVar);
+
+			}
+		} catch (NumberFormatException e) {
+
+			error = "PoductID only accepts digits.";
+			productList = (ArrayList<Product>) productService.findAll();
+
+		}
+
+		catch (Exception e) {
+
+			error = "No entries returned.";
+		}
+
+		finally {
+			String productCount = Integer.toString(productList.size());
+			mav.addObject("productCount", productCount);
+
+			mav.addObject("pList", productList);
+		}
+		return mav;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ModelAndView validation(@ModelAttribute Product product, HttpSession session, BindingResult result) {
+	public ModelAndView create(@ModelAttribute Product product, HttpSession session, BindingResult result) {
 
 		ModelAndView mav = new ModelAndView("product-list"); // create jsp
 		// mav.addObject("message", product.getPassword());
@@ -131,12 +194,69 @@ public class ProductControl {
 
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView logout(@ModelAttribute Staff staff, HttpSession session, BindingResult result) {
+	@RequestMapping(value = "editproduct-{partNumber}", method = RequestMethod.GET)
+	public ModelAndView editProductPage(@PathVariable Integer partNumber) {
+		
+		ModelAndView mav = new ModelAndView("product-edit");
+		Product product = productService.findProductByPartnumber(partNumber);
+		
+		mav.addObject("product", product);
+		return mav;
+	}
 
-		ModelAndView mav = new ModelAndView("logout");
-		session.invalidate();
+	@RequestMapping(value = "editproduct-{partNumber}", method = RequestMethod.POST)
+	public ModelAndView editProduct(@ModelAttribute @Valid Product product, BindingResult result,
+			@PathVariable Integer partNumber, final RedirectAttributes redirectAttributes) {
+
+		if (result.hasErrors())
+			return new ModelAndView("product-edit");
+
+		ModelAndView mav = new ModelAndView();
+		String message = "product " + product.getPartNumber() + " was successfully updated.";
+
+		productService.editProduct(product);
+		mav.setViewName("redirect:/product/product-list");
+		redirectAttributes.addFlashAttribute("message", message);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/deleteproduct/{partNumber}", method = RequestMethod.GET)
+	public ModelAndView delete(@ModelAttribute @Valid Product product, BindingResult result,
+			@PathVariable Integer partNumber, final RedirectAttributes redirectAttributes) {
+
+		ModelAndView mav = new ModelAndView("redirect:/product/product-list");
+		Product p = productService.findProductByPartnumber(partNumber);
+		productService.deleteProduct(p);
+		String message = "The employee " + p.getPartNumber() + " was successfully deleted.";
+
+		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 
+	}
+	
+	@RequestMapping(value = "/productcreate", method = RequestMethod.GET)
+	public ModelAndView createget(@ModelAttribute Product product, HttpSession session, BindingResult result) {
+
+		ModelAndView mav = new ModelAndView("product-add");
+		
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/productcreate", method = RequestMethod.POST)
+	public ModelAndView createpost(@ModelAttribute @Valid Product product, BindingResult result,
+			final RedirectAttributes redirectAttributes) {
+
+		if (result.hasErrors())
+			return new ModelAndView("product-add");
+
+		ModelAndView mav = new ModelAndView();
+		String message = "New product " + product.getPartNumber() + " was successfully created.";
+
+		productService.createProduct(product);
+		mav.setViewName("redirect:/product/product-list");
+
+		redirectAttributes.addFlashAttribute("message", message);
+		return mav;
 	}
 }

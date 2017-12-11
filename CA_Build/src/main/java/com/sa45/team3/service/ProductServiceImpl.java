@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService  {
 	 * @see com.sa45.team3.service.ProductService#findProductByID(int)
 	 */
 	@Override
-	public ArrayList<Product>findProductByID(int id){
+	public ArrayList<Product> findProductByID(int id){
 		
 		return prepo.findProductByID(id);
 	}
@@ -86,6 +86,31 @@ public class ProductServiceImpl implements ProductService  {
 	public ArrayList<Product>findProductByDimension(String searchDim){
 		
 		return prepo.findProductByDimension(searchDim);
+	}
+
+
+	@Override
+	public Product createProduct(Product product) {
+		
+		return  prepo.saveAndFlush(product);
+	}
+
+
+	@Override
+	public Product editProduct(Product product) {
+		return  prepo.saveAndFlush(product);
+	}
+
+
+	@Override
+	public Product findProductByPartnumber(int id) {
+		return prepo.findProductByPartnumber(id);
+	}
+
+
+	@Override
+	public void deleteProduct(Product p) {
+		prepo.delete(p);
 	}
 	
 }

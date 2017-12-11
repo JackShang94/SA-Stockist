@@ -35,6 +35,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	//dimension
 	@Query("SELECT p FROM Product p WHERE p.dimension=:searchDim")
 	ArrayList<Product> findProductByDimension(@Param("searchDim") String searchDim);
+	//
+	@Query("SELECT p FROM Product p WHERE p.partNumber=:searchNumber")
+	Product findProductByPartnumber(@Param("searchNumber") int searchNumber);
 
 
 }

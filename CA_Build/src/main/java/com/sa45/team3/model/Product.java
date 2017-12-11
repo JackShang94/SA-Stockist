@@ -113,6 +113,8 @@ public class Product {
 				+ dimension + ", reorderPoint=" + reorderPoint + ", minOrder=" + minOrder + ", supplierID=" + supplierID
 				+ ", shelfLocation=" + shelfLocation + "]";
 	}
+
+
 	
 	
 	

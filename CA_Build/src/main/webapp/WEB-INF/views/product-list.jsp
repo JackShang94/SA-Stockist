@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -11,6 +11,22 @@
 <title>Manage The Products</title>
 </head>
 <body>
+	<h1>Product Show List</h1>
+	<span>Search By</span>
+	<form:form method="POST"
+		action="${pageContext.request.contextPath}/product/product-list">
+		<select name="filter">
+			<option value="ID">ID</option>
+			<option value="Name">Name</option>
+			<option value="Description">Description</option>
+			<option value="Color">Color</option>
+			<option value="Dimension">Dimension</option>
+		</select>
+		<input type="text" name="searchVar" />
+		<input type="submit" value="Search" />
+	</form:form>
+	<a href="${pageContext.request.contextPath}/product/productcreate">Add
+		Product</a>
 	<table>
 		<tr>
 			<th>Part Number</th>
@@ -24,9 +40,7 @@
 			<th>Minimum Order</th>
 			<th>Supplier ID</th>
 			<th>Shelf Location</th>
-
 		</tr>
-
 		<c:forEach var="plist" items="${pList}">
 
 			<tr>
@@ -41,13 +55,37 @@
 				<td>${plist.minOrder}</td>
 				<td>${plist.supplierID}</td>
 				<td>${plist.partNumber}</td>
-
-
+				<td align="center"><a
+					href="${pageContext.request.contextPath}/product/editproduct-${plist.partNumber}"><spring:message
+							code="caption.edit" /></a></td>
+				<td><a
+					href="${pageContext.request.contextPath}/product/deleteproduct/${plist.partNumber}"><spring:message
+							code="caption.delete" /></a></td>
 			</tr>
-
 		</c:forEach>
-
 	</table>
+	<c:url value="${request.contextPath}/product/product-list" var="prev">
+		<c:param name="page" value="${page-1}" />
+	</c:url>
+	<c:url value="${request.contextPath}/product/product-list" var="next">
+		<c:param name="page" value="${page+1}" />
+	</c:url>
+	<span> <a href="<c:out value="${prev}" />">Previous</a> <c:forEach
+			begin="0" end="${maxPages}" step="1" varStatus="i">
+			<c:choose>
+				<c:when test="${page == i.index}">
+					<span>${i.index}</span>
+				</c:when>
+				<c:otherwise>
+					<c:url value="${request.contextPath}/product/product-list"
+						var="url">
+						<c:param name="page" value="${i.index}" />
+					</c:url>
+					<a href='<c:out value="${url}" />'>${i.index}</a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach> <a href="<c:out value="${next}" />">Next</a>
+	</span>
 
 </body>
 </html>

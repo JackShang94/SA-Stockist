@@ -36,4 +36,12 @@ public interface ProductService {
 	 */
 	ArrayList<Product> findProductByDimension(String searchDim);
 
+	Product createProduct(Product product);
+
+	Product editProduct(Product product);
+	
+	Product findProductByPartnumber(int id);
+
+	void deleteProduct(Product p);
+
 }
