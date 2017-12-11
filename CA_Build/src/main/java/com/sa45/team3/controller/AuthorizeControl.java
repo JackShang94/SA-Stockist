@@ -1,5 +1,10 @@
 package com.sa45.team3.controller;
 
+import static org.mockito.Matchers.endsWith;
+
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +14,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sa45.team3.model.Product;
 import com.sa45.team3.model.Staff;
+import com.sa45.team3.service.ProductService;
 import com.sa45.team3.service.StaffService;
 @Controller
 @RequestMapping(value="/Authorize")
+@Resource
+
 public class AuthorizeControl{
 	
-
+	@Resource
+	private ProductService productService;
 	@Autowired
 	private StaffService sService;
 	
@@ -41,10 +52,10 @@ public class AuthorizeControl{
 			if(s!=null)
 			{				
 				session.setAttribute("role", s.getRole());
-				if (s.getRole()=="Admin") {
-					mav = new ModelAndView("product-list");
+				if (s.getRole().equalsIgnoreCase("Admin")) {
+					mav =new ModelAndView("redirect:/product/product-list");
 				}else {
-					mav = new ModelAndView("product-show-list");
+					mav =new ModelAndView("redirect:/product/product-show-list");
 				}
 				return mav;
 			}

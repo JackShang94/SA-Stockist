@@ -58,14 +58,14 @@
 
 
                     <li>
-                        <a href="${pageContext.request.contextPath}/product/list"><i class="fa fa-desktop "></i>Manage products</a>
+                        <a href="${pageContext.request.contextPath}/product/product-list"><i class="fa fa-desktop "></i>Manage products</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/admin/list"><i class="fa fa-edit "></i>Manage suppliers<span class="fa arrow"></span></a>
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-table "></i>Manage users</a>
+                        <a href="${pageContext.request.contextPath}/staff/list"><i class="fa fa-table "></i>Manage users</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/reorder/list"><i class="fa fa-edit "></i>Reorder report</a>
@@ -122,7 +122,7 @@
 
 
                     <li>
-                        <a href="${pageContext.request.contextPath}/product/list"><i class="fa fa-desktop "></i>view products</a>
+                        <a href="${pageContext.request.contextPath}/product/product-show-list"><i class="fa fa-desktop "></i>view products</a>
                     </li>
 
                     <li>

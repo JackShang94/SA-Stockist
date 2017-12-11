@@ -34,14 +34,13 @@ public class ProductControl {
 	@Resource
 	private ProductService productService;
 
-	@RequestMapping(value = "/list")
-	public ModelAndView productlist(Model model) {
+	@RequestMapping(value = "/product-list",method = RequestMethod.GET)
+	public ModelAndView productlist(HttpSession session) {
 
 		ModelAndView mav = new ModelAndView("product-list"); // create jsp
 		List<Product> productList = productService.findAll();
 		mav.addObject("pList", productList);
 		return mav;
-
 	}
 
 	@RequestMapping(value = "/product-show-list", method = RequestMethod.GET)
