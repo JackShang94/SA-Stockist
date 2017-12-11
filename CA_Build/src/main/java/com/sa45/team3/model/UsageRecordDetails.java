@@ -1,7 +1,7 @@
 package com.sa45.team3.model;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -9,75 +9,33 @@ import javax.persistence.Table;
 
 public class UsageRecordDetails {
 
-	public UsageRecordDetails(int recordID, int partNumber, int usedQuantity) {
-		super();
-		this.recordID = recordID;
-		this.partNumber = partNumber;
-		this.usedQuantity = usedQuantity;
-	}
-
+	
 	public UsageRecordDetails() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	@Id
-	private int recordID;
+	@EmbeddedId
+	private UsageDetailsPrimaryKey primarykey;
 
-	private int partNumber;
+	private Integer usedQuantity;
 
-	private int usedQuantity;
-
-	public int getRecordID() {
-		return recordID;
+	public UsageDetailsPrimaryKey getPrimarykey() {
+		return primarykey;
 	}
 
-	public void setRecordID(int recordID) {
-		this.recordID = recordID;
+	public void setPrimarykey(UsageDetailsPrimaryKey primary) {
+		this.primarykey = primary;
 	}
 
-	public int getPartNumber() {
-		return partNumber;
-	}
-
-	public void setPartNumber(int partNumber) {
-		this.partNumber = partNumber;
-	}
-
-	public int getUsedQuantity() {
+	public Integer getUsedQuantity() {
 		return usedQuantity;
 	}
 
-	public void setUsedQuantity(int usedQuantity) {
+	public void setUsedQuantity(Integer usedQuantity) {
 		this.usedQuantity = usedQuantity;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + recordID;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UsageRecordDetails other = (UsageRecordDetails) obj;
-		if (recordID != other.recordID)
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "UsageRecordDetails [recordID=" + recordID + ", partNumber=" + partNumber + ", usedQuantity="
-				+ usedQuantity + "]";
-	}
-
+	
+	
 }

@@ -12,35 +12,35 @@
 <body>
 
 	<p>Search By</p>
-<a href="${pageContext.request.contextPath}/mechanic/usage-record/create">Add new usage record</a>
+	<a
+		href="${pageContext.request.contextPath}/mechanic/usage-record/create">Add
+		new usage record</a>
 
-	<table>
-		<tr>
-			<th>Record ID</th>
-			<th>staffID</th>
-			<th>usageDate</th>
-			<th>customerName</th>
-			<th>contact number</th>
-
-
+	<br />
+	<table style="cellspacing: 2; cellpadding: 2; border: 1;">
+		<tr class="listHeading">
+			<th><spring:message code="Record ID" /></th>
+			<th><spring:message code="Usage Date" /></th>
+			<th><spring:message code="Staff ID" /></th>
+			<th><spring:message code="Customer Name" /></th>
+			<th><spring:message code="Customer Contact Details" /></th>
+			<th><spring:message code="Record Details" /></th>
 		</tr>
-
 		<c:forEach var="recordList" items="${recordList}">
-
-			<tr>
+			<tr class="listRecord">
 				<td>${recordList.recordID}</td>
-				<td>${recordList.staffID}</td>
 				<td>${recordList.usageDate}</td>
+				<td>${recordList.staffID}</td>
 				<td>${recordList.customerName}</td>
 				<td>${recordList.contactNumber}</td>
-
-
-
+				<td><c:url
+						value="/mechanic/usage-record/display/${recordList.recordID}.html"
+						var="d" /> <a href="${d}"><spring:message
+							code="caption.detail" /></a></td>
 			</tr>
-
 		</c:forEach>
-
 	</table>
+
 
 </body>
 </html>

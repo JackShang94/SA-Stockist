@@ -1,5 +1,6 @@
 package com.sa45.team3.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sa45.team3.model.UsageRecord;
 import com.sa45.team3.model.UsageRecordDetails;
+import com.sa45.team3.repository.UsageRecordDetailsRepository;
 import com.sa45.team3.repository.UsageRecordRepository;
 import com.sa45.team3.service.UsageRecordService;
 
@@ -25,7 +27,7 @@ public class UsageRecordControl {
 
 	@Autowired
 	private UsageRecordService uService;
-
+	
 	@Resource
 	UsageRecordRepository prepo;
 
@@ -68,10 +70,14 @@ public class UsageRecordControl {
 	}
 
 	@RequestMapping(value = "/usage-record/display/{id}", method = RequestMethod.GET)
-	public ModelAndView newUsageRecordDetailsPage(@PathVariable int id) {
-		UsageRecordDetails d = uService.findRecordDetails(id);
-		ModelAndView mav = new ModelAndView("usage-record-details", "usageRecordDetails", new UsageRecordDetails());
-		mav.addObject("usageRecordDetailsList", uService.findRecordDetails(id));
+	public ModelAndView newUsageRecordDetailsPage(@PathVariable Integer id) {
+		
+		ArrayList<UsageRecordDetails> d = uService.findAllRecordDetailsByID(id);
+		UsageRecord d2 = uService.findUsageRecordbyID(id);
+		ModelAndView mav = new ModelAndView("usage-record-details");
+//		ModelAndView mav2 = new ModelAndView("usage-record-add", "recordList", d2);
+		mav.addObject("usageRecordDetails", d);
+		mav.addObject("recordList", d2);
 		return mav;
 	}
 
@@ -121,7 +127,7 @@ public class UsageRecordControl {
  * 
  * @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET) public
  * ModelAndView editUserPage(@PathVariable String id) { ModelAndView mav = new
- * ModelAndView("supplier-edit"); int ID = Integer.parseInt(id); Supplier
+ * ModelAndView("supplier-edit");  ID = Integereger.parseInteger(id); Supplier
  * supplier = sprepo.findOne(ID); mav.addObject("supl", supplier); return mav; }
  * 
  * @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST) public

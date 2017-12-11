@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sa45.team3.model.UsageDetailsPrimaryKey;
 import com.sa45.team3.model.UsageRecord;
 import com.sa45.team3.model.UsageRecordDetails;
 
@@ -11,10 +12,14 @@ public interface UsageRecordService {
 
 	ArrayList<UsageRecord> findAllrecordIDs();
 
-	UsageRecord findUsageRecordbyID(int id);
-
 	UsageRecord createUsageRecord(UsageRecord uR);
+	
+	ArrayList<UsageRecordDetails> findAllRecordDetails(Integer id);
+	
+	UsageRecord findUsageRecordbyID(Integer id);
 
-	UsageRecordDetails findRecordDetails(int did);
+	ArrayList<UsageRecordDetails> findAllRecordDetailsByID(Integer id);
+
+	UsageRecordDetails findRecordDetails(UsageDetailsPrimaryKey did);
 	
 }

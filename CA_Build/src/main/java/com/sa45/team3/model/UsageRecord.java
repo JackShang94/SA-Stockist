@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 public class UsageRecord {
 	
-	public UsageRecord(int recordID, String customerName, int staffID, Date usageDate, int contactNumber) {
+	public UsageRecord(Integer recordID, String customerName, Integer staffID, Date usageDate, Integer contactNumber) {
 		super();
 		this.recordID = recordID;
 		this.customerName = customerName;
@@ -21,7 +21,7 @@ public class UsageRecord {
 		this.contactNumber = contactNumber;
 	}
 
-	public UsageRecord(int recordID) {
+	public UsageRecord(Integer recordID) {
 		super();
 		this.recordID = recordID;
 	}
@@ -32,21 +32,21 @@ public class UsageRecord {
 	}
 
 	@Id
-	private int recordID;
+	private Integer recordID;
 	
 	private String customerName;
 
-	private int staffID;
+	private Integer staffID;
 	
 	private Date usageDate;
 
-	private int contactNumber;
+	private Integer contactNumber;
 
-	public int getRecordID() {
+	public Integer getRecordID() {
 		return recordID;
 	}
 
-	public void setRecordID(int recordID) {
+	public void setRecordID(Integer recordID) {
 		this.recordID = recordID;
 	}
 
@@ -58,11 +58,11 @@ public class UsageRecord {
 		this.customerName = customerName;
 	}
 
-	public int getStaffID() {
+	public Integer getStaffID() {
 		return staffID;
 	}
 
-	public void setStaffID(int staffID) {
+	public void setStaffID(Integer staffID) {
 		this.staffID = staffID;
 	}
 
@@ -74,18 +74,18 @@ public class UsageRecord {
 		this.usageDate = usageDate;
 	}
 
-	public int getContactNumber() {
+	public Integer getContactNumber() {
 		return contactNumber;
 	}
 
-	public void setContactNumber(int contactNumber) {
+	public void setContactNumber(Integer contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
+		final Integer prime = 31;
+		Integer result = 1;
 		result = prime * result + recordID;
 		return result;
 	}

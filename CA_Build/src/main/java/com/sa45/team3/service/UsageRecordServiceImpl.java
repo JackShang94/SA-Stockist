@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sa45.team3.model.UsageDetailsPrimaryKey;
 import com.sa45.team3.model.UsageRecord;
 import com.sa45.team3.model.UsageRecordDetails;
 import com.sa45.team3.repository.UsageRecordDetailsRepository;
@@ -23,9 +24,6 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 	private UsageRecordDetailsRepository usageRecordDetailsRepository;
 	
 
-	/* (non-Javadoc)
-	 * @see com.sa45.team3.service.UsageRecordService#findAllrecordIDs()
-	 */
 	@Override
 	@Transactional
 	public ArrayList<UsageRecord> findAllrecordIDs() {
@@ -34,18 +32,12 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 	}
 
 	
-	/* (non-Javadoc)
-	 * @see com.sa45.team3.service.UsageRecordService#findUsageRecordbyID(int)
-	 */
 	@Override
 	@Transactional
-	public UsageRecord findUsageRecordbyID(int id) {
+	public UsageRecord findUsageRecordbyID(Integer id) {
 		return usageRecordRepository.findOne(id);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.sa45.team3.service.UsageRecordService#createUsageRecord(com.sa45.team3.model.UsageRecord)
-	 */
 	@Override
 	@Transactional
 	public UsageRecord createUsageRecord(UsageRecord uR) {
@@ -54,8 +46,21 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 	
 	@Override
 	@Transactional
-	public UsageRecordDetails findRecordDetails(int did) {
+	public UsageRecordDetails findRecordDetails(UsageDetailsPrimaryKey did) {
 		return usageRecordDetailsRepository.findOne(did);
 
+	}
+	
+	@Override
+	@Transactional
+	public ArrayList<UsageRecordDetails> findAllRecordDetailsByID(Integer id){
+		return usageRecordDetailsRepository.findUsageDetailsByrID(id);
+	}
+
+
+	@Override
+	public ArrayList<UsageRecordDetails> findAllRecordDetails(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
