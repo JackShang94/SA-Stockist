@@ -1,9 +1,13 @@
 package com.sa45.team3.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sa45.team3.model.Product;
 import com.sa45.team3.model.UsageRecord;
 import com.sa45.team3.model.UsageRecordDetails;
+import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.UsageRecordDetailsRepository;
 import com.sa45.team3.repository.UsageRecordRepository;
 import com.sa45.team3.service.UsageRecordService;
@@ -30,6 +36,12 @@ public class UsageRecordControl {
 	
 	@Resource
 	UsageRecordRepository prepo;
+	
+	@Resource
+	ProductRepository productRepository;	
+	
+	@Resource
+	UsageRecordDetailsRepository urdRepo;
 
 	@RequestMapping(value = "/usage-record", method = RequestMethod.GET)
 	public ModelAndView recordListPage() {
@@ -41,18 +53,21 @@ public class UsageRecordControl {
 
 	}
 
-	@RequestMapping(value = "/usage-record/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/usage-record-create", method = RequestMethod.GET)
 	public ModelAndView usageRecordAdd() {
 
 		ModelAndView mav = new ModelAndView("usage-record-add", "usageRecord", new UsageRecord());
 		mav.addObject("usageRecordList", uService.findAllrecordIDs());
+		
+		List<Product> productList = productRepository.findAll();
+		mav.addObject("pList", productList);
 		return mav;
 		// learn how to do dropdown fields in the web page
 	}
 
-	@RequestMapping(value = "/usage-record/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/usage-record-create", method = RequestMethod.POST)
 	public ModelAndView createNewUsageRecord(@ModelAttribute UsageRecord usageRecord, BindingResult result,
-			final RedirectAttributes redirectAttributes) {
+			final RedirectAttributes redirectAttributes, HttpServletRequest Request) {
 
 		// what does bindingresult do?
 
@@ -63,9 +78,43 @@ public class UsageRecordControl {
 		String message = "New usage record: " + usageRecord.getRecordID() + " was successfully created.";
 
 		uService.createUsageRecord(usageRecord);
+		
+		// added by Alex
+	    Map <String, String[]> params = new HashMap<>(Request.getParameterMap());
+	    
+	    params.remove("recordID");
+	    params.remove("UsageDate");
+	    params.remove("staffID");
+	    params.remove("customerName");
+	    params.remove("contactNumber");
+	    
+
+	    Iterator <String>i = params.keySet().iterator();
+	    
+	    int recordID = usageRecord.getRecordID();
+
+	    while ( i.hasNext() )
+
+	      {
+
+	        String key = (String) i.next();
+	        String value = ((String[]) params.get( key ))[ 0 ];
+
+	        int intKey = Integer.parseInt(key);
+	        int intValue = Integer.parseInt(value);
+	        if(intValue!=0) {
+
+	        urdRepo.addNewDetail(recordID, intKey, intValue );}
+	      }
+	    
 		mav.setViewName("redirect:/mechanic/usage-record");
 
 		redirectAttributes.addFlashAttribute("message", message); // what does this do?
+		
+		
+
+		
+		
 		return mav;
 	}
 
@@ -80,6 +129,7 @@ public class UsageRecordControl {
 		mav.addObject("recordList", d2);
 		return mav;
 	}
+	
 
 }
 /*

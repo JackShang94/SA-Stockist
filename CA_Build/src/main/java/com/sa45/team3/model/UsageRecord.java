@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="[usage records]")
 
@@ -38,6 +40,7 @@ public class UsageRecord {
 
 	private Integer staffID;
 	
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date usageDate;
 
 	private Integer contactNumber;

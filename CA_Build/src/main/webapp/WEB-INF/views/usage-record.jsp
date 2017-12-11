@@ -13,7 +13,7 @@
 
 	<p>Search By</p>
 	<a
-		href="${pageContext.request.contextPath}/mechanic/usage-record/create">Add
+		href="${pageContext.request.contextPath}/mechanic/usage-record-create">Add
 		new usage record</a>
 
 	<br />
