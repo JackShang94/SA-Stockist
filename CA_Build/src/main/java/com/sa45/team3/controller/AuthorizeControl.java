@@ -44,7 +44,7 @@ public class AuthorizeControl{
 				if (s.getRole()=="Admin") {
 					mav = new ModelAndView("product-list");
 				}else {
-					mav = new ModelAndView("product-list");
+					mav = new ModelAndView("product-show-list");
 				}
 				return mav;
 			}
