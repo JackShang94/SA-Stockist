@@ -41,9 +41,9 @@ public class UsageRecordControl {
 
 	@InitBinder
 	private void initUsageRecordBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true));
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 		
 	}
 	
