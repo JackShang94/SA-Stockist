@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,7 +32,7 @@ import com.mysql.fabric.Response;
 import com.opensymphony.sitemesh.Content;
 import com.sa45.team3.exception.SupplierCantDelete;
 import com.sa45.team3.exception.SupplierNotFound;
-
+import com.sa45.team3.model.Product;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.ProductRepository;
 //import com.sa45.team3.repository.SupplierRepository;
@@ -64,10 +65,24 @@ public class AdminSupplierControl {
 	SupplierRepository supRepository;*/
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView supplierListPage(HttpSession session) {
+	public ModelAndView supplierListPage(@RequestParam(required = false) Integer page) {
 		ModelAndView mav = new ModelAndView("supplier-list");
 		ArrayList<Supplier> supplierList = (ArrayList<Supplier>)supService.findAllSuppliers();//supRepository.findAll();
-		mav.addObject("supplierList", supplierList);
+		
+		PagedListHolder<Supplier> ph = new PagedListHolder<>();
+		ph.setSource(supplierList);
+		ph.setPageSize(10);
+		if (page == null || page < 1 || page > ph.getPageCount()) {
+			ph.setPage(0);
+		}
+		else {
+			ph.setPage(page);
+		}
+		mav.addObject("page", ph.getPage()); // current page
+		mav.addObject("supplierList", ph.getPageList());
+		mav.addObject("maxPages", ph.getPageCount()-1); // number of pages
+		
+		//mav.addObject("supplierList", supplierList);
 		
 		return mav;
 	}
