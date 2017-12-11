@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sa45.team3.model.UsageRecord;
+import com.sa45.team3.model.UsageRecordDetails;
+import com.sa45.team3.repository.UsageRecordDetailsRepository;
 import com.sa45.team3.repository.UsageRecordRepository;
 
 
@@ -17,7 +19,8 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 
 	@Resource
 	private UsageRecordRepository usageRecordRepository;
-
+	@Resource
+	private UsageRecordDetailsRepository usageRecordDetailsRepository;
 	
 
 	/* (non-Javadoc)
@@ -47,5 +50,12 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 	@Transactional
 	public UsageRecord createUsageRecord(UsageRecord uR) {
 		return usageRecordRepository.saveAndFlush(uR);
+	}
+	
+	@Override
+	@Transactional
+	public UsageRecordDetails findRecordDetails(int did) {
+		return usageRecordDetailsRepository.findOne(did);
+
 	}
 }

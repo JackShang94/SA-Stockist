@@ -37,11 +37,15 @@ public class AuthorizeControl{
 		
 		if(staff.getName()!=null && staff.getPassword()!=null)
 		{
-			Staff s=sService.authenticate(staff.getName(), staff.getPassword());
+			Staff s= sService.authenticate(staff.getName(), staff.getPassword());
 			if(s!=null)
 			{				
-				mav = new ModelAndView("browse-catalog");
-				session.setAttribute("role", "admin");
+				session.setAttribute("role", s.getRole());
+				if (s.getRole()=="Admin") {
+					mav = new ModelAndView("product-list");
+				}else {
+					mav = new ModelAndView("product-list");
+				}
 				return mav;
 			}
 		}

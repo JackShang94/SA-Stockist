@@ -1,37 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@	taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page import="java.util.*"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="<c:url value="/css/simple.css" />" rel="stylesheet"
+	type="text/css">
+
 <title>Reorder Form</title>
 </head>
 <body>
+	<h1>Print Reorder Form</h1>
+	<br />
+	<span>Search by:</span>
+	<br />
+	<form>
+		<label>Week ending on: </label> <input type="date" name="OrderDateRange"><br> <input
+			type="submit" value="Start Search">
+	</form>
+	<br />
+		<h3>Search Results</h3>
 		<table>
 			<tr>
-				<td>Item Number:</td>
-				<td><input type="text" name="ItemNumber" size=25 maxlength=30></td>
+				<th>Item Number</th>
+				<th>Order ID</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Order Date</th>
 			</tr>
-			<tr>
-				<td>Order ID:</td>
-				<td><input type="text" name="OrderID" size=25 maxlength=30></td>
-			</tr>
-			<tr>
-				<td>Quantity:</td>
-				<td><input type="text" name="Quantity" size=25 maxlength=30></td>
-			</tr>
-			<tr>
-				<td>Price:</td>
-				<td><input type="text" name="Price" size=25 maxlength=30></td>
-			</tr>
-			<tr>
-				<td>Order Date:</td>
-				<td><input type="text" name="OrderDate" size=25 maxlength=30></td>
-			</tr>
-			<tr>
-				<td colspan="1"></td>
-				<td colspan="2" align="right"><input type="submit" value="SUBMIT"></td>
-			</tr>
+
+			<c:forEach var="rlist" items="${rList}">
+				<tr>
+					<td>${rlist.reorderID}</td>
+					<td>${rlist.staffID}</td>
+					<td>${rlist.dateOrdered}</td>
+				</tr>
+			</c:forEach>
 		</table>
 </body>
 </html>

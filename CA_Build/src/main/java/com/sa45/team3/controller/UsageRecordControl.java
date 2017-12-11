@@ -1,24 +1,30 @@
 package com.sa45.team3.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sa45.team3.model.UsageRecord;
+import com.sa45.team3.model.UsageRecordDetails;
 import com.sa45.team3.repository.UsageRecordRepository;
+import com.sa45.team3.service.UsageRecordService;
 
-@RequestMapping(value = "/mechanic")
+@RequestMapping("/mechanic")
 @Controller
 public class UsageRecordControl {
+
+	@Autowired
+	private UsageRecordService uService;
 
 	@Resource
 	UsageRecordRepository prepo;
@@ -36,9 +42,8 @@ public class UsageRecordControl {
 	@RequestMapping(value = "/usage-record/create", method = RequestMethod.GET)
 	public ModelAndView usageRecordAdd() {
 
-		ModelAndView mav = new ModelAndView("usage-record-add");
-		List<UsageRecord> usageRecordAdd = new ArrayList<UsageRecord>();
-		mav.addObject("usageRecordAdd", usageRecordAdd);
+		ModelAndView mav = new ModelAndView("usage-record-add", "usageRecord", new UsageRecord());
+		mav.addObject("usageRecordList", uService.findAllrecordIDs());
 		return mav;
 		// learn how to do dropdown fields in the web page
 	}
@@ -50,15 +55,23 @@ public class UsageRecordControl {
 		// what does bindingresult do?
 
 		if (result.hasErrors())
-			return new ModelAndView("usagerecord-add"); // return to this page if error
+			return new ModelAndView("usage-record-add"); // return to this page if error
 
 		ModelAndView mav = new ModelAndView();
 		String message = "New usage record: " + usageRecord.getRecordID() + " was successfully created.";
 
-		prepo.saveAndFlush(usageRecord);
+		uService.createUsageRecord(usageRecord);
 		mav.setViewName("redirect:/mechanic/usage-record");
 
 		redirectAttributes.addFlashAttribute("message", message); // what does this do?
+		return mav;
+	}
+
+	@RequestMapping(value = "/usage-record/display/{id}", method = RequestMethod.GET)
+	public ModelAndView newUsageRecordDetailsPage(@PathVariable int id) {
+		UsageRecordDetails d = uService.findRecordDetails(id);
+		ModelAndView mav = new ModelAndView("usage-record-details", "usageRecordDetails", new UsageRecordDetails());
+		mav.addObject("usageRecordDetailsList", uService.findRecordDetails(id));
 		return mav;
 	}
 

@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.SupplierRepository;
+
+
 @Service
 public class SupplierServiceImpl implements SupplierService {
 
@@ -26,6 +28,16 @@ public class SupplierServiceImpl implements SupplierService {
 		ArrayList<Supplier> l = (ArrayList<Supplier>) supRepository.findAll();
 		return l;
 	}
-
 	
+	@Override
+	@Transactional
+	public ArrayList<String> findAllSupplierIDs() {
+		return supRepository.findAllSupplierIDs();
+	}
+
+	@Override
+	@Transactional
+	public Supplier createSupplier(Supplier sup) {
+		return supRepository.saveAndFlush(sup);
+	}
 }

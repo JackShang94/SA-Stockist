@@ -13,6 +13,8 @@ package com.sa45.team3.repository;
 
 
 
+import java.util.ArrayList;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 /*import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;*/
@@ -22,7 +24,11 @@ import org.springframework.data.repository.query.Param;
 import com.sa45.team3.model.Supplier;
 
 
-public interface SupplierRepository extends JpaRepository<Supplier, Integer>{
+public interface SupplierRepository extends JpaRepository<Supplier, String>{
+
+	@Query
+	("SELECT DISTINCT s.supplierID FROM Supplier s")
+	ArrayList<String> findAllSupplierIDs();
 
 	/*@Query
 	("SELECT s FROM Supplier s where s.supplierID = :supplierID")
