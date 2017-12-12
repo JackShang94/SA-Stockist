@@ -45,6 +45,7 @@ public class ReorderPageControl {
 	public ModelAndView reorder()
 	{
 		//Staff staff = new Staff();
+		float sum = 0;
 		ArrayList<Integer> sList = sService.findAllSupplierIDs();
 		ArrayList<Product> reorderList = (ArrayList<Product>) ps.findAll();
 		ArrayList<Integer> reorderQty = ps.findQty_ReorderQty();
@@ -61,6 +62,7 @@ public class ReorderPageControl {
 					reorderReport.setMinorderQty(reorderList.get(j).getMinOrder());
 					reorderReport.setOrderQty(Math.abs(reorderQty.get(j)));
 					reorderReport.setPrice(Math.abs(reorderQty.get(j))*reorderList.get(j).getUnitPrice());
+					sum = (int) (sum + Math.abs(reorderQty.get(j))*reorderList.get(j).getUnitPrice());
 					reorderReports.add(reorderReport);
 				}else {
 					ReorderReport reorderReport = new ReorderReport();
@@ -71,6 +73,7 @@ public class ReorderPageControl {
 					reorderReport.setMinorderQty(reorderList.get(j).getMinOrder());
 					reorderReport.setOrderQty(reorderList.get(j).getMinOrder());
 					reorderReport.setPrice(reorderList.get(j).getMinOrder()*reorderList.get(j).getUnitPrice());
+					sum = (int) (sum + reorderList.get(j).getMinOrder()*reorderList.get(j).getUnitPrice());
 					reorderReports.add(reorderReport);
 					
 				}
@@ -89,6 +92,7 @@ public class ReorderPageControl {
 		//ArrayList<staff> uList=uService.findAllUsers();
 		mv.addObject("sList",sList);
 		mv.addObject("reorderReport", reorderReports);
+		mv.addObject("sum",sum);
 		return mv;
 	}
 	
@@ -96,6 +100,7 @@ public class ReorderPageControl {
 	public ModelAndView reorderCheck(HttpServletRequest request)
 	{
 		//Staff staff = new Staff();
+		float sum = 0;
 		ModelAndView mv= new ModelAndView("redirect:/reorder/lists");
 		String filter = request.getParameter("select_supplier");
 		if (filter.equals("ALL")) {
@@ -120,6 +125,7 @@ public class ReorderPageControl {
 					reorderReport.setMinorderQty(reorderList.get(j).getMinOrder());
 					reorderReport.setOrderQty(Math.abs(reorderQty.get(j)));
 					reorderReport.setPrice(Math.abs(reorderQty.get(j))*reorderList.get(j).getUnitPrice());
+					sum = sum + Math.abs(reorderQty.get(j))*reorderList.get(j).getUnitPrice();
 					reorderReports.add(reorderReport);
 				}else {
 					ReorderReport reorderReport = new ReorderReport();
@@ -130,6 +136,7 @@ public class ReorderPageControl {
 					reorderReport.setMinorderQty(reorderList.get(j).getMinOrder());
 					reorderReport.setOrderQty(reorderList.get(j).getMinOrder());
 					reorderReport.setPrice(reorderList.get(j).getMinOrder()*reorderList.get(j).getUnitPrice());
+					sum = sum + reorderList.get(j).getMinOrder()*reorderList.get(j).getUnitPrice();
 					reorderReports.add(reorderReport);
 					
 				}
@@ -151,6 +158,7 @@ public class ReorderPageControl {
 		mv.addObject("xlist", supplerIDs);
 		mv.addObject("sList", sList);
 		mv.addObject("reorderReport", reorderReports);
+		mv.addObject("sum",sum);
 		return mv;
 	}
 

@@ -48,7 +48,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			 <c:forEach var="plist" items="${reorderReport}">
+			<c:forEach var="plist" items="${reorderReport}">
 				<tr>
 					<td>${plist.partNumber}</td>
 					<td>${plist.unitPrice}</td>
@@ -58,52 +58,33 @@
 					<td>${plist.orderQty}</td>
 					<td>${plist.price}</td>
 				</tr>
-			</c:forEach> 
+			</c:forEach>
 		</tbody>
 	</table>
-	<%-- 	<div id="cl-wrapper">
 
-		<div class="container-fluid" id="pcont">		
-		<div class="cl-mcont">
-		
-			<div class="row">
-						<div class="content">
-							<div class="table-responsive">
-								<table class="table table-bordered" id="datatable" >
-								<thead>
-									<tr>
-										<th>partNumber</th>
-										<th>unitPrice</th>
-										<th>quantity</th>
-										<th>reorderQty</th>
-										<th>minOrderQty</th>
-										<th>orderQty</th>
-										<th>price</th>
-									</tr>
-								</thead>
-								<tbody>
-								<c:forEach var="plist" items="${pList}">
-
-									<tr>
-										<td>${plist.partNumber}</td>
-										<td>${plist.unitPrice}</td>
-										<td>${plist.quantity}</td>
-										<td>${plist.reorderQty}</td>
-										<td>${plist.minOrderQty}</td>
-										<td>${plist.orderQty}</td>
-										<td>${plist.price}</td>
-									</tr>
-
-								</c:forEach>
-								</tbody>
-								</table>			
-											
-							</div>
-						</div>			
-				</div>
-			</div>		
-		  </div>
-		</div> 	
-		 --%>
+	<table class="table table-bordered" id="datatable">
+		<thead>
+			<tr>
+				<th style="visibility: hidden; width: 199.567px">partNum</th>
+				<th style="visibility: hidden; width: 152.733px">uniPnrc</th>
+				<th style="visibility: hidden; width: 144.583px">quanntt</th>
+				<th style="visibility: hidden; width: 182.717px">reorerQt</th>
+				<th style="visibility: hidden; width: 210.9px">minrderQt</th>
+				<th style="visibility: hidden; width: 154.85px">orerQt</th>
+				<th>Total price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>${sum}</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>
