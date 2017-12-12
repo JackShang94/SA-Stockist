@@ -9,23 +9,23 @@ import javax.persistence.Table;
 public class Product {
 	
 	@Id
-	private int partNumber;
+	private Integer partNumber;
 	private String productName;
 	private float unitPrice;
-	private int quantity;
+	private Integer quantity;
 	private String description;
 	private String color;
 	private String dimension;
-	private int reorderPoint;
-	private int minOrder;
-	private int supplierID;
+	private Integer reorderPoint;
+	private Integer minOrder;
+	private Integer supplierID;
 	private String shelfLocation;
 	
 	
-	public int getPartNumber() {
+	public Integer getPartNumber() {
 		return partNumber;
 	}
-	public void setPartNumber(int partNumber) {
+	public void setPartNumber(Integer partNumber) {
 		this.partNumber = partNumber;
 	}
 	public String getProductName() {
@@ -40,10 +40,10 @@ public class Product {
 	public void setUnitPrice(float unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 	public String getDescription() {
@@ -64,22 +64,22 @@ public class Product {
 	public void setDimension(String dimension) {
 		this.dimension = dimension;
 	}
-	public int getReorderPoint() {
+	public Integer getReorderPoint() {
 		return reorderPoint;
 	}
-	public void setReorderPoint(int reorderPoint) {
+	public void setReorderPoint(Integer reorderPoint) {
 		this.reorderPoint = reorderPoint;
 	}
-	public int getMinOrder() {
+	public Integer getMinOrder() {
 		return minOrder;
 	}
-	public void setMinOrder(int minOrder) {
+	public void setMinOrder(Integer minOrder) {
 		this.minOrder = minOrder;
 	}
-	public int getSupplierID() {
+	public Integer getSupplierID() {
 		return supplierID;
 	}
-	public void setSupplierID(int supplierID) {
+	public void setSupplierID(Integer supplierID) {
 		this.supplierID = supplierID;
 	}
 	public String getShelfLocation() {
@@ -91,8 +91,8 @@ public class Product {
 	public Product() {
 		super();
 	}
-	public Product(int partNumber, String productName, float unitPrice, int quantity, String description, String color,
-			String dimension, int reorderPoint, int minOrder, int supplierID, String shelfLocation) {
+	public Product(Integer partNumber, String productName, float unitPrice, Integer quantity, String description, String color,
+			String dimension, Integer reorderPoint, Integer minOrder, Integer supplierID, String shelfLocation) {
 		super();
 		this.partNumber = partNumber;
 		this.productName = productName;
