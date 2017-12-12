@@ -77,7 +77,7 @@ public class ProductControl {
 
 			case "ID":
 				Integer searchInt = Integer.parseInt(searchVar);
-				productList = productService.findProductByID(searchInt);
+				productList.add(productService.findProductByID(searchInt));
 				break; 
 
 			case "Name":
@@ -152,7 +152,7 @@ public class ProductControl {
 
 			case "ID":
 				Integer searchInt = Integer.parseInt(searchVar);
-				productList = productService.findProductByID(searchInt);
+				productList.add(productService.findProductByID(searchInt));
 				break; 
 						
 			case "Name":

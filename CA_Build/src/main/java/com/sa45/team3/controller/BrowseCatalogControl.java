@@ -74,7 +74,7 @@ public class BrowseCatalogControl {
 
 			case "ID":
 				Integer searchInt = Integer.parseInt(searchVar);
-				productList = prepo.findProductByID(searchInt);
+				productList.add(prepo.findProductByID(searchInt));
 				break; // don't forget to BREAK!!!!!!!!!!!!!!!
 
 			case "Name":
