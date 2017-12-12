@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<h1>Details</h1>
+	<h1>Details</h1>"src/main/webapp/WEB-INF/views/admin-usage-record-edit.jsp"
 
 	<table class="table table-bordered">
 		<tr>

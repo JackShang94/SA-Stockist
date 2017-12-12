@@ -40,6 +40,8 @@
 										<td>${recordList.usageDate}</td>
 										<td>${recordList.customerName}</td>
 										<td>${recordList.contactNumber}</td>
+										<td><a href="${pageContext.request.contextPath}/mechanic/usage-record-display-${recordList.recordID}">details</a></td>
+										<td><a href="${pageContext.request.contextPath}/mechanic/usage-record-edit/${recordList.recordID}">edit</a></td>
 									</tr>
 
 								</c:forEach>

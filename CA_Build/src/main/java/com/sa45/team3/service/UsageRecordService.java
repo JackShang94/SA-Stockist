@@ -21,5 +21,7 @@ public interface UsageRecordService {
 	ArrayList<UsageRecordDetails> findAllRecordDetailsByID(Integer id);
 
 	UsageRecordDetails findRecordDetails(UsageDetailsPrimaryKey did);
+
+	UsageRecord editUsageRecord(UsageRecord uR);
 	
 }
