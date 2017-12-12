@@ -45,6 +45,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Transactional
 	@Query("UPDATE Product p SET p.quantity =(p.quantity - :quantity) WHERE p.partNumber=:partNumber")
 	void updateQuantity(@Param("quantity") int quantity, @Param("partNumber") int partNumber);
+	
+	@Query("SELECT p FROM Product p WHERE p.quantity<= p.reorderPoint")
+	ArrayList<Product> findProductsToReorder(); //get all products under minimum level
+	
+	@Query("SELECT p FROM Product p WHERE (p.quantity<= p.reorderPoint AND p.supplierID =:supplierID")
+	ArrayList<Product> findProductsToReorder(@Param("supplierID")int supplierID); //get products to reorder by supplier
 
 
 }
