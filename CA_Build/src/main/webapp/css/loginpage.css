@@ -17,7 +17,7 @@
 }
 
 
-h1{
+#logintitlebar h1{
   display: inline;
   border: 2px solid blue;
  font-family: Palatino Linotype;
