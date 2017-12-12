@@ -1,0 +1,70 @@
+#logintitlebar{
+  
+  margin: 0px;
+  padding-top: 80px;
+  background-image: url(https://www.iss.nus.edu.sg/images/default-source/About-Us/7.0-about-us---7.2-our-story/university.jpg?sfvrsn=8);
+  background-blend-mode: luminosity;
+  background-color: blue;
+  height:200px;
+  text-align: center;
+  justify-content: center;
+  
+  
+  
+  
+}
+
+#loginpage{
+    
+}
+
+h1{
+  display: inline;
+  border: 2px solid blue;
+ font-family: Palatino Linotype;
+  background-color: white;
+
+  
+  
+}
+
+body{
+  background-color: 
+}
+
+#loginpage table
+{
+
+	font-size: 12px;
+  border: 1px solid grey;
+  margin: 0 auto;
+  margin-top: 20px;
+  background-color: 
+	
+}
+#loginpage th
+{
+	font-size: 14px;
+	color: black;
+	padding: 10px 8px;
+	border-bottom: 2px solid #6678b1;
+}
+
+#loginpage td
+{
+	color: black;
+	padding: 8px;
+	
+}
+
+#loginpage button{
+  margin: 0 auto;
+  display: block;
+  
+}
+
+#loginpage p{
+  margin-top: 10px;
+  margin-bottom: 0px;
+  text-align: center;
+}

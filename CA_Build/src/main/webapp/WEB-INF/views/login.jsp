@@ -11,9 +11,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+<div id="logintitlebar">
+<h1>Team 3 Stock IST</h1>
+</div>
+<div id="loginpage">
 <form:form method="post" modelAttribute="staff" action="${pageContext.request.contextPath}/Authorize/validate">  
 <form:errors path="*" cssClass="error" />  
+
+<p>Welcome! Please log in.</p>
 <table>  
   <tr>  
     <td>userName</td>  
@@ -37,5 +42,6 @@
 </h3>
 
 </form:form>  
+</div>
 </body>
 </html>
