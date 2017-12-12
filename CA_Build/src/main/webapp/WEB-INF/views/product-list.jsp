@@ -11,20 +11,33 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Product list</h1>
-<a href="${pageContext.request.contextPath}/product/productcreate">Add Product</a>
+<h1 align="center" >View Product list</h1>
 	<form:form method="POST"
 		action="${pageContext.request.contextPath}/product/product-list">
-		<select name="filter">
-			<option value="ID">ID</option>
-			<option value="Name">Name</option>
-			<option value="Description">Description</option>
-			<option value="Color">Color</option>
-			<option value="Dimension">Dimension</option>
-		</select>
-		<input type="text" name="searchVar" />
-		<input type="submit" value="Search" />
-	</form:form>
+		<div class="form-group">
+			<div class="col-sm-3">
+				<select name="filter" class="form-control">
+					<option value="ID">ID</option>
+					<option value="Name">Name</option>
+					<option value="Description">Description</option>
+					<option value="Color">Color</option>
+					<option value="Dimension">Dimension</option>
+				</select>
+			</div>
+			<div class="col-sm-3">
+				<input type="text" name="searchVar" class="form-control" />
+			</div>
+			<div class="col-sm-3">
+				<input type="submit" value="Search" class="btn btn-primary " />
+			</div>
+			<div align="right">
+				<a class="btn btn-success "
+					href="${pageContext.request.contextPath}/product/productcreate">Add
+					Product</a>
+			</div>
+			</div>
+			</form:form>
+		
 		<div id="cl-wrapper">
 
 		<div class="container-fluid" id="pcont">		
@@ -70,44 +83,46 @@
 										<td>${plist.minOrder}</td>
 										<td>${plist.supplierID}</td>
 										<td>${plist.shelfLocation}</td>
-										<td><a href="${pageContext.request.contextPath}/product/editproduct-${plist.partNumber}">edit</a><br/><a href="${pageContext.request.contextPath}/product/deleteproduct/${plist.partNumber}">delete</a></td>
+										<td><a class="fa fa-pencil fa-fw" href="${pageContext.request.contextPath}/product/editproduct-${plist.partNumber}">edit</a><br/>
+										<a class="fa fa-book fa-fw" href="${pageContext.request.contextPath}/product/deleteproduct/${plist.partNumber}">delete</a></td>
 									</tr>
-
 								</c:forEach>
 								</tbody>
-								</table>			
-											
+								</table>														
 							</div>
 						</div>			
 				</div>
 			</div>		
 		  </div>
-		</div> 
-		
-		<c:url value="${request.contextPath}/product/product-list"
-		var="prev">
+		</div>
+	<!-- Paging -->
+	<c:url value="${request.contextPath}/product/product-list" var="prev">
 		<c:param name="page" value="${page-1}" />
 	</c:url>
-	<c:url value="${request.contextPath}/product/product-list"
-		var="next">
+	<c:url value="${request.contextPath}/product/product-list" var="next">
 		<c:param name="page" value="${page+1}" />
 	</c:url>
-	<span> <a href="<c:out value="${prev}" />">Previous</a> <c:forEach
-			begin="0" end="${maxPages}" step="1" varStatus="i">
-			<c:choose>
-				<c:when test="${page == i.index}">
-					<span>${i.index}</span>
-				</c:when>
-				<c:otherwise>
-					<c:url value="${request.contextPath}/product/product-list"
-						var="url">
-						<c:param name="page" value="${i.index}" />
-					</c:url>
-					<a href='<c:out value="${url}" />'>${i.index}</a>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach> <a href="<c:out value="${next}" />">Next</a>
-	</span>
-		
+	<div class="dataTables_paginate paging_bs_normal">
+		<ul class="pagination">
+			<li class="prev disabled"><span class="fa fa-angle-left"><a
+					href="<c:out value="${prev}" />">Previous</a></span></li>
+			<c:forEach begin="0" end="${maxPages}" step="1" varStatus="i">
+				<c:choose>
+					<c:when test="${page == i.index}">
+						<li><span>${i.index}</span></li>
+					</c:when>
+					<c:otherwise>
+						<c:url value="${request.contextPath}/product/product-list"
+							var="url">
+							<c:param name="page" value="${i.index}" />
+						</c:url>
+						<li><a href='<c:out value="${url}" />'>${i.index}</a></li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<li class="next"><a href="<c:out value="${next}" />">Next<span
+					class="fa fa-angle-right"></span></a></li>
+		</ul>
+	</div>
 </body>
 </html>
