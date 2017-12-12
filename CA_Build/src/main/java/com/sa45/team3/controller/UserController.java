@@ -5,7 +5,7 @@ package com.sa45.team3.controller;
 	import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
+
 import javax.validation.Valid;
 
 	import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import javax.validation.Valid;
 	import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
      import com.sa45.team3.exception.staffNotFound;
-import com.sa45.team3.model.Product;
+
 import com.sa45.team3.model.Staff;
 import com.sa45.team3.repository.StaffRepository;
 import com.sa45.team3.service.StaffService;
@@ -38,10 +38,13 @@ import com.sa45.team3.service.StaffService;
 		
 		@Resource
 		private StaffRepository sRepo;
+
+	
 		
 		@RequestMapping(value="/create",method=RequestMethod.GET)
 		public ModelAndView newUserPage()
 		{
+			
 			Staff staff = new Staff();
 			ModelAndView mav=new ModelAndView("user-new","staff",staff);
 			
@@ -62,7 +65,9 @@ import com.sa45.team3.service.StaffService;
 			}else {
 				mav.addObject("dropList", roleList);
 			}
+			
 			return mav;
+			
 		}
 		
 		
