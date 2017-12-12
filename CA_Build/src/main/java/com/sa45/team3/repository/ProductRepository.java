@@ -49,8 +49,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p WHERE p.quantity<= p.reorderPoint")
 	ArrayList<Product> findProductsToReorder(); //get all products under minimum level
 	
-	@Query("SELECT p FROM Product p WHERE (p.quantity<= p.reorderPoint AND p.supplierID =:supplierID")
-	ArrayList<Product> findProductsToReorder(@Param("supplierID")int supplierID); //get products to reorder by supplier
+/*	@Query("SELECT p FROM Product p WHERE (p.quantity<= p.reorderPoint AND p.supplierID =:supplierID")
+	ArrayList<Product> findProductsToReorder(@Param("supplierID")int supplierID);*/ //get products to reorder by supplier
 
 
 }
