@@ -5,12 +5,12 @@
 
 <h3>New User page</h3>
 <form:form method="POST" commandName="staff"
-	action="${pageContext.request.contextPath}/staff/create.html">
+	action="${pageContext.request.contextPath}/staff/create">
 	<table>
 		<tbody>
 			<tr>
 				<td><spring:message code="staffID" /></td>
-				<td><form:input path="staffID" /></td>
+				<td><form:input path="staffID" value="${PK}" readonly="true" /></td>
 				<td><form:errors path="staffID" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
