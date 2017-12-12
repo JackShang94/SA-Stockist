@@ -3,8 +3,10 @@ package com.sa45.team3.repository;
 import java.util.ArrayList;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sa45.team3.model.Product;
 
@@ -14,7 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	//id
 	
 	@Query("SELECT p FROM Product p WHERE p.partNumber=:searchNumber")
-	ArrayList<Product> findProductByID(@Param("searchNumber") int searchNumber);
+	Product findProductByID(@Param("searchNumber") int searchNumber);
 	
 	//name
 	//add wildcards and LIKE 
@@ -38,6 +40,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	//
 	@Query("SELECT p FROM Product p WHERE p.partNumber=:searchNumber")
 	Product findProductByPartnumber(@Param("searchNumber") int searchNumber);
+	
+	@Modifying
+	@Transactional
+	@Query("UPDATE Product p SET p.quantity =(p.quantity - :quantity) WHERE p.partNumber=:partNumber")
+	void updateQuantity(@Param("quantity") int quantity, @Param("partNumber") int partNumber);
 
 
 }

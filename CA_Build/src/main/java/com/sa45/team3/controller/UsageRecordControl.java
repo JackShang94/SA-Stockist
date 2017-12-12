@@ -25,11 +25,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sa45.team3.model.Product;
+import com.sa45.team3.model.Reorders;
 import com.sa45.team3.model.UsageRecord;
 import com.sa45.team3.model.UsageRecordDetails;
 import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.UsageRecordDetailsRepository;
 import com.sa45.team3.repository.UsageRecordRepository;
+import com.sa45.team3.service.ProductCatalogService;
 import com.sa45.team3.service.UsageRecordService;
 
 @RequestMapping("/mechanic")
@@ -44,14 +46,14 @@ public class UsageRecordControl {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-		
+
 	}
-	
+
 	@Resource
 	UsageRecordRepository prepo;
 
-	@Resource
-	ProductRepository productRepository;
+	@Autowired
+	ProductCatalogService productRepository;
 
 	@Resource
 	UsageRecordDetailsRepository urdRepo;
@@ -84,6 +86,15 @@ public class UsageRecordControl {
 
 		List<Product> productList = productRepository.findAll();
 		mav.addObject("pList", productList);
+		List<UsageRecord> usageRecordList = prepo.findAll();
+		if (usageRecordList.isEmpty()) {
+			mav.addObject("PK",null);
+		}else {
+			int lastRecordID =  usageRecordList.get(usageRecordList.size()-1).getRecordID();
+			String pkID = String.valueOf(lastRecordID+1);
+			mav.addObject("PK", pkID);
+		}
+		
 		return mav;
 		// learn how to do dropdown fields in the web page
 	}
@@ -122,11 +133,27 @@ public class UsageRecordControl {
 			String key = (String) i.next();
 			String value = ((String[]) params.get(key))[0];
 
-			int intKey = Integer.parseInt(key);
-			int intValue = Integer.parseInt(value);
-			if (intValue != 0) {
+			int partNum = Integer.parseInt(key);
+			int partQty = Integer.parseInt(value);
+			if (partQty != 0) {
 
-				urdRepo.addNewDetail(recordID, intKey, intValue);
+				urdRepo.addNewDetail(recordID, partNum, partQty);
+
+				// UPDATES THE QUANTITY IN PRODUCT TABLE AFTER USAGE IS RECORDED
+				productRepository.updateQuantity(partQty, partNum);
+
+				// START OF AUTRO TRIGGER CODE //
+				Product cProduct = productRepository.findProductByID(partNum);
+
+				if (cProduct.getQuantity() <= cProduct.getReorderPoint()) {
+
+					/*
+					 * //Refine logic for reordering quantity !!!!! // int minOrder =
+					 * cProduct.getMinOrder(); List<Reorders> reOrdersList = reRepo.findAll(); int
+					 * nextReorderID = reOrdersList.size() + 1; reRepo.addNewRecord(nextReorderID,
+					 * partNum, partQty);
+					 */
+				}
 			}
 		}
 

@@ -15,7 +15,7 @@
 		<tbody>
 			<tr>
 				<td>Record ID</td>
-				<td><form:input path="recordID" /></td>
+				<td><form:input path="recordID" value = "${PK}"/></td>
 				<td><form:errors path="recordID" cssStyle="color: red;" /></td>
 			</tr>
 
