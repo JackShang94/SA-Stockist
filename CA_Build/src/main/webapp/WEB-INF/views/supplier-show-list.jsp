@@ -1,18 +1,15 @@
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<h1>Supplier List page</h1>
-<a href="${pageContext.request.contextPath}/admin/create">Add Supplier</a>
-<br></br>
-<a href="${pageContext.request.contextPath}/admin/list">Show All Supplier List</a>
 <c:if test="${fn:length(supplierList) gt 0}">
 
 <form:form method="POST"
-		action="${pageContext.request.contextPath}/admin/list">
+		action="${pageContext.request.contextPath}/admin/supplier-show-list">
 		<select name="filter">
 			<option value="supplierName">Supplier Name</option>
 			<option value="contactNumber">Contact Number</option>
@@ -63,11 +60,11 @@
 		  </div>
 		</div> 	
 
-<c:url value="${request.contextPath}/admin/list"
+<c:url value="${request.contextPath}/admin/supplier-show-list"
 		var="prev">
 		<c:param name="page" value="${page-1}" />
 	</c:url>
-	<c:url value="${request.contextPath}/admin/list"
+	<c:url value="${request.contextPath}/admin/supplier-show-list"
 		var="next">
 		<c:param name="page" value="${page+1}" />
 	</c:url>
@@ -78,7 +75,7 @@
 					<span>${i.index}</span>
 				</c:when>
 				<c:otherwise>
-					<c:url value="${request.contextPath}/admin/list"
+					<c:url value="${request.contextPath}/admin/supplier-show-list"
 						var="url">
 						<c:param name="page" value="${i.index}" />
 					</c:url>

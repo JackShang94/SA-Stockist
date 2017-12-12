@@ -26,4 +26,8 @@ public interface SupplierService {
 	
 	Supplier findSupplier(Integer supid);
 	
+	ArrayList<Supplier> searchSupplierByContactNumber(Integer num);
+	
+	ArrayList<Supplier>searchSupplierByName(String name);
+	
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sa45.team3.exception.SupplierCantDelete;
+import com.sa45.team3.model.Product;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.SupplierRepository;
@@ -90,5 +91,18 @@ public class SupplierServiceImpl implements SupplierService {
 	public Supplier findSupplier(Integer supid) {
 		return supRepository.findOne(supid);
 
+	}
+	
+	@Override
+	@Transactional
+	public ArrayList<Supplier> searchSupplierByContactNumber(Integer num){		
+		return supRepository.searchSupplierByContactNumber(num);
+	}
+	
+	@Override
+	@Transactional
+	public ArrayList<Supplier>searchSupplierByName(String name){
+		
+		return supRepository.searchSupplierByName(name);
 	}
 }
