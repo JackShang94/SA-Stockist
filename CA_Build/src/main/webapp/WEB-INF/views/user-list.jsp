@@ -38,7 +38,7 @@
 										<td>${staff.role}</td>
 										<td>${staff.contactNumber}</td>
 										<td>${staff.active}</td>
-										<td><a href="${pageContext.request.contextPath}/staff/edit-${staff.staffID}">edit</a></td>
+										<td><a href="${pageContext.request.contextPath}/staff/edit-${staff.staffID}">edit</a></br><a href="${pageContext.request.contextPath}/staff/delete-${staff.staffID}">Delete</a></td>
 									</tr>
 
 								</c:forEach>
@@ -52,4 +52,7 @@
 		  </div>
 		</div> 	
 
+</c:if>
+<c:if test="${not empty message}">
+   <c:out value="${message}"/>
 </c:if>

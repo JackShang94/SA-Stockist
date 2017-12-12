@@ -55,5 +55,8 @@
 			</tr>
 		</tbody>
 	</table>
+	<c:if test="${not empty message}">
+   <c:out value="${message}"/>
+</c:if>
 </form:form>
 
