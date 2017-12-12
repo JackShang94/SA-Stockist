@@ -1,16 +1,10 @@
 package com.sa45.team3.controller;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-//import javax.annotation.Resource;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
@@ -24,15 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.sa45.team3.exception.SupplierCantDelete;
 import com.sa45.team3.exception.SupplierNotFound;
-import com.sa45.team3.model.Product;
-import com.sa45.team3.model.Staff;
-import com.sa45.team3.model.Supplier;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.ProductRepository;
-//import com.sa45.team3.repository.SupplierRepository;
 import com.sa45.team3.service.SupplierService;
 import com.sa45.team3.validator.SupplierValidator;
 
@@ -125,68 +113,7 @@ public class AdminSupplierControl {
 		return mav;
 	}
 
-	@RequestMapping(value = "/supplier-show-list", method = RequestMethod.GET)
-	public ModelAndView ShowSupplierList(@RequestParam(required = false) Integer page) {
-
-		ModelAndView mav = new ModelAndView("supplier-show-list"); // create jsp
-		List<Supplier> supplierList = supService.findAllSuppliers();
-
-		PagedListHolder<Supplier> ph = new PagedListHolder<>();
-		ph.setSource(supplierList);
-		ph.setPageSize(5);
-		if (page == null || page < 1 || page > ph.getPageCount()) {
-			ph.setPage(0);
-		} else {
-			ph.setPage(page);
-		}
-		mav.addObject("page", ph.getPage()); // current page
-		mav.addObject("supplierList", ph.getPageList());
-		mav.addObject("maxPages", ph.getPageCount() - 1); // number of pages
-		return mav;
-	}
-
-	@RequestMapping(value = "/supplier-show-list", method = RequestMethod.POST)
-	public ModelAndView SupplierListPageFilter(HttpServletRequest request) {
-
-		String error;
-		ModelAndView mav = new ModelAndView("supplier-show-list"); // create jsp
-		String filter = request.getParameter("filter");
-		String searchVar = request.getParameter("searchVar");
-		ArrayList<Supplier> supplierList = new ArrayList<Supplier>();
-
-		try {
-			switch (filter) {
-
-			case "contactNumber":
-				Integer searchInt = Integer.parseInt(searchVar);
-				supplierList = supService.searchSupplierByContactNumber(searchInt);
-				break;
-
-			case "supplierName":
-				supplierList = supService.searchSupplierByName(searchVar);
-				break;
-
-			}
-		} catch (NumberFormatException e) {
-
-			error = "Contact Number only accepts digits.";
-			supplierList = (ArrayList<Supplier>) supService.findAllSuppliers();
-
-		}
-
-		catch (Exception e) {
-
-			error = "No entries returned.";
-		}
-
-		finally {
-			String supplierCount = Integer.toString(supplierList.size());
-			mav.addObject("supplierCount", supplierCount);
-
-			mav.addObject("supplierList", supplierList);
-		}
-		return mav;
-	}
+	
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView newSupplierPage(@ModelAttribute Supplier supplier, HttpSession session, BindingResult result) {
