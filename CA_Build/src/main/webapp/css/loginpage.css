@@ -1,10 +1,11 @@
 #logintitlebar{
   
-  margin: 0px;
+
   padding-top: 80px;
   background-image: url(https://www.iss.nus.edu.sg/images/default-source/About-Us/7.0-about-us---7.2-our-story/university.jpg?sfvrsn=8);
   background-blend-mode: luminosity;
   background-color: blue;
+  background-position:center;
   height:200px;
   text-align: center;
   justify-content: center;
