@@ -86,6 +86,15 @@ public class UsageRecordControl {
 
 		List<Product> productList = productRepository.findAll();
 		mav.addObject("pList", productList);
+		List<UsageRecord> usageRecordList = prepo.findAll();
+		if (usageRecordList.isEmpty()) {
+			mav.addObject("PK",null);
+		}else {
+			int lastRecordID =  usageRecordList.get(usageRecordList.size()-1).getRecordID();
+			String pkID = String.valueOf(lastRecordID+1);
+			mav.addObject("PK", pkID);
+		}
+		
 		return mav;
 		// learn how to do dropdown fields in the web page
 	}
