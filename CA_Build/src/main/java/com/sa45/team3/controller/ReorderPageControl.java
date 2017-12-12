@@ -49,7 +49,6 @@ public class ReorderPageControl {
 		 ArrayList<Product> reorderList = ps.findProductsToReorder();
 		 return reorderList;
 		
-		
 	}
 	
 	public ArrayList<Product> getReorderBySupplier(int supplierID){
