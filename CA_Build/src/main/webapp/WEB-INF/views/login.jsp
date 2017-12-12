@@ -21,21 +21,21 @@
 <p>Welcome! Please log in.</p>
 <table>  
   <tr>  
-    <td>userName</td>  
+    <td>Username</td>  
     <td><form:input path="name" /></td>  
     <td><form:errors path="name" cssClass="error" /></td>  
   </tr>  
   <tr>  
-    <td>pass</td>  
-    <td><form:input path="password" /></td>  
+    <td>Password</td>  
+    <td><form:input type="password" path="password" /></td>  
     <td><form:errors path="password" cssClass="error" /></td>  
   </tr>  
   <tr>  
-    <td colspan="3"><input type="submit" /></td>  
+    <td id="submitButton" colspan="3"><input type="submit" value="Submit" /></td>  
   </tr>  
 </table>  
 <br/>
-<h3>
+<h3 id="loginError" >
 <c:if test="${not empty errorMessage}">
    <c:out value="${errorMessage}"/>
 </c:if>

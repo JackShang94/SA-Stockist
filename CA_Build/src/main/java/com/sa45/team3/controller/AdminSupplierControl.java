@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sa45.team3.exception.SupplierCantDelete;
 import com.sa45.team3.exception.SupplierNotFound;
 import com.sa45.team3.model.Product;
+import com.sa45.team3.model.Staff;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.ProductRepository;
@@ -66,7 +67,7 @@ public class AdminSupplierControl {
 
 		PagedListHolder<Supplier> ph = new PagedListHolder<>();
 		ph.setSource(supplierList);
-		ph.setPageSize(8);
+		ph.setPageSize(5);
 		if (page == null || page < 1 || page > ph.getPageCount()) {
 			ph.setPage(0);
 		} else {
@@ -132,7 +133,7 @@ public class AdminSupplierControl {
 
 		PagedListHolder<Supplier> ph = new PagedListHolder<>();
 		ph.setSource(supplierList);
-		ph.setPageSize(8);
+		ph.setPageSize(5);
 		if (page == null || page < 1 || page > ph.getPageCount()) {
 			ph.setPage(0);
 		} else {
@@ -189,7 +190,7 @@ public class AdminSupplierControl {
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView newSupplierPage(@ModelAttribute Supplier supplier, HttpSession session, BindingResult result) {
-		
+
 		ModelAndView mav = new ModelAndView("supplier-new");
 
 		ArrayList<Supplier> supplierList = supService.findAllSuppliers();
@@ -214,10 +215,18 @@ public class AdminSupplierControl {
 		ModelAndView mav = new ModelAndView();
 		String message = "New supplier " + supplier.getSupplierID() + " was successfully created.";
 
-		supService.createSupplier(supplier);
-		mav.setViewName("redirect:/admin/list");
+		if (supplier.getSupplierName() != null && supplier.getContactNumber() != null) {
+			Supplier s = supService.checkSupplier(supplier.getSupplierName(), supplier.getContactNumber());
+			if (s != null) {
+				supService.createSupplier(supplier);
+				mav.setViewName("redirect:/admin/list");
 
-		redirectAttributes.addFlashAttribute("message", message);
+				redirectAttributes.addFlashAttribute("message", message);
+			} else {
+				redirectAttributes.addFlashAttribute("message",
+						"This supplier has already existed in the table!!");
+			}
+		}
 		return mav;
 	}
 
@@ -250,16 +259,21 @@ public class AdminSupplierControl {
 
 	@RequestMapping(value = "/delete/{supplierID}", method = RequestMethod.GET)
 	public ModelAndView deleteSupplier(@PathVariable Integer supplierID, final RedirectAttributes redirectAttributes)
-			throws SupplierNotFound, SupplierCantDelete {
+			throws SupplierNotFound/* , com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException */ {
 
 		ModelAndView mav = new ModelAndView("redirect:/admin/list");
 		Supplier supplier = supService.findSupplierById(supplierID);// .findSupplier(supplierID.toString());
+		try {
+			supService.deleteSupplier(supplier);
+			String message = "The supplier " + supplier.getSupplierID() + " was successfully deleted.";
 
-		supService.deleteSupplier(supplier);
-		String message = "The supplier " + supplier.getSupplierID() + " was successfully deleted.";
+			redirectAttributes.addFlashAttribute("message", message);
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("message",
+					"This supplier can't delete because the record of the supplier is used in product table!!");
+		}
 
-		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
-	}
 
+	}
 }
