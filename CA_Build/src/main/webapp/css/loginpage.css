@@ -9,15 +9,13 @@
   height:200px;
   text-align: center;
   justify-content: center;
+  border-bottom: 1px inset black;
   
   
   
   
 }
 
-#loginpage{
-    
-}
 
 h1{
   display: inline;
@@ -29,8 +27,8 @@ h1{
   
 }
 
-body{
-  background-color: 
+body p, body input{
+  font-family: helvetica;
 }
 
 #loginpage table
@@ -38,17 +36,22 @@ body{
 
 	font-size: 12px;
   border: 1px solid grey;
+  border-collapse: separate;
+  border-radius: 10px;
   margin: 0 auto;
   margin-top: 20px;
-  background-color: 
+  background-color: lightgrey;
 	
 }
+
+
 #loginpage th
 {
 	font-size: 14px;
 	color: black;
 	padding: 10px 8px;
 	border-bottom: 2px solid #6678b1;
+  
 }
 
 #loginpage td
@@ -68,4 +71,19 @@ body{
   margin-top: 10px;
   margin-bottom: 0px;
   text-align: center;
+}
+
+#submitButton {
+  text-align: center;
+}
+
+#submitButton input{
+  border-radius: 5px;
+}
+
+#loginError{
+    text-align: center;
+  font-size: 11px;
+  margin: 0px;
+  color: orange;
 }
