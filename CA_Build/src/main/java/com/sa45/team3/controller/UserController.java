@@ -4,7 +4,9 @@ package com.sa45.team3.controller;
 	import java.util.ArrayList;
 	import java.util.List;
 
-	import javax.validation.Valid;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 	import org.springframework.beans.factory.annotation.Autowired;
 	import org.springframework.stereotype.Controller;
@@ -18,8 +20,10 @@ package com.sa45.team3.controller;
 	import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
      import com.sa45.team3.exception.staffNotFound;
-      import com.sa45.team3.model.Staff;
-        import com.sa45.team3.service.StaffService;
+import com.sa45.team3.model.Product;
+import com.sa45.team3.model.Staff;
+import com.sa45.team3.repository.StaffRepository;
+import com.sa45.team3.service.StaffService;
 
 
 
@@ -28,20 +32,34 @@ package com.sa45.team3.controller;
 	@Controller
 	@RequestMapping("/staff")
 
-
 	public class UserController {
 		@Autowired
 		private StaffService uService;
+		
+		@Resource
+		private StaffRepository sRepo;
+		
 		@RequestMapping(value="/create",method=RequestMethod.GET)
 		public ModelAndView newUserPage()
 		{
 			Staff staff = new Staff();
-			ModelAndView mv=new ModelAndView("user-new","staff",staff);
+			ModelAndView mav=new ModelAndView("user-new","staff",staff);
+			
 			//ArrayList<staff> uList=uService.findAllUsers();
-			mv.addObject("staff",staff);
-			mv.setViewName("user-new");
-			return mv;
+			mav.addObject("staff",staff);
+			mav.setViewName("user-new");
+			List<Staff> productList = sRepo.findAll();
+			if (productList.isEmpty()) {
+				mav.addObject("PK",null);
+			}else {
+				int lastPN =  productList.get(productList.size()-1).getStaffID();
+				String pkID = String.valueOf(lastPN+1);
+				mav.addObject("PK", pkID);
+			}
+			return mav;
 		}
+		
+		
 		@RequestMapping(value = "/create", method = RequestMethod.POST)
 		public ModelAndView createNewUser(@ModelAttribute @Valid Staff staff, BindingResult result,
 				final RedirectAttributes redirectAttributes) {
@@ -92,7 +110,7 @@ package com.sa45.team3.controller;
 			return mav;
 		}
 
-		@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+		@RequestMapping(value = "/delete-{id}", method = RequestMethod.GET)
 		public ModelAndView deleteUser(@PathVariable String id, final RedirectAttributes redirectAttributes)
 				throws staffNotFound {
 			int idInt=Integer.parseInt(id);

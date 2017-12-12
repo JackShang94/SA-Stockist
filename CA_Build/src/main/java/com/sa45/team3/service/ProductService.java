@@ -14,7 +14,7 @@ public interface ProductService {
 	/* (non-Javadoc)
 	 * @see com.sa45.team3.service.ProductCatalogService#findProductByID(int)
 	 */
-	ArrayList<Product> findProductByID(int id);
+	Product findProductByID(int id);
 
 	/* (non-Javadoc)
 	 * @see com.sa45.team3.service.ProductCatalogService#findProductByColor(java.lang.String)

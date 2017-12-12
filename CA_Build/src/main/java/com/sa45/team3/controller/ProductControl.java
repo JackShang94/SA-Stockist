@@ -77,7 +77,7 @@ public class ProductControl {
 
 			case "ID":
 				Integer searchInt = Integer.parseInt(searchVar);
-				productList = productService.findProductByID(searchInt);
+				productList.add(productService.findProductByID(searchInt));
 				break; 
 
 			case "Name":
@@ -152,7 +152,7 @@ public class ProductControl {
 
 			case "ID":
 				Integer searchInt = Integer.parseInt(searchVar);
-				productList = productService.findProductByID(searchInt);
+				productList.add(productService.findProductByID(searchInt));
 				break; 
 						
 			case "Name":
@@ -245,7 +245,7 @@ public class ProductControl {
 		
 		List<Product> productList = productService.findAll();
 		if (productList.isEmpty()) {
-			mav.addObject("PK",null);
+			mav.addObject("PK",1);
 		}else {
 			int lastPN =  productList.get(productList.size()-1).getPartNumber();
 			String pkID = String.valueOf(lastPN+1);
