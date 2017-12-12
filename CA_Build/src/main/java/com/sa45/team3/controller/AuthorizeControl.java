@@ -25,7 +25,7 @@ public class AuthorizeControl{
 	private ProductService productService;
 	@Autowired
 	private StaffService sService;
-	private HttpSession request;
+
 	
 	
 	@RequestMapping(value="/login")
