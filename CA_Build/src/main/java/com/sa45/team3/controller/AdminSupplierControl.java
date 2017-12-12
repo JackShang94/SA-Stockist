@@ -1,12 +1,11 @@
 package com.sa45.team3.controller;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 //import javax.annotation.Resource;
 
@@ -28,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sa45.team3.exception.SupplierCantDelete;
 import com.sa45.team3.exception.SupplierNotFound;
+import com.sa45.team3.model.Product;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.ProductRepository;
@@ -39,13 +39,12 @@ import com.sa45.team3.validator.SupplierValidator;
 @Controller
 public class AdminSupplierControl {
 
-	@Autowired 
+	@Autowired
 	SupplierService supService;
-	
+
 	@Resource
 	ProductRepository proRepository;
-	
-	
+
 	@Autowired
 	private SupplierService sService;
 	@Autowired
@@ -56,33 +55,32 @@ public class AdminSupplierControl {
 		binder.addValidators(sValidator);
 	}
 
-	
-	/*@Resource
-	SupplierRepository supRepository;*/
-	
+	/*
+	 * @Resource SupplierRepository supRepository;
+	 */
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView supplierListPage(@RequestParam(required = false) Integer page) {
 		ModelAndView mav = new ModelAndView("supplier-list");
-		ArrayList<Supplier> supplierList = (ArrayList<Supplier>)supService.findAllSuppliers();//supRepository.findAll();
-		
+		ArrayList<Supplier> supplierList = (ArrayList<Supplier>) supService.findAllSuppliers();// supRepository.findAll();
+
 		PagedListHolder<Supplier> ph = new PagedListHolder<>();
 		ph.setSource(supplierList);
 		ph.setPageSize(8);
 		if (page == null || page < 1 || page > ph.getPageCount()) {
 			ph.setPage(0);
-		}
-		else {
+		} else {
 			ph.setPage(page);
 		}
 		mav.addObject("page", ph.getPage()); // current page
 		mav.addObject("supplierList", ph.getPageList());
-		mav.addObject("maxPages", ph.getPageCount()-1); // number of pages
-		
-		//mav.addObject("supplierList", supplierList);
-		
+		mav.addObject("maxPages", ph.getPageCount() - 1); // number of pages
+
+		// mav.addObject("supplierList", supplierList);
+
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
 	public ModelAndView SupplierListPage(HttpServletRequest request) {
 
@@ -98,13 +96,12 @@ public class AdminSupplierControl {
 			case "contactNumber":
 				Integer searchInt = Integer.parseInt(searchVar);
 				supplierList = supService.searchSupplierByContactNumber(searchInt);
-				break; 
+				break;
 
 			case "supplierName":
 				supplierList = supService.searchSupplierByName(searchVar);
 				break;
 
-			
 			}
 		} catch (NumberFormatException e) {
 
@@ -112,7 +109,7 @@ public class AdminSupplierControl {
 			supplierList = (ArrayList<Supplier>) supService.findAllSuppliers();
 
 		}
-		
+
 		catch (Exception e) {
 
 			error = "No entries returned.";
@@ -126,7 +123,7 @@ public class AdminSupplierControl {
 		}
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/supplier-show-list", method = RequestMethod.GET)
 	public ModelAndView ShowSupplierList(@RequestParam(required = false) Integer page) {
 
@@ -138,13 +135,12 @@ public class AdminSupplierControl {
 		ph.setPageSize(8);
 		if (page == null || page < 1 || page > ph.getPageCount()) {
 			ph.setPage(0);
-		}
-		else {
+		} else {
 			ph.setPage(page);
 		}
 		mav.addObject("page", ph.getPage()); // current page
 		mav.addObject("supplierList", ph.getPageList());
-		mav.addObject("maxPages", ph.getPageCount()-1); // number of pages
+		mav.addObject("maxPages", ph.getPageCount() - 1); // number of pages
 		return mav;
 	}
 
@@ -160,17 +156,15 @@ public class AdminSupplierControl {
 		try {
 			switch (filter) {
 
-
 			case "contactNumber":
 				Integer searchInt = Integer.parseInt(searchVar);
 				supplierList = supService.searchSupplierByContactNumber(searchInt);
-				break; 
+				break;
 
 			case "supplierName":
 				supplierList = supService.searchSupplierByName(searchVar);
 				break;
 
-			
 			}
 		} catch (NumberFormatException e) {
 
@@ -178,7 +172,7 @@ public class AdminSupplierControl {
 			supplierList = (ArrayList<Supplier>) supService.findAllSuppliers();
 
 		}
-		
+
 		catch (Exception e) {
 
 			error = "No entries returned.";
@@ -192,16 +186,24 @@ public class AdminSupplierControl {
 		}
 		return mav;
 	}
-	
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView newSupplierPage() {
-		ModelAndView mav = new ModelAndView("supplier-new", "supplier", new Supplier());
-		ArrayList<Integer> sidList = supService.findAllSupplierIDs();
-		mav.addObject("sidlist", sidList);
+	public ModelAndView newSupplierPage(@ModelAttribute Supplier supplier, HttpSession session, BindingResult result) {
+		
+		ModelAndView mav = new ModelAndView("supplier-new");
+
+		ArrayList<Supplier> supplierList = supService.findAllSuppliers();
+		if (supplierList.isEmpty()) {
+			mav.addObject("PK", 1);
+		} else {
+			Integer lastSupID = supplierList.get(supplierList.size() - 1).getSupplierID();
+			String pkID = String.valueOf(lastSupID + 1);
+			mav.addObject("PK", pkID);
+		}
+
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView createNewSupplier(@ModelAttribute @Valid Supplier supplier, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
@@ -218,14 +220,13 @@ public class AdminSupplierControl {
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 	}
-	
-		
+
 	@RequestMapping(value = "/{supplierID}", method = RequestMethod.GET)
 	public ModelAndView editSupplierPage(@PathVariable Integer supplierID) {
-		
+
 		ModelAndView mav = new ModelAndView("supplier-edit");
-		Supplier supplier = supService.findSupplierById(supplierID);//findSupplier(supplierID.toString());
-		
+		Supplier supplier = supService.findSupplierById(supplierID);// findSupplier(supplierID.toString());
+
 		mav.addObject("supplier", supplier);
 		mav.addObject("sidlist", supService.findAllSupplierIDs());
 		return mav;
@@ -246,37 +247,19 @@ public class AdminSupplierControl {
 		redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 	}
-	
-	/*@RequestMapping(value = "/{supplierIDsearch}", method = RequestMethod.POST)
-	public ModelAndView editSearchSupplier(@ModelAttribute @Valid Supplier supplier, BindingResult result,
-			@PathVariable Integer supplierID, final RedirectAttributes redirectAttributes) throws SupplierNotFound {
-
-		if (result.hasErrors())
-			return new ModelAndView("supplier-edit");
-
-		ModelAndView mav = new ModelAndView("redirect:/admin/supplier-show-list");
-		String message = "Supplier " + supplier.getSupplierID() + " was successfully updated.";
-
-		supService.editSupplier(supplier);
-
-		redirectAttributes.addFlashAttribute("message", message);
-		return mav;
-	}*/
 
 	@RequestMapping(value = "/delete/{supplierID}", method = RequestMethod.GET)
 	public ModelAndView deleteSupplier(@PathVariable Integer supplierID, final RedirectAttributes redirectAttributes)
-			throws SupplierNotFound,SupplierCantDelete {
-		
+			throws SupplierNotFound, SupplierCantDelete {
+
 		ModelAndView mav = new ModelAndView("redirect:/admin/list");
-		Supplier supplier = supService.findSupplierById(supplierID);//.findSupplier(supplierID.toString());
-		
-			supService.deleteSupplier(supplier);
-			String message = "The supplier " + supplier.getSupplierID() + " was successfully deleted.";
-	
-			redirectAttributes.addFlashAttribute("message", message);
-			return mav;
+		Supplier supplier = supService.findSupplierById(supplierID);// .findSupplier(supplierID.toString());
+
+		supService.deleteSupplier(supplier);
+		String message = "The supplier " + supplier.getSupplierID() + " was successfully deleted.";
+
+		redirectAttributes.addFlashAttribute("message", message);
+		return mav;
 	}
 
 }
-
-
