@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sa45.team3.exception.SupplierCantDelete;
 import com.sa45.team3.model.Product;
+import com.sa45.team3.model.Staff;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.SupplierRepository;
@@ -104,5 +105,12 @@ public class SupplierServiceImpl implements SupplierService {
 	public ArrayList<Supplier>searchSupplierByName(String name){
 		
 		return supRepository.searchSupplierByName(name);
+	}
+	
+	@Override
+	@Transactional
+	public Supplier checkSupplier(String sname, Integer cNumber) {
+		Supplier s = supRepository.sNamecNumber(sname, cNumber);
+		return s;
 	}
 }

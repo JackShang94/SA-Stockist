@@ -30,4 +30,6 @@ public interface SupplierService {
 	
 	ArrayList<Supplier>searchSupplierByName(String name);
 	
+	Supplier checkSupplier(String sname, Integer cNumber);
+	
 }
