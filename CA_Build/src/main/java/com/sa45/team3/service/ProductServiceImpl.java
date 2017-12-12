@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService  {
 	 * @see com.sa45.team3.service.ProductService#findProductByID(int)
 	 */
 	@Override
-	public ArrayList<Product> findProductByID(int id){
+	public Product findProductByID(int id){
 		
 		return prepo.findProductByID(id);
 	}

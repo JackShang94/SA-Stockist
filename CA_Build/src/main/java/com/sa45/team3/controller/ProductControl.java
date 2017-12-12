@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.aspectj.weaver.ast.Var;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,7 @@ import com.sa45.team3.model.Staff;
 import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.SupplierRepository;
 import com.sa45.team3.service.ProductService;
+import com.sa45.team3.service.SupplierService;
 
 import antlr.collections.AST;
 
@@ -37,7 +39,9 @@ import org.springframework.ui.Model;
 public class ProductControl {
 	@Resource
 	private ProductService productService;
-
+	@Autowired
+	private SupplierService supplierService;
+	
 	@RequestMapping(value = "/product-list",method = RequestMethod.GET)
 	public ModelAndView ShowProductListToAdmin(@RequestParam(required = false) Integer page) {
 
@@ -73,7 +77,7 @@ public class ProductControl {
 
 			case "ID":
 				Integer searchInt = Integer.parseInt(searchVar);
-				productList = productService.findProductByID(searchInt);
+				productList.add(productService.findProductByID(searchInt));
 				break; 
 
 			case "Name":
@@ -148,7 +152,7 @@ public class ProductControl {
 
 			case "ID":
 				Integer searchInt = Integer.parseInt(searchVar);
-				productList = productService.findProductByID(searchInt);
+				productList.add(productService.findProductByID(searchInt));
 				break; 
 						
 			case "Name":
@@ -194,6 +198,12 @@ public class ProductControl {
 		ModelAndView mav = new ModelAndView("product-edit");
 		Product product = productService.findProductByPartnumber(partNumber);
 		
+		ArrayList<Integer> supplierList = supplierService.findAllSupplierIDs();
+		if (supplierList.isEmpty()) {
+			mav.addObject("dropList",supplierList);
+		}else {
+			mav.addObject("dropList", supplierList);
+		}
 		mav.addObject("product", product);
 		return mav;
 	}
@@ -235,13 +245,19 @@ public class ProductControl {
 		
 		List<Product> productList = productService.findAll();
 		if (productList.isEmpty()) {
-			mav.addObject("PK",null);
+			mav.addObject("PK",1);
 		}else {
 			int lastPN =  productList.get(productList.size()-1).getPartNumber();
 			String pkID = String.valueOf(lastPN+1);
 			mav.addObject("PK", pkID);
 		}
 		
+		ArrayList<Integer> supplierList = supplierService.findAllSupplierIDs();
+		if (supplierList.isEmpty()) {
+			mav.addObject("dropList",supplierList);
+		}else {
+			mav.addObject("dropList", supplierList);
+		}
 		return mav;
 
 	}
@@ -255,7 +271,7 @@ public class ProductControl {
 
 		ModelAndView mav = new ModelAndView();
 		String message = "New product " + product.getPartNumber() + " was successfully created.";
-
+		
 		productService.createProduct(product);
 		mav.setViewName("redirect:/product/product-list");
 

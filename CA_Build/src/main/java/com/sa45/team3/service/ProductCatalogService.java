@@ -8,7 +8,7 @@ public interface ProductCatalogService {
 
 	ArrayList<Product> findAll();
 
-	ArrayList<Product> findProductByID(int id);
+	Product findProductByID(int id);
 
 	ArrayList<Product> findProductByColor(String color);
 
@@ -17,5 +17,7 @@ public interface ProductCatalogService {
 	ArrayList<Product> findProductByDescrp(String searchDescrp);
 
 	ArrayList<Product> findProductByDimension(String searchDim);
+
+	void updateQuantity(int quantity, int partNumber);
 
 }

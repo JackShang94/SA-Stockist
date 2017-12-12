@@ -50,18 +50,21 @@ public class AuthorizeControl{
 		{
 			Staff s= sService.authenticate(staff.getName(), staff.getPassword());
 			if(s!=null)
-			{				
-				session.setAttribute("role", s.getRole());
-				if (s.getRole().equalsIgnoreCase("Admin")) {
-					mav =new ModelAndView("redirect:/product/product-list");
-				}else {
-					mav =new ModelAndView("redirect:/product/product-show-list");
+			{	
+				if(s.getActive()!=0) {
+					session.setAttribute("role", s.getRole());
+					if (s.getRole().equalsIgnoreCase("Admin")) {
+						mav =new ModelAndView("redirect:/product/product-list");
+					}else {
+						mav =new ModelAndView("redirect:/product/product-show-list");
+					}
+					return mav;
 				}
-				return mav;
+				
 			}
 		}
 		//create jsp
-		
+
 		return mav;
 		
 	}
