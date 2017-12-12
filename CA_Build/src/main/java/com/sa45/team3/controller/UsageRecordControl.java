@@ -197,7 +197,7 @@ public class UsageRecordControl {
 		return mav;
 	}
 
-	@RequestMapping(value = "usage-record-edit/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "usage-record-edit-{id}", method = RequestMethod.GET)
 	public ModelAndView editUsageRecordPage(@PathVariable Integer id) {
 		//ArrayList<UsageRecordDetails> d = uService.findAllRecordDetailsByID(id);
 		UsageRecord d2 = uService.findUsageRecordbyID(id);
