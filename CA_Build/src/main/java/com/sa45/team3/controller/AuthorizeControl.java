@@ -1,9 +1,5 @@
 package com.sa45.team3.controller;
 
-import static org.mockito.Matchers.endsWith;
-
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -14,10 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sa45.team3.model.Product;
 import com.sa45.team3.model.Staff;
 import com.sa45.team3.service.ProductService;
 import com.sa45.team3.service.StaffService;
@@ -31,6 +25,8 @@ public class AuthorizeControl{
 	private ProductService productService;
 	@Autowired
 	private StaffService sService;
+	private HttpSession request;
+	
 	
 	@RequestMapping(value="/login")
 	public ModelAndView login(Model model) {
@@ -46,7 +42,11 @@ public class AuthorizeControl{
 	public ModelAndView validation(@ModelAttribute Staff staff, HttpSession session, BindingResult result) {
 		ModelAndView mav=new ModelAndView("login");
 		
-		if(staff.getName()!=null && staff.getPassword()!=null)
+		if(staff.getName().isEmpty() || staff.getPassword().isEmpty())
+		{
+			session.setAttribute("errorMessage", "Empty user or password");
+			return mav;
+		}else 
 		{
 			Staff s= sService.authenticate(staff.getName(), staff.getPassword());
 			if(s!=null)
@@ -60,13 +60,19 @@ public class AuthorizeControl{
 					}
 					return mav;
 				}
+				else
+					{
+						session.setAttribute("errorMessage", "User is not active");
+						return mav;
+					}
+			}
+			else {
+				session.setAttribute("errorMessage", "Invalid user or password");
+				return mav;
 				
 			}
+			
 		}
-		//create jsp
-
-		return mav;
-		
 	}
 	
 	
