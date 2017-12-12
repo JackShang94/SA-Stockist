@@ -16,7 +16,7 @@
 		<tbody>
 			<tr>
 				<td>Part Number</td>
-				<td><form:input path="partNumber" /></td>
+				<td><form:input path="partNumber" value="${PK}"  /></td>
 				<td><form:errors path="partNumber" cssStyle="color: red;" /></td>
 			</tr>
 			

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,8 @@ import com.sa45.team3.model.Staff;
 import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.SupplierRepository;
 import com.sa45.team3.service.ProductService;
+
+import antlr.collections.AST;
 
 import org.springframework.ui.Model;
 
@@ -185,15 +188,6 @@ public class ProductControl {
 		return mav;
 	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ModelAndView create(@ModelAttribute Product product, HttpSession session, BindingResult result) {
-
-		ModelAndView mav = new ModelAndView("product-list"); // create jsp
-		// mav.addObject("message", product.getPassword());
-		return mav;
-
-	}
-
 	@RequestMapping(value = "editproduct-{partNumber}", method = RequestMethod.GET)
 	public ModelAndView editProductPage(@PathVariable Integer partNumber) {
 		
@@ -238,6 +232,15 @@ public class ProductControl {
 	public ModelAndView createget(@ModelAttribute Product product, HttpSession session, BindingResult result) {
 
 		ModelAndView mav = new ModelAndView("product-add");
+		
+		List<Product> productList = productService.findAll();
+		if (productList.isEmpty()) {
+			mav.addObject("PK",null);
+		}else {
+			int lastPN =  productList.get(productList.size()-1).getPartNumber();
+			String pkID = String.valueOf(lastPN+1);
+			mav.addObject("PK", pkID);
+		}
 		
 		return mav;
 

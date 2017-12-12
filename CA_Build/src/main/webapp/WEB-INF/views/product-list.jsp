@@ -12,6 +12,7 @@
 </head>
 <body>
 <h1>Product list</h1>
+<a href="${pageContext.request.contextPath}/product/productcreate">Add Product</a>
 	<form:form method="POST"
 		action="${pageContext.request.contextPath}/product/product-list">
 		<select name="filter">
