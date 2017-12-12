@@ -275,7 +275,7 @@ public class UsageRecordControl {
 				urdRepo.addNewDetail(recordID, partNum, partQty);
 
 				// UPDATES THE QUANTITY IN PRODUCT TABLE AFTER USAGE IS RECORDED
-				//productRepository.updateEditQuantity(partQty, partNum);
+				productRepository.updateEditQuantity(partQty, partNum);
 				
 			}
 		}
