@@ -28,7 +28,7 @@
 										<th>StaffID</th>
 										<th>CustomerName</th>
 										<th>CustomerContact</th>
-										<th>ShowDetails</th>
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>

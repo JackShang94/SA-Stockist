@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<h1>Details</h1>"src/main/webapp/WEB-INF/views/admin-usage-record-edit.jsp"
+	<h1>Details</h1>
 
 	<table class="table table-bordered">
 		<tr>
@@ -77,14 +77,7 @@
 		  </div>
 		</div> 	
 
-	<%-- <form:form method="POST" modelAttribute="usageRecord"
-		action="${pageContext.request.contextPath}/mechanic/usage-record.html">
-		
-		<form:button name="back" type="submit" value="s">
-			<img src="${pageContext.request.contextPath}/image/button_submit.gif"
-				width="59" height="22" alt="" border="0">
-		</form:button>
-	</form:form> --%>
+	
 
 </body>
 </html>
