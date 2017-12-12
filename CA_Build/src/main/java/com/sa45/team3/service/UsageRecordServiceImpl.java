@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sa45.team3.model.Product;
 import com.sa45.team3.model.UsageDetailsPrimaryKey;
 import com.sa45.team3.model.UsageRecord;
 import com.sa45.team3.model.UsageRecordDetails;
@@ -30,7 +31,7 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 		ArrayList<UsageRecord> l = (ArrayList<UsageRecord>) usageRecordRepository.findAll();
 		return l;
 	}
-
+	
 	
 	@Override
 	@Transactional
@@ -46,10 +47,17 @@ public class UsageRecordServiceImpl implements UsageRecordService {
 	
 	@Override
 	@Transactional
+	public UsageRecord editUsageRecord(UsageRecord uR) {
+		return  usageRecordRepository.saveAndFlush(uR);
+	}
+	
+	@Override
+	@Transactional
 	public UsageRecordDetails findRecordDetails(UsageDetailsPrimaryKey did) {
 		return usageRecordDetailsRepository.findOne(did);
 
 	}
+	
 	
 	@Override
 	@Transactional

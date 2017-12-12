@@ -95,6 +95,12 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
 		
 		 prepo.updateQuantity(quantity, partNumber);
 	}
+	
+	@Override
+	public void updateEditQuantity(int quantity, int partNumber) {
+		
+		 prepo.updateEditQuantity(quantity, partNumber);
+	}
 
 	// public static void main(String[]args) {
 	//
