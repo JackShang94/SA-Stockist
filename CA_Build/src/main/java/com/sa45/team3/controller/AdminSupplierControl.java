@@ -215,18 +215,16 @@ public class AdminSupplierControl {
 		ModelAndView mav = new ModelAndView();
 		String message = "New supplier " + supplier.getSupplierID() + " was successfully created.";
 
-		if (supplier.getSupplierName() != null && supplier.getContactNumber() != null) {
-			Supplier s = supService.checkSupplier(supplier.getSupplierName(), supplier.getContactNumber());
-			if (s != null) {
-				supService.createSupplier(supplier);
-				mav.setViewName("redirect:/admin/list");
+		Supplier s = supService.checkSupplier(supplier.getSupplierName(), supplier.getContactNumber());
+		if (s == null) {
+			supService.createSupplier(supplier);
+			/*mav.setViewName("redirect:/admin/list");*/
 
-				redirectAttributes.addFlashAttribute("message", message);
-			} else {
-				redirectAttributes.addFlashAttribute("message",
-						"This supplier has already existed in the table!!");
-			}
+			redirectAttributes.addFlashAttribute("message", message);
+		} else {
+			redirectAttributes.addFlashAttribute("error", "This supplier has already existed in the table!!");			
 		}
+		mav.setViewName("redirect:/admin/list");
 		return mav;
 	}
 
@@ -251,9 +249,17 @@ public class AdminSupplierControl {
 		ModelAndView mav = new ModelAndView("redirect:/admin/list");
 		String message = "Supplier " + supplier.getSupplierID() + " was successfully updated.";
 
-		supService.editSupplier(supplier);
+		
+			Supplier s = supService.checkSupplier(supplier.getSupplierName(), supplier.getContactNumber());
+			if (s == null) {
+				supService.editSupplier(supplier);
 
-		redirectAttributes.addFlashAttribute("message", message);
+				redirectAttributes.addFlashAttribute("message", message);
+			} else {
+				redirectAttributes.addFlashAttribute("error", "This supplier has already existed in the table!!");
+			}
+
+
 		return mav;
 	}
 
@@ -269,7 +275,7 @@ public class AdminSupplierControl {
 
 			redirectAttributes.addFlashAttribute("message", message);
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("message",
+			redirectAttributes.addFlashAttribute("error",
 					"This supplier can't delete because the record of the supplier is used in product table!!");
 		}
 
