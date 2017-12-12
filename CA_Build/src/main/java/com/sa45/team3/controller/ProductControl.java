@@ -245,7 +245,7 @@ public class ProductControl {
 		
 		List<Product> productList = productService.findAll();
 		if (productList.isEmpty()) {
-			mav.addObject("PK",null);
+			mav.addObject("PK",1);
 		}else {
 			int lastPN =  productList.get(productList.size()-1).getPartNumber();
 			String pkID = String.valueOf(lastPN+1);

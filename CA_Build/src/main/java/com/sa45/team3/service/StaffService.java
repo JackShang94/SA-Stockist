@@ -18,6 +18,8 @@ Staff createUser(Staff user);
 	void removeUser(Staff user);
 	Staff authenticate(String uname, String pwd);
 
+	ArrayList<Integer> findAllStaffIDs();
+
 	
 
 }

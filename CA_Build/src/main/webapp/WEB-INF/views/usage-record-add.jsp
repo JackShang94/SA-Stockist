@@ -29,8 +29,13 @@
 
 			<tr>
 				<td>Staff ID</td>
-				<td><form:input path="staffID" /></td>
+				<td><form:select path="staffID">
+					<c:forEach var="droplist" items="${dropList}" >
+					<option value="${droplist}">${droplist}</option>
+					</c:forEach>
+					</form:select></td>
 				<td><form:errors path="staffID" cssStyle="color: red;" /></td>
+				
 			</tr>
 
 			<tr>
