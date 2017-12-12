@@ -39,6 +39,13 @@ import com.sa45.team3.model.Staff;
 			return staffRepository.findAllStaffIDs();
 		}
 		
+		@Override
+		@Transactional
+		public ArrayList<String> findAllRole() {
+			
+			return staffRepository.findRole();
+		}
+		
 		/* (non-Javadoc)
 		 * @see com.sa45.team3.service.StaffService#findUser(java.lang.Integer)
 		 */

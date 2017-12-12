@@ -20,6 +20,7 @@ Staff createUser(Staff user);
 
 	ArrayList<Integer> findAllStaffIDs();
 
+	ArrayList<String> findAllRole();
 	
 
 }

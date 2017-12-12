@@ -18,5 +18,9 @@ public interface StaffRepository extends JpaRepository<Staff,Integer>{
 	("SELECT DISTINCT s.staffID FROM Staff s")
 	ArrayList<Integer> findAllStaffIDs();
 	
+	@Query
+	("SELECT DISTINCT s.role FROM Staff s")
+	ArrayList<String> findRole();
+	
 }
 

@@ -56,6 +56,12 @@ import com.sa45.team3.service.StaffService;
 				String pkID = String.valueOf(lastPN+1);
 				mav.addObject("PK", pkID);
 			}
+			ArrayList<String> roleList=uService.findAllRole();
+			if (roleList.isEmpty()) {
+				mav.addObject("dropList",roleList);
+			}else {
+				mav.addObject("dropList", roleList);
+			}
 			return mav;
 		}
 		
@@ -91,6 +97,12 @@ import com.sa45.team3.service.StaffService;
 			ArrayList<Staff>uList=uService.findAllUsers();
 			mav.addObject("uList", uList);
 			mav.setViewName("user-edit");
+			ArrayList<String> roleList=uService.findAllRole();
+			if (roleList.isEmpty()) {
+				mav.addObject("dropList",roleList);
+			}else {
+				mav.addObject("dropList", roleList);
+			}
 			return mav;
 		}
 
