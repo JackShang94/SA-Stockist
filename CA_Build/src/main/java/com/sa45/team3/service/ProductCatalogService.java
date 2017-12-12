@@ -20,4 +20,6 @@ public interface ProductCatalogService {
 
 	void updateQuantity(int quantity, int partNumber);
 
+	void updateEditQuantity(int partQty, int partNum);
+
 }
