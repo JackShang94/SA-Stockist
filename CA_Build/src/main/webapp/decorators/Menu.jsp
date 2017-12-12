@@ -126,7 +126,7 @@
 					<ul class="nav" id="main-menu">
 						<li class="text-center user-image-back"><img
 							src="../image/find_user.png" class="img-responsive" /></li>
-						<li class="adjust-nav"><a
+						<li ><a
 							href="${pageContext.request.contextPath}/product/product-show-list"><i
 								class="fa fa-desktop "></i>view products</a></li>
 						<li><a
