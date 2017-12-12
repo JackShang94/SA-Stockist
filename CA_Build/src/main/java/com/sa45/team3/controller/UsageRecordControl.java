@@ -30,6 +30,8 @@ import com.sa45.team3.model.UsageRecordDetails;
 import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.UsageRecordDetailsRepository;
 import com.sa45.team3.repository.UsageRecordRepository;
+import com.sa45.team3.service.StaffService;
+import com.sa45.team3.service.SupplierService;
 import com.sa45.team3.service.UsageRecordService;
 
 @RequestMapping("/mechanic")
@@ -38,6 +40,9 @@ public class UsageRecordControl {
 
 	@Autowired
 	private UsageRecordService uService;
+	
+	@Autowired
+	private StaffService sService;
 
 	@InitBinder
 	private void initUsageRecordBinder(WebDataBinder binder) {
@@ -91,6 +96,13 @@ public class UsageRecordControl {
 			int lastRecordID =  usageRecordList.get(usageRecordList.size()-1).getRecordID();
 			String pkID = String.valueOf(lastRecordID+1);
 			mav.addObject("PK", pkID);
+		}
+		
+		ArrayList<Integer> staffID = sService.findAllStaffIDs();
+		if (staffID.isEmpty()) {
+			mav.addObject("dropList",staffID);
+		}else {
+			mav.addObject("dropList", staffID);
 		}
 		
 		return mav;

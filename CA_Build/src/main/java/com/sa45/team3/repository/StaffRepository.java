@@ -1,4 +1,6 @@
 package com.sa45.team3.repository;
+import java.util.ArrayList;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,5 +14,9 @@ public interface StaffRepository extends JpaRepository<Staff,Integer>{
 	@Query("SELECT s FROM Staff s where s.id = :id")
 	Staff findStaffById(@Param("id") int id);
 
+	@Query
+	("SELECT DISTINCT s.staffID FROM Staff s")
+	ArrayList<Integer> findAllStaffIDs();
+	
 }
 
