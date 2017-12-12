@@ -70,7 +70,7 @@
                         <a href="${pageContext.request.contextPath}/staff/list"><i class="fa fa-table "></i>Manage users</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/reorder/list"><i class="fa fa-edit "></i>Reorder report</a>
+                        <a href="${pageContext.request.contextPath}/reorder/lists"><i class="fa fa-edit "></i>Reorder report</a>
                     </li>
 
 
@@ -128,7 +128,7 @@
                     </li>
 
                     <li>
-                        <a href="${pageContext.request.contextPath}/reorder/list"><i class="fa fa-edit "></i>Reorder report</a>
+                        <a href="${pageContext.request.contextPath}/reorder/lists"><i class="fa fa-edit "></i>Reorder report</a>
                     </li>
 
 
