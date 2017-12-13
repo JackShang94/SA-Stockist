@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sa45.team3.exception.staffNotFound;
 import com.sa45.team3.model.Staff;
+import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.StaffRepository;
 import com.sa45.team3.service.StaffService;
 import com.sa45.team3.validator.UserValidator;
@@ -103,10 +106,22 @@ import com.sa45.team3.validator.UserValidator;
 			return mv;
 		}
 		@RequestMapping(value = "/list", method = RequestMethod.GET)
-		public ModelAndView userListPage() {
+		public ModelAndView userListPage(@RequestParam(required = false) Integer page) {
 			ModelAndView mv = new ModelAndView("user-list");
 			List<Staff> uList = uService.findAllUsers();
 			mv.addObject("userList", uList);
+			PagedListHolder<Staff> ph = new PagedListHolder<>();
+			ph.setSource(uList);
+			ph.setPageSize(5);
+			if (page == null || page < 1 || page > ph.getPageCount()) {
+				ph.setPage(0);
+			} else {
+				ph.setPage(page);
+			}
+			mv.addObject("page", ph.getPage()); // current page
+			mv.addObject("userList", ph.getPageList());
+			mv.addObject("maxPages", ph.getPageCount() - 1); // number of pages
+
 			return mv;
 		}
 		@RequestMapping(value = "/edit-{id}", method = RequestMethod.GET)
