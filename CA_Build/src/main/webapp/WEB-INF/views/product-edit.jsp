@@ -47,8 +47,8 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Quantity</label>
 												<div class="col-sm-6">
-												<form:input class="form-control"  path="unitPrice"/>
-												<form:errors class="parsley-errors-list" path="unitPrice" cssStyle="color: red;" />
+												<form:input class="form-control"  path="quantity"/>
+												<form:errors class="parsley-errors-list" path="quantity" cssStyle="color: red;" />
 												</div>
 											</div>
 											<div class="form-group">

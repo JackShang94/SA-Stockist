@@ -2,28 +2,44 @@
   
 
   padding-top: 80px;
-  background-image: url(https://www.iss.nus.edu.sg/images/default-source/About-Us/7.0-about-us---7.2-our-story/university.jpg?sfvrsn=8);
+
   background-blend-mode: luminosity;
-  background-color: blue;
   background-position:center;
   height:200px;
   text-align: center;
   justify-content: center;
-  border-bottom: 1px inset black;
+
   
-  
+}
+
+
+
+#logintitlebar h1{
+  display: inline;
+  border: 2px solid black;
+ font-family: Palatino Linotype;
+  background-color: lightgray;
+  border-radius: 10px;
+  padding:10px 50px 10px 50px;
+
   
   
 }
 
 
-#logintitlebar h1{
-  display: inline;
-  border: 2px solid blue;
- font-family: Palatino Linotype;
-  background-color: white;
-
+body{
+    background-image: url(https://www.iss.nus.edu.sg/images/default-source/About-Us/7.0-about-us---7.2-our-story/university.jpg?sfvrsn=8);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-size:cover;
+  background-position: relative;
+ 
   
+}
+
+html{
+  
+ height: 100%;
   
 }
 
@@ -31,7 +47,7 @@ body p, body input{
   font-family: helvetica;
 }
 
-#loginpage table
+#loginpage table 
 {
 
 	font-size: 12px;
@@ -49,8 +65,8 @@ body p, body input{
 {
 	font-size: 14px;
 	color: black;
-	padding: 10px 8px;
-	border-bottom: 2px solid #6678b1;
+	padding: 10px;
+	
   
 }
 
@@ -64,6 +80,9 @@ body p, body input{
 #loginpage button{
   margin: 0 auto;
   display: block;
+  
+  
+  
   
 }
 
@@ -81,9 +100,15 @@ body p, body input{
   border-radius: 5px;
 }
 
+#welcomemsg td th tr{
+  
+  text-align: center;
+ 
+}
+
 #loginError{
     text-align: center;
-  font-size: 11px;
+  font-size: 20px;
   margin: 0px;
-  color: orange;
+  color: red;
 }
