@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,8 +11,12 @@
 <title>usage record list</title>
 </head>
 <body>
-<h1>UsageRecord</h1>
-<a href="${pageContext.request.contextPath}/mechanic/usage-record-create">Add new usage record</a>
+<h1 align="center" >Usage Record</h1>
+<div align="right">
+<a class="btn btn-success "
+href="${pageContext.request.contextPath}/mechanic/usage-record-create">Add new usage record</a>
+</div>
+<br>
 <div id="cl-wrapper">
 
 		<div class="container-fluid" id="pcont">		
@@ -41,9 +46,9 @@
 										<td>${recordList.usageDate}</td>
 										<td>${recordList.customerName}</td>
 										<td>${recordList.contactNumber}</td>
-										<td><a href="${pageContext.request.contextPath}/mechanic/usage-record-display-${recordList.recordID}">details</a>
+										<td><a class="fa fa-pencil fa-fw" href="${pageContext.request.contextPath}/mechanic/usage-record-display-${recordList.recordID}">details</a>
 										<br>
-										<a href="${pageContext.request.contextPath}/mechanic/usage-record-edit-${recordList.recordID}">edit</a></td>
+										<a class="fa fa-book fa-fw" href="${pageContext.request.contextPath}/mechanic/usage-record-edit-${recordList.recordID}">edit</a></td>
 									</tr>
 
 								</c:forEach>
@@ -57,4 +62,34 @@
 		</div> 
 		
 </div>
+<!-- Paging -->
+	<c:url value="${request.contextPath}/mechanic/admin-usage-record" var="prev">
+		<c:param name="page" value="${page-1}" />
+	</c:url>
+	<c:url value="${request.contextPath}/mechanic/admin-usage-record" var="next">
+		<c:param name="page" value="${page+1}" />
+	</c:url>
+	<div class="dataTables_paginate paging_bs_normal">
+		<ul class="pagination">
+			<li class="prev disabled"><span class="fa fa-angle-left"><a
+					href="<c:out value="${prev}" />">Previous</a></span></li>
+			<c:forEach begin="0" end="${maxPages}" step="1" varStatus="i">
+				<c:choose>
+					<c:when test="${page == i.index}">
+						<li><span>${i.index}</span></li>
+					</c:when>
+					<c:otherwise>
+						<c:url value="${request.contextPath}/mechanic/admin-usage-record"
+							var="url">
+							<c:param name="page" value="${i.index}" />
+						</c:url>
+						<li><a href='<c:out value="${url}" />'>${i.index}</a></li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<li class="next"><a href="<c:out value="${next}" />">Next<span
+					class="fa fa-angle-right"></span></a></li>
+		</ul>
+	</div>
+	</body>
 </html>

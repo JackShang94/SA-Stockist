@@ -14,6 +14,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -82,21 +84,49 @@ public class UsageRecordControl {
 	}
 
 	@RequestMapping(value = "/usage-record", method = RequestMethod.GET)
-	public ModelAndView recordListPage() {
+	public ModelAndView recordListPage(@RequestParam(required = false) Integer page) {
 
 		ModelAndView mav = new ModelAndView("usage-record"); // create jsp
 		List<UsageRecord> usageRecordList = prepo.findAll();
-		mav.addObject("recordList", usageRecordList);
+	
+		
+		PagedListHolder<UsageRecord> ph = new PagedListHolder<>();
+		ph.setSource(usageRecordList);
+		ph.setPageSize(10);
+		if (page == null || page < 1 || page > ph.getPageCount()) {
+			ph.setPage(0);
+		}
+		else {
+			ph.setPage(page);
+		}
+		mav.addObject("page", ph.getPage()); // current page
+		mav.addObject("recordList", ph.getPageList());
+		mav.addObject("maxPages", ph.getPageCount()-1); // number of pages
+		
 		return mav;
 
 	}
 
 	@RequestMapping(value = "/admin-usage-record", method = RequestMethod.GET)
-	public ModelAndView AdminrecordListPage() {
+	public ModelAndView AdminrecordListPage(@RequestParam(required = false) Integer page) {
 
 		ModelAndView mav = new ModelAndView("admin-usage-record"); // create jsp
 		List<UsageRecord> usageRecordList = prepo.findAll();
-		mav.addObject("recordList", usageRecordList);
+		/*mav.addObject("recordList", usageRecordList);*/
+		
+		PagedListHolder<UsageRecord> ph = new PagedListHolder<>();
+		ph.setSource(usageRecordList);
+		ph.setPageSize(10);
+		if (page == null || page < 1 || page > ph.getPageCount()) {
+			ph.setPage(0);
+		}
+		else {
+			ph.setPage(page);
+		}
+		mav.addObject("page", ph.getPage()); // current page
+		mav.addObject("recordList", ph.getPageList());
+		mav.addObject("maxPages", ph.getPageCount()-1); // number of pages
+		
 		return mav;
 
 	}
