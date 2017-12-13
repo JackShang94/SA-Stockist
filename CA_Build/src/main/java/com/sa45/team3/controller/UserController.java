@@ -163,7 +163,8 @@ import com.sa45.team3.validator.UserValidator;
 			int idInt=Integer.parseInt(id);
 			ModelAndView mav = new ModelAndView("redirect:/staff/list");
 			Staff staff = uService.findUser(idInt);
-			uService.removeUser(staff);
+			int sid=staff.getStaffID();
+			uService.removeUser(sid);
 			String message = "The user " + staff.getStaffID() + " was successfully deleted.";
 
 			redirectAttributes.addFlashAttribute("message", message);

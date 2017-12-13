@@ -97,8 +97,10 @@ import com.sa45.team3.model.Staff;
 		 */
 		@Override
 		@Transactional
-		public void removeUser(Staff user) {
-			 staffRepository.delete(user);
+		public void removeUser(Integer id) {
+			
+		Staff s=staffRepository.findStaffById(id);
+		s.setActive(0);
 			
 			
 		}

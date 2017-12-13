@@ -15,7 +15,7 @@ Staff createUser(Staff user);
 
 	Staff changeUser(Staff user);
 
-	void removeUser(Staff user);
+	void removeUser(Integer id);
 	Staff authenticate(String uname, String pwd);
 
 	ArrayList<Integer> findAllStaffIDs();
