@@ -42,6 +42,7 @@ import com.sa45.team3.service.SupplierService;
 import com.sa45.team3.service.ProductCatalogService;
 
 import com.sa45.team3.service.UsageRecordService;
+import com.sa45.team3.validator.UsageRecordValidator;
 
 @RequestMapping("/mechanic")
 @Controller
@@ -72,6 +73,13 @@ public class UsageRecordControl {
 
 	@Resource
 	UsageRecordDetailsRepository urdRepo;
+	
+	@Autowired
+	private UsageRecordValidator urValidator;
+	@InitBinder("usageRecord")
+	private void initSupplierBinder(WebDataBinder binder) {
+		binder.addValidators(urValidator);
+	}
 
 	@RequestMapping(value = "/usage-record", method = RequestMethod.GET)
 	public ModelAndView recordListPage() {
@@ -122,13 +130,23 @@ public class UsageRecordControl {
 	}
 
 	@RequestMapping(value = "/usage-record-create", method = RequestMethod.POST)
-	public ModelAndView createNewUsageRecord(@ModelAttribute UsageRecord usageRecord, BindingResult result,
+	public ModelAndView createNewUsageRecord(@ModelAttribute @Valid UsageRecord usageRecord, BindingResult result,
 			final RedirectAttributes redirectAttributes, HttpServletRequest Request) {
 
 		// what does bindingresult do?
 
-		if (result.hasErrors())
-			return new ModelAndView("usage-record-add"); // return to this page if error
+		if (result.hasErrors()) {
+			ModelAndView mv = new ModelAndView("usage-record-add");
+			ArrayList<Integer> staffID = sService.findAllStaffIDs();
+			if (staffID.isEmpty()) {
+				mv.addObject("dropList", staffID);
+			} else {
+				mv.addObject("dropList", staffID);
+			}
+			List<Product> productList = productRepository.findAll();
+			mv.addObject("pList", productList);
+			return mv;
+		} // return to this page if error
 
 		ModelAndView mav = new ModelAndView();
 		String message = "New usage record: " + usageRecord.getRecordID() + " was successfully created.";
