@@ -104,9 +104,9 @@ public class UsageRecordControl {
 		}
 		
 		ArrayList<Integer> staffID = sService.findAllStaffIDs();
-		if (staffID.isEmpty()) {
+		if (staffID.isEmpty()) {			
 			mav.addObject("dropList",staffID);
-		}else {
+		}else {			
 			mav.addObject("dropList", staffID);
 		}
 		
