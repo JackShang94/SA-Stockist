@@ -40,7 +40,7 @@ CREATE TABLE `product` (
   UNIQUE KEY `productID_UNIQUE` (`partNumber`),
   KEY `supplierID_idx` (`supplierID`),
   CONSTRAINT `supplierID` FOREIGN KEY (`supplierID`) REFERENCES `suppliers` (`supplierID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1023 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1025 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1000,'SP1 Tyres',100,20,'Sport Tyres',NULL,NULL,10,5,1,'3A'),(1001,'RD1 Tyres',80,20,'Road Tyres',NULL,NULL,10,5,2,'3B'),(1002,'Castrol1 EO',40,150,'Engine Oil (litre bottle)',NULL,NULL,50,25,7,'3C'),(1003,'Motul300 EO',45,132,'Engine Oil (litre bottle)',NULL,NULL,50,25,6,'3C'),(1010,'Subwoofer1000X',200,14,'Sound System',NULL,'15\"',5,10,3,'2A'),(1011,'Sports Spoiler',156,12,'Spoiler','White','54\"',5,10,3,'1A'),(1012,'Sports Spoiler',156,11,'Spoiler','Black','54\"',5,10,3,'1A'),(1013,'Sports Spoiler',156,11,'Spoiler','Red','54\"',5,10,3,'1A'),(1014,'Engine Block',899,12,'Engine Block',NULL,NULL,5,5,8,'4A'),(1015,'Sports Rims',124,16,'Sports Rims','Blue','16\"',10,8,1,'4B'),(1016,'Streetlegal Exhaust',300,17,'Exhaust system',NULL,NULL,14,10,4,'2A'),(1017,'Illegal Exhaust',600,20,'Exhaust system (illegal)',NULL,NULL,14,10,4,'2A'),(1018,'Xeon Headlight',75,25,'Headlights',NULL,NULL,15,10,4,'1A'),(1019,'LED Headlight',65,25,'Headlights',NULL,NULL,15,10,4,'1A'),(1021,'Budget rims',100,24,'Tyre rims','Plain','54\"',12,6,2,'3B'),(1022,'Airconditioner System',300,10,'Air-con',NULL,NULL,8,5,5,'1A');
+INSERT INTO `product` VALUES (1000,'SP1 Tyres',100,25,'Sport Tyres','yellow','',10,5,1,'3A'),(1001,'RD1 Tyres',80,20,'Road Tyres',NULL,NULL,10,5,2,'3B'),(1002,'Castrol1 EO',40,150,'Engine Oil (litre bottle)',NULL,NULL,50,25,7,'3C'),(1003,'Motul300 EO',45,132,'Engine Oil (litre bottle)',NULL,NULL,50,25,6,'3C'),(1010,'Subwoofer1000X',200,5,'Sound System',NULL,'15\"',5,10,3,'2A'),(1011,'Sports Spoiler',156,0,'Spoiler','White','54\"',5,10,3,'1A'),(1012,'Sports Spoiler',156,3,'Spoiler','Black','54\"',5,10,3,'1A'),(1013,'Sports Spoiler',156,11,'Spoiler','Red','54\"',5,10,3,'1A'),(1014,'Engine Block',899,12,'Engine Block',NULL,NULL,5,5,8,'4A'),(1015,'Sports Rims',124,16,'Sports Rims','Blue','16\"',10,8,1,'4B'),(1016,'Streetlegal Exhaust',300,17,'Exhaust system',NULL,NULL,14,10,4,'2A'),(1017,'Illegal Exhaust',600,7,'Exhaust system (illegal)',NULL,NULL,14,10,4,'2A'),(1018,'Xeon Headlight',75,24,'Headlights',NULL,NULL,15,10,4,'1A'),(1019,'LED Headlight',65,25,'Headlights',NULL,NULL,15,10,4,'1A'),(1021,'Budget rims',100,24,'Tyre rims','Plain','54\"',12,6,2,'3B'),(1022,'Airconditioner System',300,10,'Air-con',NULL,NULL,8,5,5,'1A');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +124,7 @@ CREATE TABLE `staff` (
   `contactNumber` int(11) DEFAULT NULL,
   `active` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`staffID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +133,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (1,'123456','Boyka','Mechanic',93657813,1),(2,'123456','Jack','Mechanic',97235416,1),(3,'123456','Wei Han','Mechanic',98753251,1),(4,'123456','Alex','Mechanic',97534265,1),(5,'123456','Micheal','Mechanic',96543265,1),(6,'123456','Thiri','Admin',96345265,1),(7,'123456','Hnin2','Admin',76358172,1),(8,'123456','Delicia','Admin',98625172,1),(9,'123456','Hong Hai','Mechanic',96523182,0);
+INSERT INTO `staff` VALUES (1,'123456','Boyka','Mechanic',93657813,1),(2,'123456','Jack','Mechanic',97235416,1),(3,'123456','Wei Han','Mechanic',98753251,1),(4,'123456','Alex','Mechanic',97534265,1),(5,'123456','Micheal','Mechanic',96543265,1),(6,'123456','Thiri','Admin',96345265,1),(7,'123456','Hnin2','Admin',76358172,1),(8,'123456','Delicia','Admin',98625172,0),(9,'123456','Hong Hai','Mechanic',96523182,0),(10,'123456','TonyStark','Mechanic',78451245,1);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +160,7 @@ CREATE TABLE `suppliers` (
 
 LOCK TABLES `suppliers` WRITE;
 /*!40000 ALTER TABLE `suppliers` DISABLE KEYS */;
-INSERT INTO `suppliers` VALUES (1,'',0,'',''),(2,'Michelin Tyres ',67254871,'98 West Coast Ferry Rd','Ah Yong'),(3,'Automobile Accessories',63746973,'891 Ang Mo Kio Ind Park A','Ah Chan'),(4,'AutoShack Pte Ltd',62719312,'77 Hougang St 11','Ah Boon'),(5,'',0,'',''),(6,'ah beng unlimited',67252491,'hougang ave 1','ah seng'),(7,'Castrol Racing',65423816,'23 Joo Koon Avenue','Ah Leow'),(8,'Mitsubishi Corp',67251921,'11 Tai Seng Avenue','Ah Mui'),(111,'alex Garage',699999221,'sembawang','alex'),(112,'',0,'','');
+INSERT INTO `suppliers` VALUES (1,'Castrol',45678912,'Bukit Batok 21','Michael'),(2,'Michellin Tyre',67254871,'98 West Coast Ferry Rd','Ah Yong'),(3,'Automobile Accessories',63746973,'891 Ang Mo Kio Ind Park A','Ah Chan'),(4,'AutoShack Pte Ltd',62719312,'77 Hougang St 11','Ah Boon'),(5,'ClarkandToyama',78451241,'56 Toa Payoh','Jeff Poh'),(6,'ah beng unlimited',67252491,'hougang ave 1','ah seng'),(7,'Castrol Racing',65423816,'23 Joo Koon Avenue','Ah Leow'),(8,'Mitsubishi Corp',67251921,'11 Tai Seng Avenue','Ah Mui');
 /*!40000 ALTER TABLE `suppliers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,7 +188,7 @@ CREATE TABLE `usage details` (
 
 LOCK TABLES `usage details` WRITE;
 /*!40000 ALTER TABLE `usage details` DISABLE KEYS */;
-INSERT INTO `usage details` VALUES (1,1010,2),(1,1011,2),(2,1012,3),(2,1013,4),(3,1014,3),(3,1015,3),(3,1016,3),(4,1001,3),(4,1002,3),(4,1017,3);
+INSERT INTO `usage details` VALUES (1,1010,2),(1,1011,2),(2,1012,3),(2,1013,4),(3,1014,3),(3,1015,3),(3,1016,3),(4,1001,3),(4,1002,3),(4,1017,3),(5,1017,5),(6,1017,8),(7,1012,8),(8,1018,1),(9,1010,2),(10,1010,7),(11,1011,12);
 /*!40000 ALTER TABLE `usage details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +208,7 @@ CREATE TABLE `usage records` (
   PRIMARY KEY (`recordID`),
   KEY `staffID_idx` (`staffID`),
   CONSTRAINT `staffID` FOREIGN KEY (`staffID`) REFERENCES `staff` (`staffID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,7 +217,7 @@ CREATE TABLE `usage records` (
 
 LOCK TABLES `usage records` WRITE;
 /*!40000 ALTER TABLE `usage records` DISABLE KEYS */;
-INSERT INTO `usage records` VALUES (1,1,'2017-06-29','Ben Tan',97351723),(2,2,'2017-08-30','Benjamin Lee',97537123),(3,3,'2017-09-12','Brandon Tan',91234714),(4,4,'2017-08-24','Brandon Lau',92347273);
+INSERT INTO `usage records` VALUES (1,1,'2017-06-29','Ben Tan',97351723),(2,2,'2017-08-30','Benjamin Lee',97537123),(3,3,'2017-09-12','Brandon Tan',91234714),(4,4,'2017-08-24','Brandon Lau',92347273),(5,1,'2017-12-13','jeff',78451245),(6,1,'2017-12-13','Jeff',84578120),(7,1,'2017-12-13','gina',12345678),(8,1,'2017-12-14','wes',45678912),(9,1,'2017-12-12','oppa',45678912),(10,1,'2017-12-06','wes',45678912),(11,1,'2017-12-13','mike',123456789);
 /*!40000 ALTER TABLE `usage records` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -230,4 +230,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-08 13:29:29
+-- Dump completed on 2017-12-13 14:39:47
