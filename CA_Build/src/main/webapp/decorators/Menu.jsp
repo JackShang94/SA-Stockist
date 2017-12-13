@@ -74,7 +74,7 @@
 				<div class="sidebar-collapse">
 					<ul class="nav" id="main-menu">
 						<li class="text-center user-image-back"><img
-							src="../image/find_user.png" class="img-responsive" /></li>
+							src="../image/admin.png" class="img-responsive" /></li>
 						<li ><a
 							href="${pageContext.request.contextPath}/product/product-list"><i
 								class="fa fa-desktop "></i>Manage products</a></li>
@@ -125,7 +125,7 @@
 				<div class="sidebar-collapse">
 					<ul class="nav" id="main-menu">
 						<li class="text-center user-image-back"><img
-							src="../image/find_user.png" class="img-responsive" /></li>
+							src="../image/mechanic.png" class="img-responsive" /></li>
 						<li ><a
 							href="${pageContext.request.contextPath}/product/product-show-list"><i
 								class="fa fa-desktop "></i>view products</a></li>

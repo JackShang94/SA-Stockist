@@ -12,72 +12,97 @@
 </head>
 <body>
 
-	<h1>Details</h1>
+	<h1 align="center">Usage Record Details</h1>
 
-	<table class="table table-bordered">
-		<tr>
-			<th align="right">Record ID</th>
-			<td colspan="3"><c:out value="${recordList.recordID}" /></td>
-		</tr>
-		<tr>
-			<th align="right">Record Date</th>
-			<td colspan="3"><c:out value="${recordList.usageDate}" /></td>
+	<div class="content">
+		<form:form class="form-horizontal group-border-dashed" method="POST"
+			modelAttribute="recordList"
+			action="${pageContext.request.contextPath}/mechanic/usage-record-display-{recordList.recordID}">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Record ID</label>
+				<div class="col-sm-6">
+					<form:input class="form-control" path="recordID" value="${PK}"
+						readonly="true" />
+					<form:errors class="parsley-errors-list" path="recordID"
+						cssStyle="color: red;" />
+				</div>
+			</div>
 
-		</tr>
-		<tr>
-			<th align="right">Staff ID</th>
-			<td colspan="3"><c:out value="${recordList.staffID}" /></td>
-		</tr>
-		<tr>
-			<th align="right">Customer Name</th>
-			<td colspan="3"><c:out value="${recordList.customerName}" /></td>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Record Date</label>
+				<div class="col-sm-6">
+					<form:input class="form-control" path="usageDate" readonly="true" />
+					<form:errors class="parsley-errors-list" path="usageDate"
+						cssStyle="color: red;" />
+				</div>
+			</div>
 
-		</tr>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Staff ID</label>
+				<div class="col-sm-6">
+					<form:input class="form-control" path="staffID" readonly="true" />
+					<form:errors class="parsley-errors-list" path="staffID"
+						cssStyle="color: red;" />
+				</div>
+			</div>
 
-		<tr>
-			<th align="right">Customer Contact Details</th>
-			<td colspan="3"><c:out value="${recordList.contactNumber}" /></td>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Customer Name</label>
+				<div class="col-sm-6">
+					<form:input class="form-control" path="customerName"
+						readonly="true" />
+					<form:errors class="parsley-errors-list" path="customerName"
+						cssStyle="color: red;" />
+				</div>
+			</div>
 
-		</tr>
-	</table>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Customer Contact
+						Details</label>
+					<div class="col-sm-6">
+						<form:input class="form-control" path="contactNumber"
+							readonly="true" />
+						<form:errors class="parsley-errors-list" path="contactNumber"
+							cssStyle="color: red;" />
+					</div>
+				</div>
 
+		</form:form>
+	</div>
 
+	<div id="cl-wrapper">
 
-<div id="cl-wrapper">
+		<div class="container-fluid" id="pcont">
+			<div class="cl-mcont">
 
-		<div class="container-fluid" id="pcont">		
-		<div class="cl-mcont">
-		
-			<div class="row">
-						<div class="content">
-							<div class="table-responsive">
-								<table class="table table-bordered" id="datatable" >
-								<thead>
+				<div class="row">
+					<div class="content">
+						<div class="table-responsive">
+							<table  class="table table-bordered" align="center" style="width:50%" id="datatable">
+								<thead align="center">
 									<tr>
-										<th>parNumber</th>
-										<th>quantity</th>
+										<td align="center" ><b>Part Number</b></td>
+										<td align="center"><b>Quantity</b></td>
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach var="usageRecordDetails" items="${usageRecordDetails}">
-									<tr>
-										<td>${usageRecordDetails.primarykey.partNumber}</td>
-										<td>${usageRecordDetails.usedQuantity}</td>
-						
-						
-									</tr>
-								</c:forEach>
+									<c:forEach var="usageRecordDetails"
+										items="${usageRecordDetails}">
+										<tr>
+											<td align="center">${usageRecordDetails.primarykey.partNumber}</td>
+											<td align="center">${usageRecordDetails.usedQuantity}</td>
+
+
+										</tr>
+									</c:forEach>
 								</tbody>
-								</table>			
-											
-							</div>
-						</div>			
+							</table>
+
+						</div>
+					</div>
 				</div>
-			</div>		
-		  </div>
-		</div> 	
-
-	
-
+			</div>
+		</div>
+	</div>
 </body>
 </html>
