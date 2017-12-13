@@ -4,6 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@	taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ page import="java.util.*"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -59,32 +61,16 @@
 					<td>${plist.price}</td>
 				</tr>
 			</c:forEach>
+			
+			<tr  style="text-align:left">
+			<td colspan="6"></td>
+			
+			<td ><b>Total Price: </b><fmt:formatNumber type = "number" 
+         pattern = "###.00" value = "${sum}" /></td>
+			</tr>
 		</tbody>
+		
 	</table>
 
-	<table class="table table-bordered" id="datatable">
-		<thead>
-			<tr>
-				<th style="visibility: hidden; width: 199.567px">partNum</th>
-				<th style="visibility: hidden; width: 152.733px">uniPnrc</th>
-				<th style="visibility: hidden; width: 144.583px">quanntt</th>
-				<th style="visibility: hidden; width: 182.717px">reorerQt</th>
-				<th style="visibility: hidden; width: 210.9px">minrderQt</th>
-				<th style="visibility: hidden; width: 154.85px">orerQt</th>
-				<th>Total price</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>${sum}</td>
-			</tr>
-		</tbody>
-	</table>
 </body>
 </html>

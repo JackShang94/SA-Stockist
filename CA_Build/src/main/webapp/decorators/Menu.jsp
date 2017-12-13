@@ -57,7 +57,7 @@
 				<div class="navbar navbar-inverse navbar-fixed-top">
 					<div class="adjust-nav">
 						<div class="navbar-header">
-							<a class="navbar-brand" href="#">&nbsp;Stockist System-Team3</a>
+							<a class="navbar-brand" href="${pageContext.request.contextPath}/product/product-list">&nbsp;Stockist System-Team3</a>
 						</div>
 						<div class="navbar-collapse collapse">
 							<ul class="nav navbar-nav navbar-right">
@@ -110,7 +110,7 @@
 				<div class="navbar navbar-inverse navbar-fixed-top">
 					<div class="adjust-nav">
 						<div class="navbar-header">
-							<a class="navbar-brand" href="#">&nbsp;Stockist System-Team3</a>
+							<a class="navbar-brand" href="${pageContext.request.contextPath}/product/product-show-list">&nbsp;Stockist System-Team3</a>
 						</div>
 						<div class="navbar-collapse collapse">
 							<ul class="nav navbar-nav navbar-right">
@@ -129,9 +129,6 @@
 						<li ><a
 							href="${pageContext.request.contextPath}/product/product-show-list"><i
 								class="fa fa-desktop "></i>view products</a></li>
-						<li><a
-							href="${pageContext.request.contextPath}/reorder/lists"><i
-								class="fa fa-edit "></i>Reorder report</a></li>
 						<li><a
 							href="${pageContext.request.contextPath}/mechanic/usage-record"><i
 								class="fa fa-sitemap "></i>Record usage</a></li>
