@@ -77,14 +77,7 @@
 		  </div>
 		</div> 	
 
-	<%-- <form:form method="POST" modelAttribute="usageRecord"
-		action="${pageContext.request.contextPath}/mechanic/usage-record.html">
-		
-		<form:button name="back" type="submit" value="s">
-			<img src="${pageContext.request.contextPath}/image/button_submit.gif"
-				width="59" height="22" alt="" border="0">
-		</form:button>
-	</form:form> --%>
+	
 
 </body>
 </html>

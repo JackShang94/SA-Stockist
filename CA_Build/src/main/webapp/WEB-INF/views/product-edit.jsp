@@ -11,82 +11,111 @@
 <title>Edit Product page</title>
 </head>
 <body>
-<h3>Edit Product page</h3>
-<form:form method="POST" modelAttribute="product"
-	action="${pageContext.request.contextPath}/product/editproduct-${product.partNumber}">
-	<table>
-		<tbody>
-			<tr>
-				<td>Part Number</td>
-				<td><form:input path="partNumber" readonly="true" /></td>
-			</tr>
-			
-			<tr>
-				<td>Product Name</td>
-				<td><form:input path="productName" /></td>
-				<td><form:errors path="productName" cssStyle="color: red;" /></td>
-			</tr>
-			
-			<tr>
-				<td>Unit Price</td>
-				<td><form:input path="unitPrice" /></td>
-				<td><form:errors path="unitPrice" cssStyle="color: red;" /></td>
-			</tr>
-			
-			<tr>
-				<td>Quantity</td>
-				<td><form:input path="quantity" /></td>
-				<td><form:errors path="quantity" cssStyle="color: red;" /></td>
-			</tr>
-			
-			<tr>
-				<td>Description</td>
-				<td><form:input path="description" /></td>
-				<td><form:errors path="description" cssStyle="color: red;" /></td>
-			</tr>
-
-			<tr>
-				<td>Color</td>
-				<td><form:input path="color" /></td>
-				<td><form:errors path="color" cssStyle="color: red;" /></td>
-			</tr>
-
-			<tr>
-				<td>Dimension</td>
-				<td><form:input path="dimension" /></td>
-				<td><form:errors path="dimension" cssStyle="color: red;" /></td>
-			</tr>
-			<tr>
-				<td>Reorder Point</td>
-				<td><form:input path="reorderPoint" /></td>
-				<td><form:errors path="reorderPoint" cssStyle="color: red;" /></td>
-			</tr>
-			<tr>
-				<td>Min Order</td>
-				<td><form:input path="minOrder" /></td>
-				<td><form:errors path="minOrder" cssStyle="color: red;" /></td>
-			</tr>
-			<tr>
-				<td>SupplierID</td>
-				<td><form:select path="supplierID">
-					<c:forEach var="droplist" items="${dropList}" >
-					<option value="${droplist}">${droplist}</option>
-					</c:forEach>
-					</form:select></td>
-				<td><form:errors path="supplierID" cssStyle="color: red;" /></td>
-			</tr>
-			<tr>
-				<td>Shelf Location</td>
-				<td><form:input path="shelfLocation" /></td>
-				<td><form:errors path="shelfLocation" cssStyle="color: red;" /></td>
-			</tr>			
-				<tr>
-				<td><input type="submit" value="Create" /></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</tbody>
-	</table>
-</form:form>
+    <div id="cl-wrapper">
+        <div class="container-fluid" id="pcont">
+            <div class="cl-mcont">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="block-flat">
+                            <div class="header">
+                                <h3>Edit Product page</h3>
+                            </div>
+                            <div class="content">
+                                <form:form class="form-horizontal group-border-dashed" method="POST" modelAttribute="product"
+									action="${pageContext.request.contextPath}/product/editproduct-${product.partNumber}">
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Part Number</label>
+												<div class="col-sm-6">
+												<form:input class="form-control" path="partNumber" value="${PK}" readonly="true" />
+												<form:errors class="parsley-errors-list" path="partNumber" cssStyle="color: red;" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Product Name</label>
+												<div class="col-sm-6">
+												<form:input class="form-control"  path="productName" />
+												<form:errors class="parsley-errors-list" path="productName" cssStyle="color: red;" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Unit Price</label>
+												<div class="col-sm-6">
+												<form:input class="form-control"  path="unitPrice"/>
+												<form:errors class="parsley-errors-list" path="unitPrice" cssStyle="color: red;" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Quantity</label>
+												<div class="col-sm-6">
+												<form:input class="form-control"  path="unitPrice"/>
+												<form:errors class="parsley-errors-list" path="unitPrice" cssStyle="color: red;" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Description</label>
+												<div class="col-sm-6">
+												<form:input class="form-control"  path="description"/>
+												<form:errors class="parsley-errors-list" path="description" cssStyle="color: red;" />
+												</div>
+											</div>									
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Color</label>
+												<div class="col-sm-6">
+												<form:input class="form-control"  path="color"/>
+												<form:errors class="parsley-errors-list" path="color" cssStyle="color: red;" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Dimension</label>
+												<div class="col-sm-6">
+												<form:input class="form-control"  path="dimension"/>
+												<form:errors class="parsley-errors-list" path="dimension" cssStyle="color: red;" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Reorder Point</label>
+												<div class="col-sm-6">
+												<form:input class="form-control"  path="reorderPoint"/>
+												<form:errors class="parsley-errors-list" path="reorderPoint" cssStyle="color: red;" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Min Order</label>
+												<div class="col-sm-6">
+												<form:input class="form-control"  path="minOrder"/>
+												<form:errors class="parsley-errors-list" path="minOrder" cssStyle="color: red;" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">SupplierID</label>
+												<div class="col-sm-6">
+													<form:select class="form-control" path="supplierID">
+													<c:forEach var="droplist" items="${dropList}" >
+													<option value="${droplist}">${droplist}</option>
+													</c:forEach>
+													</form:select>
+												<form:errors class="parsley-errors-list" path="supplierID" cssStyle="color: red;" />
+												</div>
+											</div>																																																							
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Shelf Location</label>
+												<div class="col-sm-6">
+												<form:input class="form-control"  path="shelfLocation"/>
+												<form:errors class="parsley-errors-list" path="shelfLocation" cssStyle="color: red;" />
+												</div>
+											</div>	
+		                                    <div class="form-group">
+		                                        <div class="col-sm-offset-2 col-sm-10">
+		                                            <button class="btn btn-primary" type="submit">Submit</button>
+		                                        </div>
+		                                    </div>			
+								</form:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

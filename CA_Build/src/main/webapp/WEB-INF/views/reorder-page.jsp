@@ -18,55 +18,73 @@
 </head>
 <body>
 	<h1>Print Reorder Form</h1>
-	<form>
-		<label>Week ending on: </label> <input type="date" name="OrderDateRange"><input type="submit" value="Start Search">
-	</form>
+	<form:form method="POST"
+		action="${pageContext.request.contextPath}/reorder/lists">
+		<label>Supplier</label>
+		<select name="select_supplier">
+			<option value="ALL">ALL</option>
+			<c:forEach var="slist" items="${sList}">
+				<option value="${slist}">${slist}</option>
+			</c:forEach>
+		</select>
+		<td><input type="submit" value="search" /></td>
+	</form:form>
 	<br />
-		<h3>Search Results</h3>
-		
-			<div id="cl-wrapper">
+	<tr>
+		<c:forEach var="plist" items="${xlist}">
+			<h2 align="center">Inventory Reorder Report For Suppler ${plist}</h2>
+		</c:forEach>
+	</tr>
+	<table class="table table-bordered" id="datatable">
+		<thead>
+			<tr>
+				<th>partNumber</th>
+				<th>unitPrice</th>
+				<th>quantity</th>
+				<th>reorderQty</th>
+				<th>minOrderQty</th>
+				<th>orderQty</th>
+				<th>price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="plist" items="${reorderReport}">
+				<tr>
+					<td>${plist.partNumber}</td>
+					<td>${plist.unitPrice}</td>
+					<td>${plist.quantity}</td>
+					<td>${plist.reorderquantity}</td>
+					<td>${plist.minorderQty}</td>
+					<td>${plist.orderQty}</td>
+					<td>${plist.price}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 
-		<div class="container-fluid" id="pcont">		
-		<div class="cl-mcont">
-		
-			<div class="row">
-						<div class="content">
-							<div class="table-responsive">
-								<table class="table table-bordered" id="datatable" >
-								<thead>
-									<tr>
-										<th>partNumber</th>
-										<th>unitPrice</th>
-										<th>quantity</th>
-										<th>reorderQty</th>
-										<th>minOrderQty</th>
-										<th>orderQty</th>
-										<th>price</th>
-									</tr>
-								</thead>
-								<tbody>
-								<c:forEach var="plist" items="${pList}">
-
-									<tr>
-										<td>${plist.partNumber}</td>
-										<td>${plist.unitPrice}</td>
-										<td>${plist.quantity}</td>
-										<td>${plist.reorderQty}</td>
-										<td>${plist.minOrderQty}</td>
-										<td>${plist.orderQty}</td>
-										<td>${plist.price}</td>
-									</tr>
-
-								</c:forEach>
-								</tbody>
-								</table>			
-											
-							</div>
-						</div>			
-				</div>
-			</div>		
-		  </div>
-		</div> 	
-		
+	<table class="table table-bordered" id="datatable">
+		<thead>
+			<tr>
+				<th style="visibility: hidden; width: 199.567px">partNum</th>
+				<th style="visibility: hidden; width: 152.733px">uniPnrc</th>
+				<th style="visibility: hidden; width: 144.583px">quanntt</th>
+				<th style="visibility: hidden; width: 182.717px">reorerQt</th>
+				<th style="visibility: hidden; width: 210.9px">minrderQt</th>
+				<th style="visibility: hidden; width: 154.85px">orerQt</th>
+				<th>Total price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>${sum}</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>

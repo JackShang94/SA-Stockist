@@ -43,5 +43,12 @@
 
 </form:form>  
 </div>
+<div id="footer">
+<p>test</p>
+<label class="switch">
+  <input type="checkbox">
+  <span class="slider round"></span>
+</label>
+</div>
 </body>
 </html>

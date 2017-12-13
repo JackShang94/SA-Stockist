@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -24,8 +25,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.None;
 import com.sa45.team3.model.Product;
+import com.sa45.team3.model.ProductUsage;
 import com.sa45.team3.model.Reorders;
+import com.sa45.team3.model.UsageDetailsPrimaryKey;
 import com.sa45.team3.model.UsageRecord;
 import com.sa45.team3.model.UsageRecordDetails;
 import com.sa45.team3.repository.ProductRepository;
@@ -45,6 +49,9 @@ public class UsageRecordControl {
 
 	@Autowired
 	private UsageRecordService uService;
+	
+	@Autowired
+	private ProductCatalogService pService;
 	
 	@Autowired
 	private StaffService sService;
@@ -185,74 +192,98 @@ public class UsageRecordControl {
 		ArrayList<UsageRecordDetails> d = uService.findAllRecordDetailsByID(id);
 		UsageRecord d2 = uService.findUsageRecordbyID(id);
 		ModelAndView mav = new ModelAndView("usage-record-details");
-		// ModelAndView mav2 = new ModelAndView("usage-record-add", "recordList", d2);
 		mav.addObject("usageRecordDetails", d);
 		mav.addObject("recordList", d2);
 		return mav;
 	}
 
-}
-/*
- * @RequestMapping(value="/")
- * 
- * @Controller public class UsageRecordControl {
- * 
- * @Resource SupplierRepository sprepo;
- * 
- * @RequestMapping(value="/list", method= RequestMethod.GET) public ModelAndView
- * supplierListPage() {
- * 
- * ModelAndView mav = new ModelAndView("supplier-list"); //create jsp
- * List<Supplier> supplierList = sprepo.findAll(); mav.addObject("slist",
- * supplierList); return mav;
- * 
- * 
- * }
- * 
- * @RequestMapping(value="/create", method= RequestMethod.GET) public
- * ModelAndView supplierAdd() {
- * 
- * ModelAndView mav = new ModelAndView("supplier-add"); Supplier supl = new
- * Supplier(); mav.addObject("supl", supl); return mav; //learn how to do
- * dropdown fields in the web page }
- * 
- * @RequestMapping(value="/create", method=RequestMethod.POST) public
- * ModelAndView createNewUser(@ModelAttribute Supplier supplier, BindingResult
- * result, final RedirectAttributes redirectAttributes) {
- * 
- * //what does bindingresult do?
- * 
- * if (result.hasErrors()) return new ModelAndView("supplier-add"); //return to
- * this page if error
- * 
- * ModelAndView mav = new ModelAndView(); String message = "New user " +
- * supplier.getSupplierName() + " was successfully created.";
- * 
- * sprepo.saveAndFlush(supplier); mav.setViewName("redirect:/list");
- * 
- * redirectAttributes.addFlashAttribute("message", message); //what does this
- * do? return mav; }
- * 
- * //{id} and String id must match
- * 
- * @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET) public
- * ModelAndView editUserPage(@PathVariable String id) { ModelAndView mav = new
- * ModelAndView("supplier-edit"); ID = Integereger.parseInteger(id); Supplier
- * supplier = sprepo.findOne(ID); mav.addObject("supl", supplier); return mav; }
- * 
- * @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST) public
- * ModelAndView editUser(@ModelAttribute @Valid Supplier supplier, BindingResult
- * result, @PathVariable String id, final RedirectAttributes redirectAttributes)
- * {
- * 
- * if (result.hasErrors()) return new ModelAndView("supplier-edit");
- * 
- * ModelAndView mav = new ModelAndView("redirect:/list"); String message =
- * "Supplier was successfully updated.";
- * 
- * sprepo.saveAndFlush(supplier);
- * 
- * redirectAttributes.addFlashAttribute("message", message); return mav; }
- */
+	@RequestMapping(value = "usage-record-edit-{id}", method = RequestMethod.GET)
+	public ModelAndView editUsageRecordPage(@PathVariable Integer id) {
+		//ArrayList<UsageRecordDetails> d = uService.findAllRecordDetailsByID(id);
+		UsageRecord d2 = uService.findUsageRecordbyID(id);
+	
+		ArrayList<Product> products = pService.findAll();
+		
+		ModelAndView mav = new ModelAndView("admin-usage-record-edit");
+		Integer quantity;
+		ArrayList<ProductUsage> productUsages = new ArrayList<>();
+		UsageRecordDetails usageRecordDetails = new UsageRecordDetails();
+		Integer num = id;
+		for (int i =0;i<products.size();i++) {
+			quantity =0;
+			ProductUsage productUsage = new ProductUsage();
+			
+			productUsage.setPartNumber((products.get(i).getPartNumber()));
+			productUsage.setPartName(products.get(i).getProductName());		
+			
+			try {
+				usageRecordDetails = urdRepo.findUsageDetailsByCompositeID(num, (products.get(i).getPartNumber()));
+				usageRecordDetails.toString();
+				quantity = usageRecordDetails.getUsedQuantity();
+			}catch(Exception e) {
+				productUsage.setQuantity(0);
+			}				
+			productUsage.setQuantity(quantity);
+			productUsages.add(productUsage);
+		}
+		ArrayList<Integer> staffID = sService.findAllStaffIDs();
+		if (staffID.isEmpty()) {
+			mav.addObject("dropList",staffID);
+		}else {
+			mav.addObject("dropList", staffID);
+		}
+		mav.addObject("usageRecordDetails", productUsages);
+		mav.addObject("recordList", d2);
+		return mav;
+	}
 
-// }
+	@RequestMapping(value = "usage-record-edit-{id}", method = RequestMethod.POST)
+	public ModelAndView editUsageRecord(@ModelAttribute @Valid UsageRecord usageRecord, BindingResult result,
+			@PathVariable Integer id, final RedirectAttributes redirectAttributes, HttpServletRequest Request) {
+
+		if (result.hasErrors())
+			return new ModelAndView("usage-record-edit-{id}");
+
+		ModelAndView mav = new ModelAndView();
+		String message = "Usage Record: " + usageRecord.getRecordID() + " was successfully updated.";
+
+		uService.editUsageRecord(usageRecord);
+		
+		Map<String, String[]> params = new HashMap<>(Request.getParameterMap());
+
+		params.remove("recordID");
+		params.remove("UsageDate");
+		params.remove("staffID");
+		params.remove("customerName");
+		params.remove("contactNumber");
+
+		Iterator<String> i = params.keySet().iterator();
+
+		int recordID = usageRecord.getRecordID();
+
+		while (i.hasNext())
+
+		{
+
+			String key = (String) i.next();
+			String value = ((String[]) params.get(key))[0];
+
+			int partNum = Integer.parseInt(key);
+			int partQty = Integer.parseInt(value);
+			if (partQty != 0) {
+
+				urdRepo.addNewDetail(recordID, partNum, partQty);
+
+				// UPDATES THE QUANTITY IN PRODUCT TABLE AFTER USAGE IS RECORDED
+				productRepository.updateEditQuantity(partQty, partNum);
+				
+			}
+		}
+		
+		mav.setViewName("redirect:/mechanic/usage-record");
+		redirectAttributes.addFlashAttribute("message", message);
+		return mav;
+	}
+	
+}
+

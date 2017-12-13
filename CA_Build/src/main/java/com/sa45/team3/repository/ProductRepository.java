@@ -44,13 +44,26 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Modifying
 	@Transactional
 	@Query("UPDATE Product p SET p.quantity =(p.quantity - :quantity) WHERE p.partNumber=:partNumber")
-	void updateQuantity(@Param("quantity") int quantity, @Param("partNumber") int partNumber);
+	void updateQuantity(@Param("quantity") int quantity, @Param("partNumber") int partNumber); //deduct quantity
+	
+	@Modifying
+	@Transactional
+	@Query("UPDATE Product p SET p.quantity =(p.quantity -:quantity) WHERE p.partNumber=:partNumber")
+	void updateEditQuantity(@Param("quantity") int quantity, @Param("partNumber") int partNumber); //change quantity
 	
 	@Query("SELECT p FROM Product p WHERE p.quantity<= p.reorderPoint")
 	ArrayList<Product> findProductsToReorder(); //get all products under minimum level
 	
-/*	@Query("SELECT p FROM Product p WHERE (p.quantity<= p.reorderPoint AND p.supplierID =:supplierID")
-	ArrayList<Product> findProductsToReorder(@Param("supplierID")int supplierID);*/ //get products to reorder by supplier
+	@Query("SELECT p FROM Product p WHERE (p.quantity<= p.reorderPoint AND p.supplierID =:supplierID)")
+	ArrayList<Product> findProductsToReorder(@Param("supplierID")Integer supplierID); //get products to reorder by supplier
+	
+    @Query("SELECT p.quantity-p.reorderPoint FROM Product p")
+	ArrayList<Integer> findQty_ReorderQty();
+    
+    @Query("SELECT p.quantity-p.reorderPoint FROM Product p WHERE (p.supplierID =:supplierID)")
+	ArrayList<Integer> findQty_ReorderQtyBysupplierID(@Param("supplierID") Integer supplierID);
 
+    @Query("SELECT p FROM Product p WHERE (p.supplierID =:supplierID)")
+	ArrayList<Product> findProductsBySupplier(@Param("supplierID") Integer supplierID);
 
 }

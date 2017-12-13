@@ -1,15 +1,9 @@
 package com.sa45.team3.service;
 
 import java.util.ArrayList;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.sa45.team3.exception.SupplierCantDelete;
-import com.sa45.team3.model.Product;
-import com.sa45.team3.model.Staff;
 import com.sa45.team3.model.Supplier;
 import com.sa45.team3.repository.ProductRepository;
 import com.sa45.team3.repository.SupplierRepository;
@@ -22,6 +16,7 @@ public class SupplierServiceImpl implements SupplierService {
 	SupplierRepository supRepository;
 	@Resource
 	ProductRepository proRepository;
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -46,19 +41,7 @@ public class SupplierServiceImpl implements SupplierService {
 	public Supplier createSupplier(Supplier sup) {
 		return supRepository.saveAndFlush(sup);
 	}
-	/*
-	 * @Override
-	 * 
-	 * @Transactional public Supplier findSupplierID(String supid) { return
-	 * supRepository.findOne(supid); }
-	 */
-
-	/*
-	 * @Override
-	 * 
-	 * @Transactional public Supplier findSupplier(String supid) { return
-	 * supRepository.findOne(supid); }
-	 */
+	
 
 	@Override
 	@Transactional
@@ -73,14 +56,6 @@ public class SupplierServiceImpl implements SupplierService {
 		return supRepository.saveAndFlush(sup);
 	}
 
-	/*@Override
-	@Transactional
-	public void deleteSupplier(Supplier sup) throws SupplierCantDelete {
-		if (!proRepository.checkSupplierID(sup.getSupplierID()).equals(sup)) {
-			throw new SupplierCantDelete("xxxxxxx");
-		}
-	}*/
-	
 	@Override
 	@Transactional
 	public void deleteSupplier(Supplier sup) {

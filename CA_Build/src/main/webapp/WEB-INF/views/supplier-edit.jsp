@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <h3>Edit Supplier page</h3>
 <form:form method="POST" modelAttribute="supplier"
@@ -46,4 +47,13 @@
 			</tr>
 		</tbody>
 	</table>
+	
+	<p>Message:</p>
+	<c:if test="${not empty message}">
+		<font color="blue"> <c:out value="${message}" /></font>
+		<c:if test="${not empty error}">
+			<font color="red"> <c:out value="${error}" /></font>
+		</c:if>
+	</c:if>
+	
 </form:form>

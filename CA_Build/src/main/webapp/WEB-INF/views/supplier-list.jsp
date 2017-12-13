@@ -51,14 +51,11 @@
 											<td>${sup.contactNumber}</td>
 											<td>${sup.address}</td>
 											<td>${sup.contactPerson}</td>
-											<td>
-											<a href="${pageContext.request.contextPath}/admin/${sup.supplierID}">Edit </a>
-												<br/>	
-											
-											<a	href="${pageContext.request.contextPath}/admin/delete/${sup.supplierID}"><spring:message
-								code="caption.delete" /></a>
-												
-												</td>
+											<td><a
+												href="${pageContext.request.contextPath}/admin/${sup.supplierID}">Edit
+											</a> <br /> <a
+												href="${pageContext.request.contextPath}/admin/delete/${sup.supplierID}"><spring:message
+														code="caption.delete" /></a></td>
 										</tr>
 
 									</c:forEach>
@@ -96,8 +93,12 @@
 
 	<p>Message:</p>
 	<c:if test="${not empty message}">
-		<font color="red"> <c:out value="${message}" /></font>
+		<font color="blue"> <c:out value="${message}" /></font>
 	</c:if>
+	<c:if test="${not empty error}">
+		<font color="red"> <c:out value="${error}" /></font>
+	</c:if>
+
 
 </c:if>
 
