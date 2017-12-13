@@ -29,26 +29,27 @@ href="${pageContext.request.contextPath}/mechanic/usage-record-create">Add new u
 								<table class="table table-bordered" id="datatable" >
 								<thead>
 									<tr>
-										<th>Record ID</th>
-										<th>staffID</th>
-										<th>usageDate</th>
-										<th>customerName</th>
-										<th>contact number</th>
-										<th>Action</th>
+										<td align="center" ><b>Record ID</b></td>
+										<td align="center" ><b>Staff ID</b></td>
+										<td align="center" ><b>Usage Date</b></td>
+										<td align="center" ><b>Customer Name</b></td>
+										<td align="center" ><b>Contact number</b></td>
+										<td align="center" ><b>Action</b></td>
 									</tr>
 								</thead>
 								<tbody>
 								<c:forEach var="recordList" items="${recordList}">
 
 									<tr>
-										<td>${recordList.recordID}</td>
-										<td>${recordList.staffID}</td>
-										<td>${recordList.usageDate}</td>
-										<td>${recordList.customerName}</td>
-										<td>${recordList.contactNumber}</td>
-										<td><a class="fa fa-pencil fa-fw" href="${pageContext.request.contextPath}/mechanic/usage-record-display-${recordList.recordID}">details</a>
-										<br>
+										<td align="center" >${recordList.recordID}</td>
+										<td align="center" >${recordList.staffID}</td>
+										<td align="center" >${recordList.usageDate}</td>
+										<td align="center" >${recordList.customerName}</td>
+										<td align="center" >${recordList.contactNumber}</td>
+										<td align="left"><a class="fa fa-pencil fa-fw" href="${pageContext.request.contextPath}/mechanic/usage-record-display-${recordList.recordID}">details</a>
+										<!--  <br>
 										<a class="fa fa-book fa-fw" href="${pageContext.request.contextPath}/mechanic/usage-record-edit-${recordList.recordID}">edit</a></td>
+									-->
 									</tr>
 
 								</c:forEach>

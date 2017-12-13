@@ -6,86 +6,95 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<h3 align="center" >New Usage Record</h3>
+<h3 align="center">
+	<b>New Usage Record</b>
+</h3>
+<body>
+	<div class="content">
+		<form:form class="form-horizontal group-border-dashed" method="POST"
+			modelAttribute="usageRecord"
+			action="${pageContext.request.contextPath}/mechanic/usage-record-create">
 
-<form:form method="POST" modelAttribute="usageRecord"
-	action="${pageContext.request.contextPath}/mechanic/usage-record-create">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Record ID</label>
+				<div class="col-sm-6">
+					<form:input class="form-control" path="recordID" value="${PK}"
+						readonly="true" />
+					<form:errors class="parsley-errors-list" path="recordID"
+						cssStyle="color: red;" />
+				</div>
+			</div>
 
-	<table>
-		<tbody>
-			<tr>
-				<td>Record ID</td>
-				<td><form:input  path="recordID" value = "${PK}" readonly="true"/></td>
-				<td><form:errors path="recordID" cssStyle="color: red;" /></td>
-			</tr>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Record Date</label>
+				<div class="col-sm-6">
+					<form:input class="form-control" type="Date" path="UsageDate" />
+					<form:errors class="parsley-errors-list" path="UsageDate"
+						cssStyle="color: red;" />
+				</div>
+			</div>
 
-			<tr>
-				<td>UsageDate</td>
-				<td><form:input type="Date" path="UsageDate" /></td>
-				<td><form:errors path="usageDate" cssStyle="color: red;" /></td>
-				
-				
-			</tr>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Staff ID</label>
+				<div class="col-sm-6">
 
-			<tr>
-				<td>Staff ID</td>
-				<td><form:select path="staffID">
-					<c:forEach var="droplist" items="${dropList}" >
-					<option value="${droplist}">${droplist}</option>
+					<form:select path="staffID">
+						<c:forEach var="droplist" items="${dropList}">
+							<option value="${droplist}">${droplist}</option>
+						</c:forEach>
+					</form:select>
+					<form:errors class="parsley-errors-list" path="staffID"
+						cssStyle="color: red;" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Customer Name</label>
+				<div class="col-sm-6">
+					<form:input class="form-control" path="customerName" />
+					<form:errors class="parsley-errors-list" path="customerName"
+						cssStyle="color: red;" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Customer Contact
+					Details</label>
+				<div class="col-sm-6">
+					<form:input class="form-control" path="contactNumber" />
+					<form:errors class="parsley-errors-list" path="contactNumber"
+						cssStyle="color: red;" />
+				</div>
+			</div>
+			<br />
+
+			<table class="table table-bordered" align="center" style="width:70%" >
+				<thead>
+					<tr>
+						<td align="center" ><b>Part Number</b></td>
+						<td align="center" ><b>Product Name</b></td>
+						<td align="center" ><b>Quantity</b></td>
+					</tr>
+				</thead>
+
+				<tbody>
+					<c:forEach var="plist" items="${pList}">
+
+						<tr>
+							<td align="center">${plist.partNumber}</td>
+							<td align="center">${plist.productName}</td>
+
+							<td align="center"><input align="middle" class="center-block" type="text" value="0" name="${plist.partNumber}" /></td>
+						</tr>
+
 					</c:forEach>
-					</form:select></td>
-				<td><form:errors path="staffID" cssStyle="color: red;" /></td>
-				
-			</tr>
 
-			<tr>
-				<td>customer Name</td>
-				<td><form:input path="customerName" /></td>
-				<td><form:errors path="customerName" cssStyle="color: red;" /></td>
-			</tr>
-
-			<tr>
-				<td>contactNumber</td>
-				<td><form:input path="contactNumber" /></td>
-				<td><form:errors path="contactNumber" cssStyle="color: red;" /></td>
-			</tr>
-
-		</tbody>
-	</table>
-
-	<br />
-
-
-	<table>
-		<thead>
-			<tr>
-				<th>Part Number</th>
-				<th>Product Name</th>
-				<th>Quantity</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			<c:forEach var="plist" items="${pList}">
-
-				<tr>
-					<td>${plist.partNumber}</td>
-					<td>${plist.productName}</td>
-
-					<td><input type="text" value="0" name="${plist.partNumber}" /></td>
-				</tr>
-
-			</c:forEach>
-
-
-
-
-
-		</tbody>
-
-
-	</table>
-	<br />
-	<input type="submit" value="create" />
-
-</form:form>
+				</tbody>
+			</table>
+			<br />
+			<div align="center">
+			<button class="btn btn-primary" type="submit">Create</button>
+</div>
+		</form:form>
+	</div>
+</body>

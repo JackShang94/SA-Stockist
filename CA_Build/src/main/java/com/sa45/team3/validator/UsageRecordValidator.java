@@ -23,7 +23,7 @@ public class UsageRecordValidator  implements Validator{
 		
 		ValidationUtils.rejectIfEmpty(arg1, "contactNumber", "Enter contact Number! ");
 		ValidationUtils.rejectIfEmpty(arg1, "customerName", "Enter customer Name! ");
-		ValidationUtils.rejectIfEmpty(arg1, "usageDate", "Enter usage date(yyyy-MM-dd)! ");
+		ValidationUtils.rejectIfEmpty(arg1, "usageDate", "Choose usage date! ");
 		
 		System.out.println(usageRecord.toString());
 	}
