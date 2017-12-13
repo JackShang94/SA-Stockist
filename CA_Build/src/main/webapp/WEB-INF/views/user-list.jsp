@@ -4,8 +4,10 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <h3>User List page</h3>
-<a href="${pageContext.request.contextPath}/staff/create.html">Add
-	User</a>
+<div align="right">
+				<a class="btn btn-success "
+					href="${pageContext.request.contextPath}/staff/create.html">Add User</a>
+			</div>
 <c:if test="${fn:length(userList) gt 0}">
 
 <div id="cl-wrapper">
@@ -38,7 +40,8 @@
 										<td>${staff.role}</td>
 										<td>${staff.contactNumber}</td>
 										<td>${staff.active}</td>
-										<td><a href="${pageContext.request.contextPath}/staff/edit-${staff.staffID}">edit</a></br><a href="${pageContext.request.contextPath}/staff/delete-${staff.staffID}">Delete</a></td>
+										<td><a class="fa fa-pencil fa-fw" href="${pageContext.request.contextPath}/staff/edit-${staff.staffID}">edit</a><br/>
+										<a class="fa fa-book fa-fw" href="${pageContext.request.contextPath}/staff/delete-${staff.staffID}">delete</a></td>
 									</tr>
 
 								</c:forEach>
